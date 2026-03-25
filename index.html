@@ -171,22 +171,14 @@
         .page-content.active { display: block; }
         @keyframes fadeInUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
 
-        .dashboard-hero {
-            border-radius: 24px; padding: 28px 32px; margin-bottom: 28px;
-            background: var(--store-gradient); position: relative; overflow: hidden;
-            box-shadow: 0 8px 32px rgba(59,130,246,0.3);
-        }
+        .dashboard-hero { border-radius: 24px; padding: 28px 32px; margin-bottom: 28px; background: var(--store-gradient); position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(59,130,246,0.3); }
         .hero-inner { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
         .hero-left h1 { font-size: 1.7rem; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 4px; }
         .hero-left p { color: rgba(255,255,255,0.75); font-size: 0.88rem; font-weight: 500; }
         .hero-emoji { font-size: 3.5rem; line-height: 1; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 28px; }
-        .stat-card {
-            background: white; padding: 22px; border-radius: var(--radius);
-            box-shadow: var(--shadow); border: 1px solid var(--border);
-            transition: var(--transition); position: relative; overflow: hidden;
-        }
+        .stat-card { background: white; padding: 22px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; }
         .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
         .stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--store-gradient); opacity: 0; transition: opacity 0.3s; }
         .stat-card:hover::after { opacity: 1; }
@@ -230,174 +222,47 @@
         .toast.success { border-left: 4px solid var(--green); }
 
         .profile-container { max-width: 700px; }
-        .profile-hero-card {
-            background: var(--store-gradient);
-            border-radius: 24px;
-            padding: 32px;
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(59,130,246,0.3);
-        }
-        .profile-hero-card::before {
-            content: '';
-            position: absolute;
-            top: -60px; right: -60px;
-            width: 200px; height: 200px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-        }
+        .profile-hero-card { background: var(--store-gradient); border-radius: 24px; padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(59,130,246,0.3); }
+        .profile-hero-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.08); }
         .profile-hero-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 20px; }
-        .profile-avatar-large {
-            width: 72px; height: 72px; border-radius: 20px;
-            background: rgba(255,255,255,0.2);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 800; font-size: 1.8rem;
-            border: 2px solid rgba(255,255,255,0.3);
-            flex-shrink: 0;
-        }
+        .profile-avatar-large { width: 72px; height: 72px; border-radius: 20px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.8rem; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
         .profile-hero-info h2 { color: white; font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
         .profile-hero-info p { color: rgba(255,255,255,0.7); font-size: 0.84rem; }
-        .profile-status-pill {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 999px; padding: 5px 14px;
-            color: white; font-size: 0.76rem; font-weight: 700;
-            margin-top: 8px;
-        }
-        .profile-section-card {
-            background: white;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
-            overflow: hidden;
-        }
-        .profile-section-title {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--dim);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 16px 20px 0;
-        }
-        .profile-field-row {
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            border-bottom: 1px solid var(--border);
-        }
+        .profile-status-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 5px 14px; color: white; font-size: 0.76rem; font-weight: 700; margin-top: 8px; }
+        .profile-section-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
+        .profile-section-title { font-size: 0.72rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 20px 0; }
+        .profile-field-row { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); }
         .profile-field-row:last-child { border-bottom: none; }
         .profile-field-label { font-size: 0.78rem; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
         .profile-field-value { font-size: 0.9rem; font-weight: 700; color: var(--text); }
-        .profile-pill-input {
-            flex: 1;
-            padding: 10px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 999px;
-            font-family: inherit;
-            font-size: 0.88rem;
-            outline: none;
-            transition: var(--transition);
-            background: var(--bg);
-            color: var(--text);
-            max-width: 280px;
-        }
+        .profile-pill-input { flex: 1; padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 999px; font-family: inherit; font-size: 0.88rem; outline: none; transition: var(--transition); background: var(--bg); color: var(--text); max-width: 280px; }
         .profile-pill-input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
         .profile-pill-input[readonly] { background: var(--accent-light); color: var(--accent-dark); border-color: transparent; cursor: default; }
 
         .settings-container { max-width: 700px; }
-        .settings-card {
-            background: white;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
-            overflow: hidden;
-        }
-        .settings-card-title {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--dim);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 16px 20px 0;
-        }
-        .settings-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-        }
+        .settings-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
+        .settings-card-title { font-size: 0.72rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 20px 0; }
+        .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border); transition: var(--transition); }
         .settings-row:last-child { border-bottom: none; }
         .settings-row:hover { background: var(--surface2); }
         .settings-label { font-size: 0.88rem; font-weight: 600; color: var(--text); }
         .settings-sub { font-size: 0.75rem; color: var(--dim); margin-top: 2px; }
-        .toggle {
-            width: 46px; height: 26px; border-radius: 999px;
-            background: var(--border); position: relative;
-            cursor: pointer; transition: var(--transition); flex-shrink: 0;
-        }
-        .toggle::after {
-            content: ''; position: absolute;
-            top: 3px; left: 3px;
-            width: 20px; height: 20px;
-            border-radius: 50%; background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            transition: var(--transition);
-        }
+        .toggle { width: 46px; height: 26px; border-radius: 999px; background: var(--border); position: relative; cursor: pointer; transition: var(--transition); flex-shrink: 0; }
+        .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: var(--transition); }
         .toggle.on { background: var(--accent); }
         .toggle.on::after { transform: translateX(20px); }
 
-        .map-container {
-            width: 100%; height: 280px; border-radius: 16px;
-            overflow: hidden; margin-top: 12px;
-            border: 1px solid var(--border);
-        }
+        .map-container { width: 100%; height: 280px; border-radius: 16px; overflow: hidden; margin-top: 12px; border: 1px solid var(--border); }
         #orderMap { width: 100%; height: 100%; }
 
         .order-detail-section { margin-bottom: 18px; }
         .order-detail-section h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--dim); margin-bottom: 10px; }
-        .addr-display {
-            background: var(--accent-light);
-            border: 1px solid rgba(59,130,246,0.2);
-            border-radius: 14px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
+        .addr-display { background: var(--accent-light); border: 1px solid rgba(59,130,246,0.2); border-radius: 14px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px; }
         .empty-state { text-align: center; padding: 48px 24px; color: var(--dim); }
-        .history-card {
-            background: white; border-radius: 16px; padding: 16px 20px;
-            border: 1px solid var(--border); margin-bottom: 12px;
-            transition: var(--transition);
-        }
+        .history-card { background: white; border-radius: 16px; padding: 16px 20px; border: 1px solid var(--border); margin-bottom: 12px; transition: var(--transition); }
         .history-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-        .accepted-banner {
-            background: #dcfce7;
-            border: 1px solid #86efac;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #16a34a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .customer-name-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--surface2); border-radius: 999px;
-            padding: 3px 12px; font-size: 0.7rem; font-weight: 600;
-            color: var(--accent); margin-left: 8px;
-        }
+        .accepted-banner { background: #dcfce7; border: 1px solid #86efac; border-radius: 12px; padding: 10px 14px; font-size: 0.8rem; font-weight: 700; color: #16a34a; display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+        .customer-name-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border-radius: 999px; padding: 3px 12px; font-size: 0.7rem; font-weight: 600; color: var(--accent); margin-left: 8px; }
     </style>
 </head>
 <body>
@@ -413,8 +278,8 @@
     <section id="profile" class="page-content"><div class="profile-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Driver Profile</h1><div class="profile-hero-card"><div class="profile-hero-inner"><div class="profile-avatar-large" id="profileAvatar">D</div><div class="profile-hero-info"><h2 id="profileName">Driver Name</h2><p id="profileID">DRV-XXXXXX</p><div class="profile-status-pill"><span class="online-dot"></span> Active Driver</div></div></div></div><div class="profile-section-card"><div class="profile-section-title">Personal Information</div><div class="profile-field-row"><div><div class="profile-field-label">Vehicle Type</div></div><select class="profile-pill-input" id="p-vehicle"><option>Motorcycle</option><option>Bicycle</option><option>Car</option><option>Scooter</option><option>Bakkie</option></select></div><div class="profile-field-row"><div><div class="profile-field-label">License / Reg Number</div></div><input type="text" class="profile-pill-input" id="p-license" placeholder="LN 12345678"></div><div class="profile-field-row"><div><div class="profile-field-label">Phone Number</div></div><input type="tel" class="profile-pill-input" id="p-phone" placeholder="+27 71 000 0000"></div><div class="profile-field-row"><div><div class="profile-field-label">Email Address</div></div><input type="email" class="profile-pill-input" id="p-email" placeholder="you@email.com"></div><div class="profile-field-row"><div><div class="profile-field-label">Emergency Contact</div></div><input type="tel" class="profile-pill-input" id="p-emergency" placeholder="+27 82 000 0000"></div></div><div class="profile-section-card"><div class="profile-section-title">Driver Stats</div><div class="profile-field-row"><div><div class="profile-field-label">Total Deliveries</div></div><input type="text" class="profile-pill-input" id="p-total-deliveries" value="0" readonly></div><div class="profile-field-row"><div><div class="profile-field-label">Current Rating</div></div><input type="text" class="profile-pill-input" id="p-rating" value="5.0 ★" readonly></div></div><div class="profile-section-card"><div class="profile-section-title">Payout Details</div><div class="profile-field-row"><div><div class="profile-field-label">Bank Details</div></div><input type="text" class="profile-pill-input" id="p-bank" placeholder="Bank name & account number"></div></div><button class="btn-primary" onclick="saveDriverProfile()" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;margin-top:4px;"><i data-lucide="save" style="width:16px;height:16px;"></i> Save Profile</button></div></section>
     <section id="settings" class="page-content"><div class="settings-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Settings</h1><div class="settings-card"><div class="settings-card-title">Availability</div><div class="settings-row"><div><div class="settings-label">Online Status</div><div class="settings-sub">Show as available to receive orders</div></div><div class="toggle on" id="tog-online" onclick="toggleSetting(this,'online')"></div></div><div class="settings-row"><div><div class="settings-label">Auto-Accept Nearby Orders</div><div class="settings-sub">Automatically accept orders within 2km</div></div><div class="toggle" id="tog-autoaccept" onclick="toggleSetting(this,'autoaccept')"></div></div><div class="settings-row"><div><div class="settings-label">Availability Schedule</div><div class="settings-sub">Use preset working hours</div></div><div class="toggle on" id="tog-schedule" onclick="toggleSetting(this,'schedule')"></div></div></div><div class="settings-card"><div class="settings-card-title">Notifications</div><div class="settings-row"><div><div class="settings-label">Receive Order Alerts</div><div class="settings-sub">Get notified when new orders arrive</div></div><div class="toggle on" id="tog-alerts" onclick="toggleSetting(this,'alerts')"></div></div><div class="settings-row"><div><div class="settings-label">Push Notifications</div><div class="settings-sub">Browser push notifications</div></div><div class="toggle on" id="tog-push" onclick="toggleSetting(this,'push')"></div></div></div><div class="settings-card"><div class="settings-card-title">Privacy & Location</div><div class="settings-row"><div><div class="settings-label">Live Location Sharing</div><div class="settings-sub">Share real-time location with customers</div></div><div class="toggle on" id="tog-location" onclick="toggleSetting(this,'location')"></div></div></div><div class="settings-card"><div class="settings-card-title">App</div><div class="settings-row"><div><div class="settings-label">Dark Mode</div><div class="settings-sub">Switch to dark theme</div></div><div class="toggle" id="tog-dark" onclick="toggleSetting(this,'dark')"></div></div></div></div></section>
 </main>
-<div class="modal-overlay" id="logoutModal" style="display:flex;"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="log-out" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Log Out?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to log out?</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="confirmLogout()"><i data-lucide="log-out" style="width:15px;height:15px;"></i> Log Out</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('logoutModal')">Cancel</button></div></div></div>
-<div class="modal-overlay" id="orderDetailModal" style="display:flex;"><div class="modal-content" style="max-width:600px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h3 style="font-size:1.1rem;font-weight:800;" id="orderDetailTitle">Order Details</h3><button onclick="hideModal('orderDetailModal')" style="background:var(--surface2);border:none;border-radius:999px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i data-lucide="x" style="width:16px;height:16px;"></i></button></div><div id="orderDetailBody"></div></div></div>
+<div class="modal-overlay" id="logoutModal"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="log-out" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Log Out?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to log out?</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="confirmLogout()"><i data-lucide="log-out" style="width:15px;height:15px;"></i> Log Out</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('logoutModal')">Cancel</button></div></div></div>
+<div class="modal-overlay" id="orderDetailModal"><div class="modal-content" style="max-width:600px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h3 style="font-size:1.1rem;font-weight:800;" id="orderDetailTitle">Order Details</h3><button onclick="hideModal('orderDetailModal')" style="background:var(--surface2);border:none;border-radius:999px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i data-lucide="x" style="width:16px;height:16px;"></i></button></div><div id="orderDetailBody"></div></div></div>
 <div class="toast" id="toast"><i data-lucide="check-circle" style="width:18px;height:18px;"></i><span id="toastMsg">Done</span></div>
 <script>
 const firebaseConfig = { apiKey: "AIzaSyCh7Ute6LeSAxcNDEQwZg5m0cA4ujnLCfg", authDomain: "test-17881.firebaseapp.com", projectId: "test-17881", storageBucket: "test-17881.firebasestorage.app", messagingSenderId: "1057428047643", appId: "1:1057428047643:web:f3801c0d933225a5cd35be", databaseURL: "https://test-17881-default-rtdb.firebaseio.com/" };
@@ -430,71 +295,132 @@ let currentMapInstance = null;
 
 function getCustomerName(order) { return order.customerName || order.userName || order.customer || 'Guest Customer'; }
 
-function enterPortal() { document.getElementById('authScreen').classList.add('hidden'); showShimmer(); startDriverSync(); setTimeout(() => { document.getElementById('driverSidebar').style.display = 'flex'; document.getElementById('driverMainPanel').style.display = 'block'; hideShimmer(); lucide.createIcons(); }, 1500); }
+function enterPortal() { document.getElementById('authScreen').classList.add('hidden'); showShimmer(); startDriverSync();
+setTimeout(() => { document.getElementById('driverSidebar').style.display = 'flex'; document.getElementById('driverMainPanel').style.display = 'block'; hideShimmer(); lucide.createIcons(); }, 1500); }
 function showShimmer() { document.getElementById('shimmerOverlay').classList.add('active'); }
 function hideShimmer() { const s = document.getElementById('shimmerOverlay'); s.classList.add('fade-out'); setTimeout(() => { s.classList.remove('active','fade-out'); }, 600); }
-function startDriverSync() { if (!DRIVER_KEY) return; db.ref('drivers/' + DRIVER_KEY).on('value', snap => { driverData = snap.val(); if (driverData) applyDriverUI(); }); db.ref('orders').on('value', snap => { ordersCache = snap.val() || {}; renderDriverDashboard(); updateHistoryTab(); updateEarningsTab(); }); }
-function applyDriverUI() { const name = driverData.name || 'Driver'; document.getElementById('driverSidebarName').textContent = name; document.getElementById('driverAvatar').textContent = name.charAt(0).toUpperCase(); document.getElementById('profileName').textContent = name; document.getElementById('profileID').textContent = driverData.driverID || 'DRV-XXXXXX'; document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase(); document.getElementById('dashHeroTitle').textContent = `Hey ${name.split(' ')[0]}! 🛵`; if (driverData.vehicleType) document.getElementById('p-vehicle').value = driverData.vehicleType; if (driverData.licenseNumber) document.getElementById('p-license').value = driverData.licenseNumber; if (driverData.phone) document.getElementById('p-phone').value = driverData.phone; if (driverData.email) document.getElementById('p-email').value = driverData.email; if (driverData.emergencyContact) document.getElementById('p-emergency').value = driverData.emergencyContact; if (driverData.bankDetails) document.getElementById('p-bank').value = driverData.bankDetails; }
+function startDriverSync() { if (!DRIVER_KEY) return;
+db.ref('drivers/' + DRIVER_KEY).on('value', snap => { driverData = snap.val(); if (driverData) applyDriverUI(); });
+db.ref('orders').on('value', snap => { ordersCache = snap.val() || {}; renderDriverDashboard(); updateHistoryTab(); updateEarningsTab(); });
+}
+function applyDriverUI() { const name = driverData.name || 'Driver'; document.getElementById('driverSidebarName').textContent = name; document.getElementById('driverAvatar').textContent = name.charAt(0).toUpperCase(); document.getElementById('profileName').textContent = name;
+document.getElementById('profileID').textContent = driverData.driverID || 'DRV-XXXXXX'; document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase(); document.getElementById('dashHeroTitle').textContent = `Hey ${name.split(' ')[0]}! 🛵`; if (driverData.vehicleType) document.getElementById('p-vehicle').value = driverData.vehicleType;
+if (driverData.licenseNumber) document.getElementById('p-license').value = driverData.licenseNumber; if (driverData.phone) document.getElementById('p-phone').value = driverData.phone; if (driverData.email) document.getElementById('p-email').value = driverData.email; if (driverData.emergencyContact) document.getElementById('p-emergency').value = driverData.emergencyContact;
+if (driverData.bankDetails) document.getElementById('p-bank').value = driverData.bankDetails; if (driverData.rating) document.getElementById('p-rating').value = driverData.rating + ' ★';
+if (driverData.settings) { ['online', 'autoaccept', 'schedule', 'alerts', 'push', 'location', 'dark'].forEach(k => { const tog = document.getElementById('tog-' + k); if (tog) { if (driverData.settings[k]) tog.classList.add('on'); else tog.classList.remove('on'); } }); } }
 function renderDriverDashboard() {
     const orders = Object.entries(ordersCache);
     const available = orders.filter(([k,o]) => (o.status === 'ready' || o.status === 'pending') && !o.driverKey);
     const myDel = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
     const count = available.length;
     document.getElementById('availableCount').textContent = count;
-    const badge = document.getElementById('availableBadge'); if (count > 0) { badge.style.display = 'inline-block'; badge.textContent = count; } else { badge.style.display = 'none'; }
-    let availHTML = available.length === 0 ? `<div class="empty-state"><div class="es-emoji">🛵</div><div class="es-title">No available orders</div><div class="es-sub">Check back soon</div></div>` : available.map(([key,o]) => buildAvailableOrderCard(key, o)).join('');
+    const badge = document.getElementById('availableBadge'); if (count > 0) { badge.style.display = 'inline-block'; badge.textContent = count;
+    } else { badge.style.display = 'none'; }
+    let availHTML = available.length === 0 ?
+`<div class="empty-state"><div class="es-emoji">🛵</div><div class="es-title">No available orders</div><div class="es-sub">Check back soon</div></div>` : available.map(([key,o]) => buildAvailableOrderCard(key, o)).join('');
     document.getElementById('availableOrdersList').innerHTML = availHTML;
     document.getElementById('availableFullList').innerHTML = available.length === 0 ? `<div style="padding:16px">${availHTML}</div>` : available.map(([key,o]) => buildAvailableOrderCard(key, o, true)).join('');
     let myHTML = myDel.length === 0 ? `<div class="empty-state"><div class="es-emoji">📦</div><div class="es-title">No active deliveries</div><div class="es-sub">Accept an order to get started</div></div>` : myDel.map(([key,o]) => buildMyDeliveryCard(key, o)).join('');
     document.getElementById('myDeliveriesList').innerHTML = myHTML;
     document.getElementById('myDeliveriesFullList').innerHTML = myDel.length === 0 ? `<div style="padding:16px">${myHTML}</div>` : myDel.map(([key,o]) => buildMyDeliveryCard(key, o, true)).join('');
-    const today = new Date().toDateString(); const todayDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY && new Date(o.createdAt).toDateString() === today); const todayEarnings = todayDelivered.reduce((s,[k,o]) => s + (Number(o.total||0)*0.15), 0); const totalDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY).length;
+    const today = new Date().toDateString(); const todayDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY && new Date(o.createdAt).toDateString() === today);
+    const todayEarnings = todayDelivered.reduce((s,[k,o]) => s + (Number(o.total||0)*0.15), 0); const totalDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY).length;
     document.getElementById('p-total-deliveries').value = totalDelivered; document.getElementById('totalDelivered').textContent = totalDelivered;
     document.getElementById('driverStatsGrid').innerHTML = `<div class="stat-card"><div class="stat-icon"><i data-lucide="package"></i></div><h3>Deliveries Today</h3><p>${todayDelivered.length}</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="dollar-sign"></i></div><h3>Earnings Today</h3><p style="color:var(--accent);">R${todayEarnings.toFixed(0)}</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="star"></i></div><h3>Rating</h3><p>${driverData?.rating || '5.0'} ★</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="clock"></i></div><h3>Active Orders</h3><p>${myDel.length}</p></div>`;
     lucide.createIcons();
 }
 function buildAvailableOrderCard(key, o, fullView = false) {
-    const addr = o.deliveryAddress || 'No address provided'; const addrShort = addr.length > 40 ? addr.substring(0,40)+'…' : addr; const total = Number(o.total||0).toFixed(2); const orderNum = o.orderNumber || key.slice(-6); const vendor = o.vendorName || 'Restaurant'; const items = (o.items||[]).length; const customer = getCustomerName(o);
+    const addr = o.deliveryAddress || 'No address provided'; const addrShort = addr.length > 40 ? addr.substring(0,40)+'…' : addr; const total = Number(o.total||0).toFixed(2);
+    const orderNum = o.orderNumber || key.slice(-6); const vendor = o.vendorName || 'Restaurant'; const items = (o.items||[]).length; const customer = getCustomerName(o);
     return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addrShort}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button></div></div></div>`;
 }
 function buildMyDeliveryCard(key, o, fullView = false) {
-    const addr = o.deliveryAddress || 'No address provided'; const orderNum = o.orderNumber || key.slice(-6); const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } }; const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' }; const customer = getCustomerName(o);
+    const addr = o.deliveryAddress || 'No address provided';
+    const orderNum = o.orderNumber || key.slice(-6); const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } };
+    const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' }; const customer = getCustomerName(o);
     return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${o.vendorName||'Restaurant'}</strong><span class="order-meta-pill ${st.cls}">${st.label}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);">R${Number(o.total||0).toFixed(2)}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;"><button onclick="markDelivered('${key}')" class="btn btn-success"><i data-lucide="check-circle" style="width:13px;height:13px;"></i> Delivered</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit"><i data-lucide="map" style="width:13px;height:13px;"></i> Map</button></div></div></div>`;
 }
 function updateHistoryTab() {
-    const orders = Object.entries(ordersCache); const myHistory = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'delivered' || o.status === 'cancelled')).sort(([,a],[,b]) => (b.createdAt||0) - (a.createdAt||0));
+    const orders = Object.entries(ordersCache);
+    const myHistory = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'delivered' || o.status === 'cancelled')).sort(([,a],[,b]) => (b.createdAt||0) - (a.createdAt||0));
     const container = document.getElementById('orderHistoryList'); if (!container) return;
     if (!myHistory.length) { container.innerHTML = `<div class="empty-state"><div class="es-emoji">📋</div><div class="es-title">No completed orders yet</div><div class="es-sub">Delivered orders will appear here</div></div>`; return; }
     container.innerHTML = myHistory.map(([key,o]) => { const date = new Date(o.createdAt||Date.now()); const dateStr = date.toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'}); const timeStr = date.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'}); const earning = (Number(o.total||0)*0.15).toFixed(2); const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red'; const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled'; const addr = o.deliveryAddress || 'No address'; const customer = getCustomerName(o);
         return `<div class="history-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong>${o.vendorName||'Restaurant'}</strong><span class="order-meta-pill ${statusCls}">${statusLabel}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div><div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:13px;height:13px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.78rem;color:var(--dim);">${addr}</span></div><div style="font-size:0.75rem;color:var(--dim);">${dateStr} · ${timeStr}</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-size:1.1rem;font-weight:800;color:var(--text);">R${Number(o.total||0).toFixed(2)}</div><div style="font-size:0.75rem;color:var(--green);font-weight:700;">+R${earning} earned</div></div></div></div>`;
     }).join(''); lucide.createIcons();
 }
-function updateEarningsTab() { const orders = Object.values(ordersCache).filter(o => o.driverKey === DRIVER_KEY && o.status === 'delivered'); const now = new Date(); const todayStr = now.toDateString(); const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay()); const monthStart = new Date(now.getFullYear(), now.getMonth(), 1); const todayEarn = orders.filter(o => new Date(o.createdAt).toDateString() === todayStr).reduce((s,o) => s + Number(o.total||0)*0.15, 0); const weekEarn = orders.filter(o => new Date(o.createdAt) >= weekStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0); const monthEarn = orders.filter(o => new Date(o.createdAt) >= monthStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0); const te = document.getElementById('earningsToday'); if(te) te.textContent = `R ${todayEarn.toFixed(2)}`; const we = document.getElementById('earningsWeek'); if(we) we.textContent = `R ${weekEarn.toFixed(2)}`; const me = document.getElementById('earningsMonth'); if(me) me.textContent = `R ${monthEarn.toFixed(2)}`; const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length; }
+function updateEarningsTab() { const orders = Object.values(ordersCache).filter(o => o.driverKey === DRIVER_KEY && o.status === 'delivered');
+    const now = new Date(); const todayStr = now.toDateString(); const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1); const todayEarn = orders.filter(o => new Date(o.createdAt).toDateString() === todayStr).reduce((s,o) => s + Number(o.total||0)*0.15, 0);
+    const weekEarn = orders.filter(o => new Date(o.createdAt) >= weekStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0);
+    const monthEarn = orders.filter(o => new Date(o.createdAt) >= monthStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0); const te = document.getElementById('earningsToday');
+    if(te) te.textContent = `R ${todayEarn.toFixed(2)}`; const we = document.getElementById('earningsWeek'); if(we) we.textContent = `R ${weekEarn.toFixed(2)}`; const me = document.getElementById('earningsMonth');
+    if(me) me.textContent = `R ${monthEarn.toFixed(2)}`; const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length;
+}
 window.viewOrderDetail = function(key) {
-    const o = ordersCache[key]; if (!o) return; const addr = o.deliveryAddress || 'No address provided'; const orderNum = o.orderNumber || key.slice(-6); const items = (o.items||[]); const total = Number(o.total||0).toFixed(2); const customer = getCustomerName(o);
+    const o = ordersCache[key]; if (!o) return; const addr = o.deliveryAddress || 'No address provided'; const orderNum = o.orderNumber || key.slice(-6); const items = (o.items||[]); const total = Number(o.total||0).toFixed(2);
+    const customer = getCustomerName(o);
     let itemsHTML = items.map(item => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;"><span>${item.name} ×${item.quantity||1}</span><span style="font-weight:700;">R${(Number(item.price||0)*(item.quantity||1)).toFixed(2)}</span></div>`).join('');
     document.getElementById('orderDetailTitle').textContent = `Order #${orderNum}`;
     document.getElementById('orderDetailBody').innerHTML = `<div class="order-detail-section"><h4>Customer</h4><div class="addr-display"><div class="addr-display-icon"><i data-lucide="user" style="width:18px;height:18px;"></i></div><div class="addr-display-text"><strong>${customer}</strong></div></div></div><div class="order-detail-section"><h4>Delivery Address</h4><div class="addr-display"><div class="addr-display-icon"><i data-lucide="map-pin" style="width:18px;height:18px;"></i></div><div class="addr-display-text">${addr}</div></div></div><div class="order-detail-section"><h4>Order Items</h4>${itemsHTML || '<p style="color:var(--dim);font-size:0.85rem;">No items listed</p>'}<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:800;font-size:0.95rem;"><span>Total</span><span style="color:var(--accent);">R${total}</span></div></div><div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div><div style="margin-top:10px;display:flex;gap:8px;"><button onclick="openMapsDirections('${addr.replace(/'/g,"\\'")}','${o.vendorName||'Restaurant'}')" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;"><i data-lucide="navigation" style="width:14px;height:14px;"></i> Open in Maps</button></div></div>${o.driverKey && o.driverKey !== DRIVER_KEY ? `<div class="accepted-banner"><i data-lucide="check-circle" style="width:16px;height:16px;"></i> This order has been accepted by another driver</div>` : ''}`;
     showModal('orderDetailModal'); lucide.createIcons();
-    setTimeout(() => { if (currentMapInstance) { currentMapInstance.remove(); currentMapInstance = null; } try { const map = new mapboxgl.Map({ container: 'orderMap', style: 'mapbox://styles/mapbox/streets-v12', center: [28.4, -25.7], zoom: 11 }); currentMapInstance = map; if (addr && addr !== 'No address provided') { fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => { if (data.features && data.features.length > 0) { const [lng, lat] = data.features[0].geometry.coordinates; map.flyTo({ center: [lng, lat], zoom: 14 }); new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([lng, lat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>Delivery Address</strong><br>${addr}`)).addTo(map); } }).catch(() => {}); } if (o.vendorLat && o.vendorLng) { new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([o.vendorLng, o.vendorLat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'}</strong>`)).addTo(map); if (addr && addr !== 'No address provided') { fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => { if (data.features && data.features.length > 0) { const [dLng, dLat] = data.features[0].geometry.coordinates; const vLng = o.vendorLng, vLat = o.vendorLat; fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`).then(r => r.json()).then(routeData => { if (routeData.routes && routeData.routes.length > 0) { const route = routeData.routes[0].geometry; map.on('load', () => { map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } }); map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } }); const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat])); map.fitBounds(bounds, { padding:40 }); }); } }).catch(() => {}); } }).catch(() => {}); } } } catch(e) { console.error('Map init error:', e); } }, 300);
+    setTimeout(() => { if (currentMapInstance) { currentMapInstance.remove(); currentMapInstance = null; } try { const map = new mapboxgl.Map({ container: 'orderMap', style: 'mapbox://styles/mapbox/streets-v12', center: [28.4, -25.7], zoom: 11 }); currentMapInstance = map; map.on('load', () => map.resize()); if (addr && addr !== 'No address provided') { fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => { if (data.features && data.features.length > 0) { const [lng, lat] = data.features[0].geometry.coordinates; map.flyTo({ center: [lng, lat], zoom: 14 }); new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([lng, lat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>Delivery Address</strong><br>${addr}`)).addTo(map); } }).catch(() => {}); } if (o.vendorLat && o.vendorLng) { new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([o.vendorLng, o.vendorLat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'}</strong>`)).addTo(map);
+    if (addr && addr !== 'No address provided') { fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => { if (data.features && data.features.length > 0) { const [dLng, dLat] = data.features[0].geometry.coordinates; const vLng = o.vendorLng, vLat = o.vendorLat; fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`).then(r => r.json()).then(routeData => { if (routeData.routes && routeData.routes.length > 0) { const route = routeData.routes[0].geometry; map.on('load', () => { map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } }); map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } }); const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat]));
+    map.fitBounds(bounds, { padding:40 }); }); } }).catch(() => {}); } }).catch(() => {});
+    } } } catch(e) { console.error('Map init error:', e); } }, 300);
 };
 window.openMapsDirections = function(addr, vendor) { window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); };
-window.acceptDelivery = function(key) { if (!DRIVER_KEY || !driverData) return; db.ref('orders/' + key).transaction(currentData => { if (!currentData) return; if (currentData.driverKey) return; currentData.driverKey = DRIVER_KEY; currentData.driverName = driverData.name || 'Driver'; currentData.status = 'assigned'; currentData.updatedAt = Date.now(); return currentData; }).then(result => { if (result.committed) showToast('Delivery accepted! 🛵', 'success'); else showToast('Order already taken by another driver', ''); }).catch(() => showToast('Failed to accept order')); };
+window.acceptDelivery = function(key) { if (!DRIVER_KEY || !driverData) return;
+    db.ref('orders/' + key).transaction(currentData => { if (!currentData) return; if (currentData.driverKey) return; currentData.driverKey = DRIVER_KEY; currentData.driverName = driverData.name || 'Driver'; currentData.status = 'assigned'; currentData.updatedAt = Date.now(); return currentData; }).then(result => { if (result.committed) showToast('Delivery accepted! 🛵', 'success'); else showToast('Order already taken by another driver', ''); }).catch(() => showToast('Failed to accept order'));
+};
 window.markDelivered = function(key) { db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); };
-window.saveDriverProfile = function() { if (!DRIVER_KEY) return; const updates = { vehicleType: document.getElementById('p-vehicle').value, licenseNumber: document.getElementById('p-license').value, phone: document.getElementById('p-phone').value, email: document.getElementById('p-email').value, emergencyContact: document.getElementById('p-emergency').value, bankDetails: document.getElementById('p-bank').value, updatedAt: Date.now() }; db.ref('drivers/' + DRIVER_KEY).update(updates).then(() => showToast('Profile saved! ✓', 'success')); };
-window.toggleSetting = function(el, key) { el.classList.toggle('on'); };
-function regNext(step) { const err = document.getElementById('regError'); err.style.display = 'none'; if (step === 0) { const name = document.getElementById('reg-name').value.trim(); const city = document.getElementById('reg-city').value.trim(); const province = document.getElementById('reg-province').value; const phone = document.getElementById('reg-phone').value.trim(); if (!name || !city || !province || !phone) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return; } document.getElementById('step0').classList.remove('active'); document.getElementById('step1').classList.add('active'); document.getElementById('dot-0').classList.remove('active'); document.getElementById('dot-1').classList.add('active'); } }
+window.saveDriverProfile = function() { if (!DRIVER_KEY) return; const updates = { vehicleType: document.getElementById('p-vehicle').value, licenseNumber: document.getElementById('p-license').value, phone: document.getElementById('p-phone').value, email: document.getElementById('p-email').value, emergencyContact: document.getElementById('p-emergency').value, bankDetails: document.getElementById('p-bank').value, updatedAt: Date.now() };
+    db.ref('drivers/' + DRIVER_KEY).update(updates).then(() => showToast('Profile saved! ✓', 'success')); };
+window.toggleSetting = function(el, key) { 
+    el.classList.toggle('on'); 
+    if (DRIVER_KEY) { db.ref('drivers/' + DRIVER_KEY + '/settings/' + key).set(el.classList.contains('on')); }
+};
+function regNext(step) { const err = document.getElementById('regError'); err.style.display = 'none'; if (step === 0) { const name = document.getElementById('reg-name').value.trim();
+    const city = document.getElementById('reg-city').value.trim(); const province = document.getElementById('reg-province').value; const phone = document.getElementById('reg-phone').value.trim();
+    if (!name || !city || !province || !phone) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block';
+    return; } document.getElementById('step0').classList.remove('active'); document.getElementById('step1').classList.add('active'); document.getElementById('dot-0').classList.remove('active'); document.getElementById('dot-1').classList.add('active'); } }
 function regBack(step) { if (step === 1) { document.getElementById('step1').classList.remove('active'); document.getElementById('step0').classList.add('active'); document.getElementById('dot-1').classList.remove('active'); document.getElementById('dot-0').classList.add('active'); } }
-async function submitDriverRegistration() { const err = document.getElementById('regError'); const suc = document.getElementById('regSuccess'); const btn = document.getElementById('regSubmitBtn'); const email = document.getElementById('reg-email').value.trim(); const vehicle = document.getElementById('reg-vehicle').value; const license = document.getElementById('reg-license').value.trim(); if (!email || !vehicle || !license) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return; } btn.disabled = true; btn.textContent = 'Submitting…'; const data = { name: document.getElementById('reg-name').value.trim(), phone: document.getElementById('reg-phone').value.trim(), city: document.getElementById('reg-city').value.trim(), province: document.getElementById('reg-province').value, email, vehicleType: vehicle, licenseNumber: license, status: 'pending', createdAt: Date.now() }; try { await db.ref('drivers').push(data); suc.innerHTML = '✅ Application submitted! Admin will review and assign your Driver ID.'; suc.style.display = 'block'; err.style.display = 'none'; btn.textContent = '✓ Sent!'; setTimeout(() => { switchAuthTab('login'); btn.disabled=false; btn.textContent='Submit Application'; suc.style.display='none'; }, 3500); } catch(e) { err.textContent = 'Submission failed. Try again.'; err.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Application'; } }
-async function partnerLogin() { const id = document.getElementById('driverLoginId').value.trim().toUpperCase(); const err = document.getElementById('loginError'); err.style.display = 'none'; if (!id) { err.textContent = 'Enter your Driver ID'; err.style.display = 'block'; return; } const btn = document.getElementById('loginBtn'); btn.textContent = 'Signing in…'; btn.disabled = true; try { const snap = await db.ref('drivers').orderByChild('driverID').equalTo(id).once('value'); const data = snap.val(); if (!data) throw new Error('Driver ID not found'); const key = Object.keys(data)[0]; const driver = data[key]; if (driver.status !== 'active') throw new Error('Your account is not yet approved'); DRIVER_KEY = key; localStorage.setItem('vynix_driver_session', JSON.stringify({ key, id, role: 'driver', loggedAt: Date.now() })); enterPortal(); } catch (e) { err.textContent = e.message; err.style.display = 'block'; } finally { btn.textContent = 'Sign In to Driver Portal'; btn.disabled = false; } }
-async function signInWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); try { const result = await auth.signInWithPopup(provider); const user = result.user; const snap = await db.ref('drivers').orderByChild('email').equalTo(user.email).once('value'); if (!snap.val()) throw new Error('No driver account linked to this email'); const key = Object.keys(snap.val())[0]; DRIVER_KEY = key; localStorage.setItem('vynix_driver_session', JSON.stringify({ key, role: 'driver', loggedAt: Date.now() })); enterPortal(); } catch (e) { document.getElementById('loginError').textContent = e.message; document.getElementById('loginError').style.display = 'block'; } }
-function switchAuthTab(tab) { document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1))); document.getElementById('loginPanel').style.display = tab === 'login' ? 'block' : 'none'; document.getElementById('registerPanel').style.display = tab === 'register' ? 'block' : 'none'; if (tab === 'register') { document.querySelectorAll('.reg-step').forEach(s => s.classList.remove('active')); document.getElementById('step0').classList.add('active'); document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active'); } }
-function showTab(id, el) { document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active')); document.querySelectorAll('#driverSidebar .nav-item').forEach(n => n.classList.remove('active')); document.getElementById(id).classList.add('active'); if (el) el.classList.add('active'); lucide.createIcons(); }
+async function submitDriverRegistration() { const err = document.getElementById('regError'); const suc = document.getElementById('regSuccess'); const btn = document.getElementById('regSubmitBtn');
+    const email = document.getElementById('reg-email').value.trim(); const vehicle = document.getElementById('reg-vehicle').value; const license = document.getElementById('reg-license').value.trim();
+    if (!email || !vehicle || !license) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return;
+    } btn.disabled = true; btn.textContent = 'Submitting…'; const data = { name: document.getElementById('reg-name').value.trim(), phone: document.getElementById('reg-phone').value.trim(), city: document.getElementById('reg-city').value.trim(), province: document.getElementById('reg-province').value, email, vehicleType: vehicle, licenseNumber: license, status: 'pending', createdAt: Date.now() };
+    try { await db.ref('drivers').push(data); suc.innerHTML = '✅ Application submitted! Admin will review and assign your Driver ID.'; suc.style.display = 'block';
+    err.style.display = 'none'; btn.textContent = '✓ Sent!'; setTimeout(() => { switchAuthTab('login'); btn.disabled=false; btn.textContent='Submit Application'; suc.style.display='none'; }, 3500);
+    } catch(e) { err.textContent = 'Submission failed. Try again.'; err.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Application'; } }
+async function partnerLogin() { const id = document.getElementById('driverLoginId').value.trim().toUpperCase(); const err = document.getElementById('loginError'); err.style.display = 'none';
+    if (!id) { err.textContent = 'Enter your Driver ID'; err.style.display = 'block'; return; } const btn = document.getElementById('loginBtn');
+    btn.textContent = 'Signing in…'; btn.disabled = true; try { const snap = await db.ref('drivers').orderByChild('driverID').equalTo(id).once('value'); const data = snap.val();
+    if (!data) throw new Error('Driver ID not found'); const key = Object.keys(data)[0]; const driver = data[key];
+    if (driver.status !== 'active') throw new Error('Your account is not yet approved'); DRIVER_KEY = key;
+    localStorage.setItem('vynix_driver_session', JSON.stringify({ key, id, role: 'driver', loggedAt: Date.now() })); enterPortal(); } catch (e) { err.textContent = e.message; err.style.display = 'block';
+    } finally { btn.textContent = 'Sign In to Driver Portal'; btn.disabled = false; } }
+async function signInWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); try { const result = await auth.signInWithPopup(provider);
+    const user = result.user; const snap = await db.ref('drivers').orderByChild('email').equalTo(user.email).once('value'); if (!snap.val()) throw new Error('No driver account linked to this email');
+    const key = Object.keys(snap.val())[0]; DRIVER_KEY = key; localStorage.setItem('vynix_driver_session', JSON.stringify({ key, role: 'driver', loggedAt: Date.now() })); enterPortal();
+    } catch (e) { document.getElementById('loginError').textContent = e.message; document.getElementById('loginError').style.display = 'block'; } }
+function switchAuthTab(tab) { document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
+    document.getElementById('loginPanel').style.display = tab === 'login' ? 'block' : 'none'; document.getElementById('registerPanel').style.display = tab === 'register' ? 'block' : 'none';
+    if (tab === 'register') { document.querySelectorAll('.reg-step').forEach(s => s.classList.remove('active')); document.getElementById('step0').classList.add('active'); document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active'); } }
+function showTab(id, el) { 
+    document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active')); 
+    document.querySelectorAll('#driverSidebar .nav-item').forEach(n => n.classList.remove('active')); 
+    document.getElementById(id).classList.add('active'); 
+    if (el) { el.classList.add('active'); } 
+    else { const targetNav = document.querySelector(`.nav-item[onclick="showTab('${id}',this)"]`); if(targetNav) targetNav.classList.add('active'); }
+    lucide.createIcons();
+}
 function openLogoutModal() { showModal('logoutModal'); }
-function confirmLogout() { localStorage.removeItem('vynix_driver_session'); DRIVER_KEY = null; driverData = null; document.getElementById('driverSidebar').style.display = 'none'; document.getElementById('driverMainPanel').style.display = 'none'; document.getElementById('authScreen').classList.remove('hidden'); hideModal('logoutModal'); lucide.createIcons(); }
+function confirmLogout() { localStorage.removeItem('vynix_driver_session'); DRIVER_KEY = null; driverData = null; document.getElementById('driverSidebar').style.display = 'none'; document.getElementById('driverMainPanel').style.display = 'none';
+    document.getElementById('authScreen').classList.remove('hidden'); hideModal('logoutModal'); lucide.createIcons(); }
 function showModal(id) { const el = document.getElementById(id); el.style.display = 'flex'; setTimeout(() => { el.classList.add('active'); lucide.createIcons(); }, 10); }
 function hideModal(id) { const el = document.getElementById(id); el.classList.remove('active'); setTimeout(() => el.style.display = 'none', 320); }
-function showToast(msg, type='success') { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.className = 'toast show ' + type; clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
+function showToast(msg, type='success') { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.className = 'toast show ' + type; clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
 (function checkSession() { const s = JSON.parse(localStorage.getItem('vynix_driver_session') || 'null'); if (s && s.key && (Date.now() - s.loggedAt) < 86400000) { DRIVER_KEY = s.key; enterPortal(); } })();
 document.getElementById('driverSidebar').addEventListener('mouseenter', () => { document.getElementById('driverSidebar').classList.add('expanded'); document.getElementById('driverMainPanel').classList.add('shifted'); });
 document.getElementById('driverSidebar').addEventListener('mouseleave', () => { document.getElementById('driverSidebar').classList.remove('expanded'); document.getElementById('driverMainPanel').classList.remove('shifted'); });
