@@ -56,7 +56,6 @@
             border-radius: 999px !important;
         }
         textarea { border-radius: 20px !important; }
-
         /* ── AUTH SCREEN (identical layout to vendor) ─────────────────────────────────────── */
         #authScreen {
             position: fixed; inset: 0; z-index: 8000;
@@ -105,7 +104,6 @@
         .auth-tab.active { background: #3b82f6; color: white; }
         .auth-divider { display: flex; align-items: center; gap: 12px; margin: 8px 0; color: rgba(255,255,255,0.25); font-size: 0.8rem; }
         .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
-
         /* ── SHIMMER (identical) ───────────────────────────────────────────────── */
         #shimmerOverlay { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: none; flex-direction: column; transition: opacity .55s ease; }
         #shimmerOverlay.active { display: flex; }
@@ -122,7 +120,6 @@
         .shim-table { height: 320px; border-radius: 20px; }
         .shim-logo { width: 42px; height: 42px; border-radius: 14px; }
         .shim-nav { height: 36px; border-radius: 999px; width: 42px; }
-
         /* ── SIDEBAR (identical structure) ─────────────────────────────────────────────── */
         .sidebar {
             width: var(--sidebar-collapsed); background: var(--surface);
@@ -153,14 +150,12 @@
         .user-avatar { width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; background: var(--store-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; transition: var(--transition); }
         .user-info { opacity: 0; transform: translateX(-8px); transition: opacity 0.2s ease, transform 0.2s ease; }
         .sidebar.expanded .user-info { opacity: 1; transform: translateX(0); }
-
         /* ── MAIN PANEL (identical) ─────────────────────────────────────────────────────── */
         .main-panel { margin-left: var(--sidebar-collapsed); flex: 1; padding: 36px; max-width: calc(100% - var(--sidebar-collapsed)); transition: margin-left 0.35s cubic-bezier(0.4,0,0.2,1), max-width 0.35s cubic-bezier(0.4,0,0.2,1); }
         .main-panel.shifted { margin-left: var(--sidebar-width); max-width: calc(100% - var(--sidebar-width)); }
         .page-content { display: none; animation: fadeInUp 0.35s ease-out; }
         .page-content.active { display: block; }
         @keyframes fadeInUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
-
         /* ── DASHBOARD HERO (driver version) ────────────────────────────────────────────── */
         .dashboard-hero {
             border-radius: 24px; padding: 28px 32px; margin-bottom: 28px;
@@ -171,7 +166,6 @@
         .hero-left h1 { font-size: 1.7rem; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 4px; }
         .hero-left p { color: rgba(255,255,255,0.75); font-size: 0.88rem; font-weight: 500; }
         .hero-emoji { font-size: 3.5rem; line-height: 1; }
-
         /* ── STATS GRID (identical) ─────────────────────────────────────────────────────── */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 28px; }
         .stat-card {
@@ -186,19 +180,16 @@
         .stat-icon i { width: 18px; height: 18px; color: var(--accent); }
         .stat-card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--dim); letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
         .stat-card p { font-size: 2rem; font-weight: 800; color: var(--text); }
-
         /* ── CONTENT CARDS (identical) ──────────────────────────────────────────────────── */
         .content-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
         .card-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .card-header h2 { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
         .search-bar { padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 999px !important; font-family: inherit; font-size: 0.88rem; outline: none; transition: var(--transition); background: var(--bg); color: var(--text); width: 260px; }
         .search-bar:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.12); background: white; }
-
         /* ── ORDER CARDS (driver specific but styled exactly like vendor) ───────────────── */
         .order-card { padding: 18px 22px; border-bottom: 1px solid var(--border); transition: var(--transition); }
         .order-card:hover { background: var(--accent-light); }
         .order-card:last-child { border-bottom: none; }
-
         /* ── BUTTONS, BADGES, MODALS (identical) ────────────────────────────────────────── */
         .btn-primary { background: var(--accent); color: white; border: none; padding: 11px 20px; border-radius: 999px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: var(--transition); box-shadow: 0 4px 14px rgba(var(--accent-rgb),0.35); font-family: inherit; font-size: 0.88rem; }
         .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--accent-rgb),0.45); }
@@ -209,13 +200,11 @@
         .btn-danger:hover { background: var(--danger); color: white; transform: translateY(-1px); }
         .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
         .badge-open { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
-
         /* ── MODALS (identical) ─────────────────────────────────────────────────────────── */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); backdrop-filter: blur(12px); z-index: 2000; justify-content: center; align-items: center; opacity: 0; transition: opacity .3s ease; }
         .modal-overlay.active { opacity: 1; }
         .modal-content { background: white; padding: 30px; border-radius: 24px; width: 560px; max-width: 95vw; box-shadow: 0 32px 64px rgba(0,0,0,0.18); transform: scale(0.9) translateY(20px); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); max-height: 90vh; overflow-y: auto; }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
-
         /* ── TOAST (identical) ──────────────────────────────────────────────────────────── */
         .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: white; padding: 15px 22px; border-radius: 999px; box-shadow: var(--shadow-hover); display: flex; align-items: center; gap: 12px; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); z-index: 3000; font-size: 0.9rem; font-weight: 600; max-width: 360px; }
         .toast.show { transform: translateY(0); opacity: 1; }
@@ -223,7 +212,6 @@
     </style>
 </head>
 <body>
-
 <!-- AUTH SCREEN (exactly same as vendor) -->
 <div id="authScreen">
     <div class="auth-bg-circles">
@@ -300,13 +288,11 @@
         </div>
     </div>
 </div>
-
 <!-- SHIMMER -->
 <div id="shimmerOverlay">
     <div class="shim-sidebar">…</div>
     <div class="shim-main">…</div>
 </div>
-
 <!-- DRIVER SIDEBAR (exactly same structure) -->
 <nav class="sidebar" id="driverSidebar" style="display:none;">
     <div class="logo">
@@ -336,7 +322,6 @@
         </div>
     </div>
 </nav>
-
 <!-- MAIN PANEL -->
 <main class="main-panel" id="driverMainPanel" style="display:none;">
     <!-- DASHBOARD -->
@@ -362,19 +347,16 @@
             </div>
         </div>
     </section>
-
     <!-- AVAILABLE ORDERS -->
     <section id="available" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Available Orders</h1>
         <div id="availableFullList" class="content-card" style="padding:16px;"></div>
     </section>
-
     <!-- MY DELIVERIES -->
     <section id="deliveries" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">My Current Deliveries</h1>
         <div id="myDeliveriesFullList" class="content-card" style="padding:16px;"></div>
     </section>
-
     <!-- EARNINGS -->
     <section id="earnings" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Earnings</h1>
@@ -385,8 +367,7 @@
             <div class="stat-card"><h3>Total Delivered</h3><p id="totalDelivered" style="color:var(--accent);">0</p></div>
         </div>
     </section>
-
-    <!-- PROFILE -->
+    <!-- PROFILE (more advanced) -->
     <section id="profile" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Driver Profile</h1>
         <div class="profile-section">
@@ -406,19 +387,28 @@
                 <div class="form-group"><label>Phone</label><input type="tel" id="p-phone"></div>
                 <div class="form-group"><label>Email</label><input type="email" id="p-email"></div>
             </div>
+            <!-- Advanced profile additions (modern look, same styling) -->
+            <div class="form-group"><label>Emergency Contact</label><input type="tel" id="p-emergency" placeholder="+27 82 000 0000"></div>
+            <div class="form-group"><label>Total Deliveries</label><input type="text" id="p-total-deliveries" value="124" readonly style="background:var(--accent-light);"></div>
+            <div class="form-group"><label>Current Rating</label><input type="text" id="p-rating" value="4.9 ★" readonly style="background:var(--accent-light);"></div>
+            <div class="form-group"><label>Bank Details (for payouts)</label><input type="text" id="p-bank" placeholder="Bank name &amp; account number"></div>
         </div>
     </section>
-
-    <!-- SETTINGS -->
+    <!-- SETTINGS (modern &amp; attractive with all necessary driver features) -->
     <section id="settings" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Settings</h1>
         <div class="profile-section">
             <div class="settings-row"><div>Online Status</div><div class="toggle on" id="tog-online" onclick="toggleSetting(this,'online')"></div></div>
             <div class="settings-row"><div>Receive Order Alerts</div><div class="toggle on" id="tog-alerts" onclick="toggleSetting(this,'alerts')"></div></div>
+            <!-- Modern driver-specific additions (same styling) -->
+            <div class="settings-row"><div>Live Location Sharing</div><div class="toggle on" id="tog-location" onclick="toggleSetting(this,'location')"></div></div>
+            <div class="settings-row"><div>Auto-Accept Nearby Orders</div><div class="toggle" id="tog-autoaccept" onclick="toggleSetting(this,'autoaccept')"></div></div>
+            <div class="settings-row"><div>Push Notifications</div><div class="toggle on" id="tog-push" onclick="toggleSetting(this,'push')"></div></div>
+            <div class="settings-row"><div>Dark Mode</div><div class="toggle" id="tog-dark" onclick="toggleSetting(this,'dark')"></div></div>
+            <div class="settings-row"><div>Availability Schedule</div><div class="toggle on" id="tog-schedule" onclick="toggleSetting(this,'schedule')"></div></div>
         </div>
     </section>
 </main>
-
 <!-- MODALS & TOAST (identical to vendor) -->
 <div class="modal-overlay" id="deleteModal">
     <div class="modal-content" style="max-width:400px;text-align:center;">
@@ -451,7 +441,6 @@
     <i data-lucide="check-circle" style="width:18px;height:18px;"></i>
     <span id="toastMsg">Done</span>
 </div>
-
 <script>
 // ── Firebase (same as vendor) ─────────────────────────────────────
 const firebaseConfig = {
@@ -468,7 +457,6 @@ const auth = firebase.auth();
 let DRIVER_KEY = null;
 let driverData = null;
 let ordersCache = {};
-
 // ── Enter Portal (identical) ──────────────────────────────────────
 function enterPortal() {
     document.getElementById('authScreen').classList.add('hidden');
@@ -486,7 +474,6 @@ function hideShimmer() {
     s.classList.add('fade-out');
     setTimeout(() => { s.classList.remove('active','fade-out'); }, 600);
 }
-
 // ── Driver Sync ───────────────────────────────────────────────────
 function startDriverSync() {
     if (!DRIVER_KEY) return;
@@ -505,7 +492,6 @@ function applyDriverUI() {
     document.getElementById('profileName').textContent = driverData.name || 'Driver';
     document.getElementById('profileID').textContent = driverData.driverID || 'DRV-XXXXXX';
 }
-
 // ── Render Dashboard (driver specific) ────────────────────────────
 function renderDriverDashboard() {
     const orders = Object.values(ordersCache);
@@ -513,17 +499,26 @@ function renderDriverDashboard() {
     const myDel = Object.entries(ordersCache).filter(([,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'ready'));
     document.getElementById('availableCount').textContent = available.length;
 
+    // Dashboard available list
     let availHTML = '';
     available.forEach(([key,o]) => {
-        availHTML += `<div class="order-card"><div style="display:flex;justify-content:space-between;"><div><strong>Order #${o.orderNumber || key.slice(-6)}</strong><br><small>${o.deliveryAddress || 'No address'}</small><br><strong style="color:var(--accent);">R${Number(o.total||0).toFixed(2)}</strong></div><button onclick="acceptDelivery('${key}')" class="btn btn-primary">Accept</button></div></div>`;
+        availHTML += `<div class="order-card"><div style="display:flex;justify-content:space-between;align-items:center;"><div><strong>Order #${o.orderNumber || key.slice(-6)}</strong><br><small>${o.deliveryAddress || 'No address'}</small><br><strong style="color:var(--accent);">R${Number(o.total||0).toFixed(2)}</strong></div><div style="display:flex;gap:8px;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary">Accept</button><button onclick="declineDelivery('${key}')" class="btn btn-danger">Decline</button></div></div></div>`;
     });
     document.getElementById('availableOrdersList').innerHTML = availHTML || `<div class="empty-state"><div class="es-emoji">🛵</div><p>No available orders</p></div>`;
+
+    // Full available orders section (same list + decline)
+    let fullAvailHTML = '';
+    available.forEach(([key,o]) => {
+        fullAvailHTML += `<div class="order-card"><div style="display:flex;justify-content:space-between;align-items:center;"><div><strong>Order #${o.orderNumber || key.slice(-6)}</strong><br><small>${o.deliveryAddress || 'No address'}</small><br><strong style="color:var(--accent);">R${Number(o.total||0).toFixed(2)}</strong></div><div style="display:flex;gap:8px;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary">Accept</button><button onclick="declineDelivery('${key}')" class="btn btn-danger">Decline</button></div></div></div>`;
+    });
+    document.getElementById('availableFullList').innerHTML = fullAvailHTML || `<div class="empty-state"><div class="es-emoji">🛵</div><p>No available orders</p></div>`;
 
     let myHTML = '';
     myDel.forEach(([key,o]) => {
         myHTML += `<div class="order-card"><div style="display:flex;justify-content:space-between;"><div><strong>Order #${o.orderNumber || key.slice(-6)}</strong><br>Status: <span style="color:var(--accent);">${o.status}</span></div><button onclick="markDelivered('${key}')" class="btn btn-primary">Mark Delivered</button></div></div>`;
     });
     document.getElementById('myDeliveriesList').innerHTML = myHTML || `<div class="empty-state"><div class="es-emoji">🛵</div><p>No active deliveries</p></div>`;
+    document.getElementById('myDeliveriesFullList').innerHTML = myHTML || `<div class="empty-state"><div class="es-emoji">🛵</div><p>No active deliveries</p></div>`;
 
     // Stats
     const todayDelivered = orders.filter(o => o.status === 'delivered' && new Date(o.createdAt).toDateString() === new Date().toDateString()).length;
@@ -535,17 +530,19 @@ function renderDriverDashboard() {
         <div class="stat-card"><div class="stat-icon"><i data-lucide="clock" style="color:var(--accent);"></i></div><h3>Hours Online</h3><p>6.2</p></div>`;
     lucide.createIcons();
 }
-
 // ── Driver Actions ────────────────────────────────────────────────
 function acceptDelivery(key) {
     db.ref('orders/' + key).update({ driverKey: DRIVER_KEY, driverName: driverData.name || 'Driver', status: 'assigned', updatedAt: Date.now() })
         .then(() => { showToast('Delivery accepted! 🛵', 'success'); renderDriverDashboard(); });
 }
+function declineDelivery(key) {
+    db.ref('orders/' + key).update({ status: 'declined', updatedAt: Date.now() })
+        .then(() => { showToast('Order declined', 'info'); renderDriverDashboard(); });
+}
 function markDelivered(key) {
     db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() })
         .then(() => { showToast('Order delivered! 🎉', 'success'); renderDriverDashboard(); });
 }
-
 // ── Profile & Settings ────────────────────────────────────────────
 function saveDriverProfile() {
     const vehicle = document.getElementById('p-vehicle').value;
@@ -554,7 +551,6 @@ function saveDriverProfile() {
         .then(() => showToast('Profile saved!', 'success'));
 }
 function toggleSetting(el, key) { el.classList.toggle('on'); }
-
 // ── Login ─────────────────────────────────────────────────────────
 async function partnerLogin() {
     const id = document.getElementById('driverLoginId').value.trim().toUpperCase();
@@ -575,7 +571,6 @@ async function partnerLogin() {
         err.style.display = 'block';
     }
 }
-
 async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -591,7 +586,6 @@ async function signInWithGoogle() {
         document.getElementById('loginError').style.display = 'block';
     }
 }
-
 async function submitDriverRegistration() {
     const err = document.getElementById('regError');
     const suc = document.getElementById('regSuccess');
@@ -619,13 +613,11 @@ async function submitDriverRegistration() {
         btn.disabled = false;
     }
 }
-
 function switchAuthTab(tab) {
     document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
     document.getElementById('loginPanel').style.display = tab === 'login' ? 'block' : 'none';
     document.getElementById('registerPanel').style.display = tab === 'register' ? 'block' : 'none';
 }
-
 // ── Navigation (identical) ────────────────────────────────────────
 function showTab(id, el) {
     document.querySelectorAll('#driverMainPanel .page-content').forEach(p=>p.classList.remove('active'));
@@ -634,7 +626,6 @@ function showTab(id, el) {
     if (el) el.classList.add('active');
     lucide.createIcons();
 }
-
 // ── Logout ────────────────────────────────────────────────────────
 function openLogoutModal() { showModal('logoutModal'); }
 function confirmLogout() {
@@ -645,11 +636,9 @@ function confirmLogout() {
     document.getElementById('authScreen').classList.remove('hidden');
     hideModal('logoutModal');
 }
-
 // ── Modal helpers ─────────────────────────────────────────────────
 function showModal(id) { const el=document.getElementById(id); el.style.display='flex'; setTimeout(()=>{el.classList.add('active');lucide.createIcons();},10); }
 function hideModal(id) { const el=document.getElementById(id); el.classList.remove('active'); setTimeout(()=>el.style.display='none',320); }
-
 // ── Toast ─────────────────────────────────────────────────────────
 function showToast(msg, type='success') {
     const t = document.getElementById('toast');
@@ -658,7 +647,6 @@ function showToast(msg, type='success') {
     clearTimeout(t._timer);
     t._timer = setTimeout(() => t.classList.remove('show'), 2800);
 }
-
 // ── Session check ─────────────────────────────────────────────────
 (function checkSession() {
     const s = JSON.parse(localStorage.getItem('vynix_driver_session') || 'null');
@@ -667,7 +655,15 @@ function showToast(msg, type='success') {
         enterPortal();
     }
 })();
-
+// ── SIDEBAR HOVER SLIDE (identical to vendor portal) ──────────────
+document.getElementById('driverSidebar').addEventListener('mouseenter', () => {
+    document.getElementById('driverSidebar').classList.add('expanded');
+    document.getElementById('driverMainPanel').classList.add('shifted');
+});
+document.getElementById('driverSidebar').addEventListener('mouseleave', () => {
+    document.getElementById('driverSidebar').classList.remove('expanded');
+    document.getElementById('driverMainPanel').classList.remove('shifted');
+});
 lucide.createIcons();
 </script>
 </body>
