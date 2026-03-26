@@ -51,14 +51,12 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
         input[type="text"], input[type="email"], input[type="tel"],
         input[type="number"], input[type="password"], input[type="url"],
         input[type="time"], input[type="file"], select {
             border-radius: 999px !important;
         }
         textarea { border-radius: 20px !important; }
-
         .step-indicator { display:flex; gap:8px; justify-content:center; margin-bottom:20px; }
         .step-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.2); transition:var(--transition); }
         .step-dot.active { background:#3b82f6; transform:scale(1.3); }
@@ -66,7 +64,6 @@
         .reg-step.active { display:block; }
         .auth-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .auth-success { background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.3); border-radius:12px; padding:10px 14px; color:#22c55e; font-size:0.82rem; font-weight:600; display:none; margin-bottom:8px; }
-
         #authScreen {
             position: fixed; inset: 0; z-index: 8000;
             background: linear-gradient(135deg, #0d1f2e 0%, #1e3a5f 100%);
@@ -116,7 +113,6 @@
         .auth-tab.active { background: #3b82f6; color: white; }
         .auth-divider { display: flex; align-items: center; gap: 12px; margin: 8px 0; color: rgba(255,255,255,0.25); font-size: 0.8rem; }
         .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
-
         #shimmerOverlay { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: none; flex-direction: column; transition: opacity .55s ease; }
         #shimmerOverlay.active { display: flex; }
         #shimmerOverlay.fade-out { opacity: 0; pointer-events: none; }
@@ -131,7 +127,6 @@
         .shim-card { height: 200px; border-radius: 20px; }
         .shim-logo { width: 42px; height: 42px; border-radius: 14px; }
         .shim-nav { height: 36px; border-radius: 999px; width: 42px; }
-
         .sidebar {
             width: var(--sidebar-collapsed); background: var(--surface);
             border-right: 1px solid var(--border); padding: 24px 12px;
@@ -164,19 +159,16 @@
         .sidebar.expanded .user-info { opacity: 1; transform: translateX(0); }
         .online-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; margin-right: 4px; animation: pulse-dot 2s infinite; }
         @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-
         .main-panel { margin-left: var(--sidebar-collapsed); flex: 1; padding: 36px; max-width: calc(100% - var(--sidebar-collapsed)); transition: margin-left 0.35s cubic-bezier(0.4,0,0.2,1), max-width 0.35s cubic-bezier(0.4,0,0.2,1); }
         .main-panel.shifted { margin-left: var(--sidebar-width); max-width: calc(100% - var(--sidebar-width)); }
         .page-content { display: none; animation: fadeInUp 0.35s ease-out; }
         .page-content.active { display: block; }
         @keyframes fadeInUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
-
         .dashboard-hero { border-radius: 24px; padding: 28px 32px; margin-bottom: 28px; background: var(--store-gradient); position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(59,130,246,0.3); }
         .hero-inner { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
         .hero-left h1 { font-size: 1.7rem; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 4px; }
         .hero-left p { color: rgba(255,255,255,0.75); font-size: 0.88rem; font-weight: 500; }
         .hero-emoji { font-size: 3.5rem; line-height: 1; }
-
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 28px; }
         .stat-card { background: white; padding: 22px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; }
         .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
@@ -186,11 +178,9 @@
         .stat-icon i { width: 18px; height: 18px; color: var(--accent); }
         .stat-card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--dim); letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
         .stat-card p { font-size: 2rem; font-weight: 800; color: var(--text); }
-
         .content-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
         .card-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .card-header h2 { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-
         .order-card { padding: 18px 22px; border-bottom: 1px solid var(--border); transition: var(--transition); }
         .order-card:hover { background: var(--accent-light); }
         .order-card:last-child { border-bottom: none; }
@@ -200,7 +190,6 @@
         .pill-yellow { background: #fef9c3; color: #a16207; }
         .pill-red { background: #fee2e2; color: #dc2626; }
         .pill-gray { background: var(--surface2); color: var(--dim); }
-
         .btn-primary { background: var(--accent); color: white; border: none; padding: 11px 20px; border-radius: 999px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: var(--transition); box-shadow: 0 4px 14px rgba(var(--accent-rgb),0.35); font-family: inherit; font-size: 0.88rem; }
         .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--accent-rgb),0.45); }
         .btn { padding: 7px 14px; border-radius: 999px; border: none; cursor: pointer; font-weight: 600; transition: var(--transition); font-size: 0.8rem; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; white-space: nowrap; }
@@ -210,17 +199,14 @@
         .btn-danger:hover { background: var(--danger); color: white; transform: translateY(-1px); }
         .btn-success { background: #dcfce7; color: #16a34a; }
         .btn-success:hover { background: #16a34a; color: white; transform: translateY(-1px); }
-
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); backdrop-filter: blur(12px); z-index: 2000; justify-content: center; align-items: center; opacity: 0; transition: opacity .3s ease; }
         .modal-overlay.active { opacity: 1; }
         .modal-content { background: white; padding: 30px; border-radius: 24px; width: 560px; max-width: 95vw; box-shadow: 0 32px 64px rgba(0,0,0,0.18); transform: scale(0.9) translateY(20px); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); max-height: 90vh; overflow-y: auto; }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
         .modal-btn-row { display: flex; gap: 12px; margin-top: 22px; }
-
         .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: white; padding: 15px 22px; border-radius: 999px; box-shadow: var(--shadow-hover); display: flex; align-items: center; gap: 12px; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); z-index: 3000; font-size: 0.9rem; font-weight: 600; max-width: 360px; }
         .toast.show { transform: translateY(0); opacity: 1; }
         .toast.success { border-left: 4px solid var(--green); }
-
         .profile-container { max-width: 700px; }
         .profile-hero-card { background: var(--store-gradient); border-radius: 24px; padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(59,130,246,0.3); }
         .profile-hero-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.08); }
@@ -238,7 +224,6 @@
         .profile-pill-input { flex: 1; padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 999px; font-family: inherit; font-size: 0.88rem; outline: none; transition: var(--transition); background: var(--bg); color: var(--text); max-width: 280px; }
         .profile-pill-input:focus { border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
         .profile-pill-input[readonly] { background: var(--accent-light); color: var(--accent-dark); border-color: transparent; cursor: default; }
-
         .settings-container { max-width: 700px; }
         .settings-card { background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
         .settings-card-title { font-size: 0.72rem; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 20px 0; }
@@ -251,10 +236,8 @@
         .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: var(--transition); }
         .toggle.on { background: var(--accent); }
         .toggle.on::after { transform: translateX(20px); }
-
         .map-container { width: 100%; height: 280px; border-radius: 16px; overflow: hidden; margin-top: 12px; border: 1px solid var(--border); }
         #orderMap { width: 100%; height: 100%; }
-
         .order-detail-section { margin-bottom: 18px; }
         .order-detail-section h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--dim); margin-bottom: 10px; }
         .addr-display { background: var(--accent-light); border: 1px solid rgba(59,130,246,0.2); border-radius: 14px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px; }
@@ -292,8 +275,21 @@ let DRIVER_KEY = null;
 let driverData = null;
 let ordersCache = {};
 let currentMapInstance = null;
-
 function getCustomerName(order) { return order.customerName || order.userName || order.customer || 'Guest Customer'; }
+
+// ── ONLY CHANGE: robust customer address helper ─────────────────────────────
+function getOrderAddress(o) {
+    return o.deliveryAddress || 
+           o.address || 
+           o.customerAddress || 
+           o.shippingAddress || 
+           o.fullAddress || 
+           o.locationAddress || 
+           (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) || 
+           (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) || 
+           (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) || 
+           'No address provided';
+}
 
 function enterPortal() { document.getElementById('authScreen').classList.add('hidden'); showShimmer(); startDriverSync();
 setTimeout(() => { document.getElementById('driverSidebar').style.display = 'flex'; document.getElementById('driverMainPanel').style.display = 'block'; hideShimmer(); lucide.createIcons(); }, 1500); }
@@ -330,12 +326,13 @@ function renderDriverDashboard() {
     lucide.createIcons();
 }
 function buildAvailableOrderCard(key, o, fullView = false) {
-    const addr = o.deliveryAddress || 'No address provided'; const addrShort = addr.length > 40 ? addr.substring(0,40)+'…' : addr; const total = Number(o.total||0).toFixed(2);
+    const addr = getOrderAddress(o);
+    const addrShort = addr.length > 40 ? addr.substring(0,40)+'…' : addr; const total = Number(o.total||0).toFixed(2);
     const orderNum = o.orderNumber || key.slice(-6); const vendor = o.vendorName || 'Restaurant'; const items = (o.items||[]).length; const customer = getCustomerName(o);
     return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addrShort}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button></div></div></div>`;
 }
 function buildMyDeliveryCard(key, o, fullView = false) {
-    const addr = o.deliveryAddress || 'No address provided';
+    const addr = getOrderAddress(o);
     const orderNum = o.orderNumber || key.slice(-6); const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } };
     const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' }; const customer = getCustomerName(o);
     return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${o.vendorName||'Restaurant'}</strong><span class="order-meta-pill ${st.cls}">${st.label}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);">R${Number(o.total||0).toFixed(2)}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;"><button onclick="markDelivered('${key}')" class="btn btn-success"><i data-lucide="check-circle" style="width:13px;height:13px;"></i> Delivered</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit"><i data-lucide="map" style="width:13px;height:13px;"></i> Map</button></div></div></div>`;
@@ -345,7 +342,7 @@ function updateHistoryTab() {
     const myHistory = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'delivered' || o.status === 'cancelled')).sort(([,a],[,b]) => (b.createdAt||0) - (a.createdAt||0));
     const container = document.getElementById('orderHistoryList'); if (!container) return;
     if (!myHistory.length) { container.innerHTML = `<div class="empty-state"><div class="es-emoji">📋</div><div class="es-title">No completed orders yet</div><div class="es-sub">Delivered orders will appear here</div></div>`; return; }
-    container.innerHTML = myHistory.map(([key,o]) => { const date = new Date(o.createdAt||Date.now()); const dateStr = date.toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'}); const timeStr = date.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'}); const earning = (Number(o.total||0)*0.15).toFixed(2); const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red'; const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled'; const addr = o.deliveryAddress || 'No address'; const customer = getCustomerName(o);
+    container.innerHTML = myHistory.map(([key,o]) => { const date = new Date(o.createdAt||Date.now()); const dateStr = date.toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'}); const timeStr = date.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'}); const earning = (Number(o.total||0)*0.15).toFixed(2); const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red'; const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled'; const addr = getOrderAddress(o); const customer = getCustomerName(o);
         return `<div class="history-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong>${o.vendorName||'Restaurant'}</strong><span class="order-meta-pill ${statusCls}">${statusLabel}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div><div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:13px;height:13px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.78rem;color:var(--dim);">${addr}</span></div><div style="font-size:0.75rem;color:var(--dim);">${dateStr} · ${timeStr}</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-size:1.1rem;font-weight:800;color:var(--text);">R${Number(o.total||0).toFixed(2)}</div><div style="font-size:0.75rem;color:var(--green);font-weight:700;">+R${earning} earned</div></div></div></div>`;
     }).join(''); lucide.createIcons();
 }
@@ -358,7 +355,7 @@ function updateEarningsTab() { const orders = Object.values(ordersCache).filter(
     if(me) me.textContent = `R ${monthEarn.toFixed(2)}`; const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length;
 }
 window.viewOrderDetail = function(key) {
-    const o = ordersCache[key]; if (!o) return; const addr = o.deliveryAddress || 'No address provided'; const orderNum = o.orderNumber || key.slice(-6); const items = (o.items||[]); const total = Number(o.total||0).toFixed(2);
+    const o = ordersCache[key]; if (!o) return; const addr = getOrderAddress(o); const orderNum = o.orderNumber || key.slice(-6); const items = (o.items||[]); const total = Number(o.total||0).toFixed(2);
     const customer = getCustomerName(o);
     let itemsHTML = items.map(item => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;"><span>${item.name} ×${item.quantity||1}</span><span style="font-weight:700;">R${(Number(item.price||0)*(item.quantity||1)).toFixed(2)}</span></div>`).join('');
     document.getElementById('orderDetailTitle').textContent = `Order #${orderNum}`;
@@ -376,8 +373,8 @@ window.acceptDelivery = function(key) { if (!DRIVER_KEY || !driverData) return;
 window.markDelivered = function(key) { db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); };
 window.saveDriverProfile = function() { if (!DRIVER_KEY) return; const updates = { vehicleType: document.getElementById('p-vehicle').value, licenseNumber: document.getElementById('p-license').value, phone: document.getElementById('p-phone').value, email: document.getElementById('p-email').value, emergencyContact: document.getElementById('p-emergency').value, bankDetails: document.getElementById('p-bank').value, updatedAt: Date.now() };
     db.ref('drivers/' + DRIVER_KEY).update(updates).then(() => showToast('Profile saved! ✓', 'success')); };
-window.toggleSetting = function(el, key) { 
-    el.classList.toggle('on'); 
+window.toggleSetting = function(el, key) {
+    el.classList.toggle('on');
     if (DRIVER_KEY) { db.ref('drivers/' + DRIVER_KEY + '/settings/' + key).set(el.classList.contains('on')); }
 };
 function regNext(step) { const err = document.getElementById('regError'); err.style.display = 'none'; if (step === 0) { const name = document.getElementById('reg-name').value.trim();
@@ -406,11 +403,11 @@ async function signInWithGoogle() { const provider = new firebase.auth.GoogleAut
 function switchAuthTab(tab) { document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
     document.getElementById('loginPanel').style.display = tab === 'login' ? 'block' : 'none'; document.getElementById('registerPanel').style.display = tab === 'register' ? 'block' : 'none';
     if (tab === 'register') { document.querySelectorAll('.reg-step').forEach(s => s.classList.remove('active')); document.getElementById('step0').classList.add('active'); document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active'); } }
-function showTab(id, el) { 
-    document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active')); 
-    document.querySelectorAll('#driverSidebar .nav-item').forEach(n => n.classList.remove('active')); 
-    document.getElementById(id).classList.add('active'); 
-    if (el) { el.classList.add('active'); } 
+function showTab(id, el) {
+    document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#driverSidebar .nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (el) { el.classList.add('active'); }
     else { const targetNav = document.querySelector(`.nav-item[onclick="showTab('${id}',this)"]`); if(targetNav) targetNav.classList.add('active'); }
     lucide.createIcons();
 }
