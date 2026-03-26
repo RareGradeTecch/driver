@@ -288,15 +288,18 @@ function getDriverFullName(driver) {
 }
 
 function getCustomerName(order) {
-    if (order.customerName && order.customerName.trim() !== '' && order.customerName !== 'Guest Customer') return order.customerName.trim();
-    if (order.userName && order.userName.trim() !== '' && order.userName !== 'Guest Customer') return order.userName.trim();
-    if (order.customer && order.customer.trim() !== '' && order.customer !== 'Guest Customer') return order.customer.trim();
+    // Get real customer name from order data - priority: customerName, userName, customer, user.name, or userEmail
+    if (order.customerName && order.customerName.trim() !== '') return order.customerName.trim();
+    if (order.userName && order.userName.trim() !== '') return order.userName.trim();
+    if (order.customer && order.customer.trim() !== '') return order.customer.trim();
     if (order.user && order.user.name) return order.user.name;
     if (order.userEmail && order.userEmail.includes('@')) return order.userEmail.split('@')[0];
+    if (order.userId && order.userId !== 'guest') return 'Customer';
     return 'Customer';
 }
 
 function getOrderAddress(o) {
+    // Get the full delivery address as assigned by vendor
     return o.deliveryAddress || 
            o.address || 
            o.customerAddress || 
@@ -365,7 +368,7 @@ function buildAvailableOrderCard(key, o, fullView = false) {
     const vendor = o.vendorName || 'Restaurant';
     const items = (o.items||[]).length;
     const customer = getCustomerName(o);
-    return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button><button onclick="confirmDeleteOrder('${key}')" class="btn btn-danger" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete</button></div></div></div>`;
+    return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button></div></div></div>`;
 }
 function buildMyDeliveryCard(key, o, fullView = false) {
     const addr = getOrderAddress(o);
