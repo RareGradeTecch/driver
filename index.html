@@ -288,7 +288,7 @@ function getOrderAddress(o) {
            (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) || 
            (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) || 
            (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) || 
-           
+           'No address provided';
 }
 
 function enterPortal() { document.getElementById('authScreen').classList.add('hidden'); showShimmer(); startDriverSync();
