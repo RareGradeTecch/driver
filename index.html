@@ -12,6 +12,7 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <style>
+        /* all original styles remain unchanged – omitted for brevity */
         :root {
             --accent: #3b82f6;
             --accent-dark: #2563eb;
@@ -258,7 +259,7 @@
     <section id="deliveries" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">My Current Deliveries</h1><div id="myDeliveriesFullList" class="content-card" style="padding:0;"></div></section>
     <section id="history" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Order History</h1><div id="orderHistoryList"></div></section>
     <section id="earnings" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Earnings</h1><div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i data-lucide="dollar-sign"></i></div><h3>Today</h3><p id="earningsToday" style="color:var(--accent);">R 0</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="trending-up"></i></div><h3>This Week</h3><p id="earningsWeek" style="color:var(--accent);">R 0</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="calendar"></i></div><h3>This Month</h3><p id="earningsMonth" style="color:var(--accent);">R 0</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="package-check"></i></div><h3>Total Delivered</h3><p id="totalDelivered" style="color:var(--accent);">0</p></div></div></section>
-    <section id="profile" class="page-content"><div class="profile-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Driver Profile</h1><div class="profile-hero-card"><div class="profile-hero-inner"><div class="profile-avatar-large" id="profileAvatar">D</div><div class="profile-hero-info"><h2 id="profileName">Driver Name</h2><p id="profileID">DRV-XXXXXX</p><div class="profile-status-pill"><span class="online-dot"></span> Active Driver</div></div></div></div><div class="profile-section-card"><div class="profile-section-title">Personal Information</div><div class="profile-field-row"><div><div class="profile-field-label">Vehicle Type</div></div><select class="profile-pill-input" id="p-vehicle"><option>Motorcycle</option><option>Bicycle</option><option>Car</option><option>Scooter</option><option>Bakkie</option></select></div><div class="profile-field-row"><div><div class="profile-field-label">License / Reg Number</div></div><input type="text" class="profile-pill-input" id="p-license" placeholder="LN 12345678"></div><div class="profile-field-row"><div><div class="profile-field-label">Phone Number</div></div><input type="tel" class="profile-pill-input" id="p-phone" placeholder="+27 71 000 0000"></div><div class="profile-field-row"><div><div class="profile-field-label">Email Address</div></div><input type="email" class="profile-pill-input" id="p-email" placeholder="you@email.com"></div><div class="profile-field-row"><div><div class="profile-field-label">Emergency Contact</div></div><input type="tel" class="profile-pill-input" id="p-emergency" placeholder="+27 82 000 0000"></div></div><div class="profile-section-card"><div class="profile-section-title">Driver Stats</div><div class="profile-field-row"><div><div class="profile-field-label">Total Deliveries</div></div><input type="text" class="profile-pill-input" id="p-total-deliveries" value="0" readonly></div><div class="profile-field-row"><div><div class="profile-field-label">Current Rating</div></div><input type="text" class="profile-pill-input" id="p-rating" value="5.0 ★" readonly></div></div><div class="profile-section-card"><div class="profile-section-title">Payout Details</div><div class="profile-field-row"><div><div class="profile-field-label">Bank Details</div></div><input type="text" class="profile-pill-input" id="p-bank" placeholder="Bank name & account number"></div></div><button class="btn-primary" onclick="saveDriverProfile()" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;margin-top:4px;"><i data-lucide="save" style="width:16px;height:16px;"></i> Save Profile</button></div></section>
+    <section id="profile" class="page-content"><div class="profile-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Driver Profile</h1><div class="profile-hero-card"><div class="profile-hero-inner"><div class="profile-avatar-large" id="profileAvatar">D</div><div class="profile-hero-info"><h2 id="profileName">Driver Name</h2><p id="profileID">DRV-XXXXXX</p><div class="profile-status-pill"><span class="online-dot"></span> Active Driver</div></div></div></div><div class="profile-section-card"><div class="profile-section-title">Personal Information</div><div class="profile-field-row"><div><div class="profile-field-label">Full Name</div></div><input type="text" class="profile-pill-input" id="p-fullname" placeholder="Your full name"></div><div class="profile-field-row"><div><div class="profile-field-label">Vehicle Type</div></div><select class="profile-pill-input" id="p-vehicle"><option>Motorcycle</option><option>Bicycle</option><option>Car</option><option>Scooter</option><option>Bakkie</option></select></div><div class="profile-field-row"><div><div class="profile-field-label">License / Reg Number</div></div><input type="text" class="profile-pill-input" id="p-license" placeholder="LN 12345678"></div><div class="profile-field-row"><div><div class="profile-field-label">Phone Number</div></div><input type="tel" class="profile-pill-input" id="p-phone" placeholder="+27 71 000 0000"></div><div class="profile-field-row"><div><div class="profile-field-label">Email Address</div></div><input type="email" class="profile-pill-input" id="p-email" placeholder="you@email.com"></div><div class="profile-field-row"><div><div class="profile-field-label">Emergency Contact</div></div><input type="tel" class="profile-pill-input" id="p-emergency" placeholder="+27 82 000 0000"></div></div><div class="profile-section-card"><div class="profile-section-title">Driver Stats</div><div class="profile-field-row"><div><div class="profile-field-label">Total Deliveries</div></div><input type="text" class="profile-pill-input" id="p-total-deliveries" value="0" readonly></div><div class="profile-field-row"><div><div class="profile-field-label">Current Rating</div></div><input type="text" class="profile-pill-input" id="p-rating" value="5.0 ★" readonly></div></div><div class="profile-section-card"><div class="profile-section-title">Payout Details</div><div class="profile-field-row"><div><div class="profile-field-label">Bank Details</div></div><input type="text" class="profile-pill-input" id="p-bank" placeholder="Bank name & account number"></div></div><button class="btn-primary" onclick="saveDriverProfile()" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;margin-top:4px;"><i data-lucide="save" style="width:16px;height:16px;"></i> Save Profile</button></div></section>
     <section id="settings" class="page-content"><div class="settings-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Settings</h1><div class="settings-card"><div class="settings-card-title">Availability</div><div class="settings-row"><div><div class="settings-label">Online Status</div><div class="settings-sub">Show as available to receive orders</div></div><div class="toggle on" id="tog-online" onclick="toggleSetting(this,'online')"></div></div><div class="settings-row"><div><div class="settings-label">Auto-Accept Nearby Orders</div><div class="settings-sub">Automatically accept orders within 2km</div></div><div class="toggle" id="tog-autoaccept" onclick="toggleSetting(this,'autoaccept')"></div></div><div class="settings-row"><div><div class="settings-label">Availability Schedule</div><div class="settings-sub">Use preset working hours</div></div><div class="toggle on" id="tog-schedule" onclick="toggleSetting(this,'schedule')"></div></div></div><div class="settings-card"><div class="settings-card-title">Notifications</div><div class="settings-row"><div><div class="settings-label">Receive Order Alerts</div><div class="settings-sub">Get notified when new orders arrive</div></div><div class="toggle on" id="tog-alerts" onclick="toggleSetting(this,'alerts')"></div></div><div class="settings-row"><div><div class="settings-label">Push Notifications</div><div class="settings-sub">Browser push notifications</div></div><div class="toggle on" id="tog-push" onclick="toggleSetting(this,'push')"></div></div></div><div class="settings-card"><div class="settings-card-title">Privacy & Location</div><div class="settings-row"><div><div class="settings-label">Live Location Sharing</div><div class="settings-sub">Share real-time location with customers</div></div><div class="toggle on" id="tog-location" onclick="toggleSetting(this,'location')"></div></div></div><div class="settings-card"><div class="settings-card-title">App</div><div class="settings-row"><div><div class="settings-label">Dark Mode</div><div class="settings-sub">Switch to dark theme</div></div><div class="toggle" id="tog-dark" onclick="toggleSetting(this,'dark')"></div></div></div></div></section>
 </main>
 <div class="modal-overlay" id="logoutModal"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="log-out" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Log Out?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to log out?</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="confirmLogout()"><i data-lucide="log-out" style="width:15px;height:15px;"></i> Log Out</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('logoutModal')">Cancel</button></div></div></div>
@@ -275,9 +276,18 @@ let DRIVER_KEY = null;
 let driverData = null;
 let ordersCache = {};
 let currentMapInstance = null;
-function getCustomerName(order) { return order.customerName || order.userName || order.customer || 'Guest Customer'; }
 
-// ── ONLY CHANGE: robust customer address helper ─────────────────────────────
+// Helper: get driver's full name from either name field or firstName+lastName
+function getDriverFullName(driver) {
+    if (!driver) return 'Driver';
+    if (driver.name && driver.name.trim()) return driver.name.trim();
+    const first = driver.firstName ? driver.firstName.trim() : '';
+    const last = driver.lastName ? driver.lastName.trim() : '';
+    if (first || last) return `${first} ${last}`.trim();
+    return 'Driver';
+}
+
+function getCustomerName(order) { return order.customerName || order.userName || order.customer || 'Guest Customer'; }
 function getOrderAddress(o) {
     return o.deliveryAddress || 
            o.address || 
@@ -290,7 +300,6 @@ function getOrderAddress(o) {
            (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) || 
            'No address provided';
 }
-
 function enterPortal() { document.getElementById('authScreen').classList.add('hidden'); showShimmer(); startDriverSync();
 setTimeout(() => { document.getElementById('driverSidebar').style.display = 'flex'; document.getElementById('driverMainPanel').style.display = 'block'; hideShimmer(); lucide.createIcons(); }, 1500); }
 function showShimmer() { document.getElementById('shimmerOverlay').classList.add('active'); }
@@ -299,11 +308,27 @@ function startDriverSync() { if (!DRIVER_KEY) return;
 db.ref('drivers/' + DRIVER_KEY).on('value', snap => { driverData = snap.val(); if (driverData) applyDriverUI(); });
 db.ref('orders').on('value', snap => { ordersCache = snap.val() || {}; renderDriverDashboard(); updateHistoryTab(); updateEarningsTab(); });
 }
-function applyDriverUI() { const name = driverData.name || 'Driver'; document.getElementById('driverSidebarName').textContent = name; document.getElementById('driverAvatar').textContent = name.charAt(0).toUpperCase(); document.getElementById('profileName').textContent = name;
-document.getElementById('profileID').textContent = driverData.driverID || 'DRV-XXXXXX'; document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase(); document.getElementById('dashHeroTitle').textContent = `Hey ${name.split(' ')[0]}! 🛵`; if (driverData.vehicleType) document.getElementById('p-vehicle').value = driverData.vehicleType;
-if (driverData.licenseNumber) document.getElementById('p-license').value = driverData.licenseNumber; if (driverData.phone) document.getElementById('p-phone').value = driverData.phone; if (driverData.email) document.getElementById('p-email').value = driverData.email; if (driverData.emergencyContact) document.getElementById('p-emergency').value = driverData.emergencyContact;
-if (driverData.bankDetails) document.getElementById('p-bank').value = driverData.bankDetails; if (driverData.rating) document.getElementById('p-rating').value = driverData.rating + ' ★';
-if (driverData.settings) { ['online', 'autoaccept', 'schedule', 'alerts', 'push', 'location', 'dark'].forEach(k => { const tog = document.getElementById('tog-' + k); if (tog) { if (driverData.settings[k]) tog.classList.add('on'); else tog.classList.remove('on'); } }); } }
+function applyDriverUI() {
+    const fullName = getDriverFullName(driverData);
+    document.getElementById('driverSidebarName').textContent = fullName;
+    document.getElementById('driverAvatar').textContent = fullName.charAt(0).toUpperCase();
+    document.getElementById('profileName').textContent = fullName;
+    document.getElementById('profileID').textContent = driverData.driverID || 'DRV-XXXXXX';
+    document.getElementById('profileAvatar').textContent = fullName.charAt(0).toUpperCase();
+    // Extract first name for greeting
+    const firstName = (driverData.name && driverData.name.split(' ')[0]) || 
+                     (driverData.firstName ? driverData.firstName.split(' ')[0] : 'Driver');
+    document.getElementById('dashHeroTitle').textContent = `Hey ${firstName}! 🛵`;
+    document.getElementById('p-fullname').value = fullName;
+    if (driverData.vehicleType) document.getElementById('p-vehicle').value = driverData.vehicleType;
+    if (driverData.licenseNumber) document.getElementById('p-license').value = driverData.licenseNumber;
+    if (driverData.phone) document.getElementById('p-phone').value = driverData.phone;
+    if (driverData.email) document.getElementById('p-email').value = driverData.email;
+    if (driverData.emergencyContact) document.getElementById('p-emergency').value = driverData.emergencyContact;
+    if (driverData.bankDetails) document.getElementById('p-bank').value = driverData.bankDetails;
+    if (driverData.rating) document.getElementById('p-rating').value = driverData.rating + ' ★';
+    if (driverData.settings) { ['online', 'autoaccept', 'schedule', 'alerts', 'push', 'location', 'dark'].forEach(k => { const tog = document.getElementById('tog-' + k); if (tog) { if (driverData.settings[k]) tog.classList.add('on'); else tog.classList.remove('on'); } }); }
+}
 function renderDriverDashboard() {
     const orders = Object.entries(ordersCache);
     const available = orders.filter(([k,o]) => (o.status === 'ready' || o.status === 'pending') && !o.driverKey);
@@ -326,10 +351,13 @@ function renderDriverDashboard() {
     lucide.createIcons();
 }
 function buildAvailableOrderCard(key, o, fullView = false) {
-    const addr = getOrderAddress(o);
-    const addrShort = addr.length > 40 ? addr.substring(0,40)+'…' : addr; const total = Number(o.total||0).toFixed(2);
-    const orderNum = o.orderNumber || key.slice(-6); const vendor = o.vendorName || 'Restaurant'; const items = (o.items||[]).length; const customer = getCustomerName(o);
-    return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addrShort}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button></div></div></div>`;
+    const addr = getOrderAddress(o);        // full address, no truncation
+    const total = Number(o.total||0).toFixed(2);
+    const orderNum = o.orderNumber || key.slice(-6);
+    const vendor = o.vendorName || 'Restaurant';
+    const items = (o.items||[]).length;
+    const customer = getCustomerName(o);
+    return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button></div></div></div>`;
 }
 function buildMyDeliveryCard(key, o, fullView = false) {
     const addr = getOrderAddress(o);
@@ -368,11 +396,31 @@ window.viewOrderDetail = function(key) {
 };
 window.openMapsDirections = function(addr, vendor) { window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); };
 window.acceptDelivery = function(key) { if (!DRIVER_KEY || !driverData) return;
-    db.ref('orders/' + key).transaction(currentData => { if (!currentData) return; if (currentData.driverKey) return; currentData.driverKey = DRIVER_KEY; currentData.driverName = driverData.name || 'Driver'; currentData.status = 'assigned'; currentData.updatedAt = Date.now(); return currentData; }).then(result => { if (result.committed) showToast('Delivery accepted! 🛵', 'success'); else showToast('Order already taken by another driver', ''); }).catch(() => showToast('Failed to accept order'));
+    db.ref('orders/' + key).transaction(currentData => { if (!currentData) return; if (currentData.driverKey) return; currentData.driverKey = DRIVER_KEY; currentData.driverName = driverData.name || getDriverFullName(driverData); currentData.status = 'assigned'; currentData.updatedAt = Date.now(); return currentData; }).then(result => { if (result.committed) showToast('Delivery accepted! 🛵', 'success'); else showToast('Order already taken by another driver', ''); }).catch(() => showToast('Failed to accept order'));
 };
 window.markDelivered = function(key) { db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); };
-window.saveDriverProfile = function() { if (!DRIVER_KEY) return; const updates = { vehicleType: document.getElementById('p-vehicle').value, licenseNumber: document.getElementById('p-license').value, phone: document.getElementById('p-phone').value, email: document.getElementById('p-email').value, emergencyContact: document.getElementById('p-emergency').value, bankDetails: document.getElementById('p-bank').value, updatedAt: Date.now() };
-    db.ref('drivers/' + DRIVER_KEY).update(updates).then(() => showToast('Profile saved! ✓', 'success')); };
+window.saveDriverProfile = function() {
+    if (!DRIVER_KEY) return;
+    const newFullName = document.getElementById('p-fullname').value.trim();
+    if (!newFullName) { showToast('Please enter your full name', 'error'); return; }
+    const updates = {
+        name: newFullName,
+        firstName: newFullName.split(' ')[0] || '',
+        lastName: newFullName.split(' ').slice(1).join(' ') || '',
+        vehicleType: document.getElementById('p-vehicle').value,
+        licenseNumber: document.getElementById('p-license').value,
+        phone: document.getElementById('p-phone').value,
+        email: document.getElementById('p-email').value,
+        emergencyContact: document.getElementById('p-emergency').value,
+        bankDetails: document.getElementById('p-bank').value,
+        updatedAt: Date.now()
+    };
+    db.ref('drivers/' + DRIVER_KEY).update(updates).then(() => {
+        showToast('Profile saved! ✓', 'success');
+        if (driverData) Object.assign(driverData, updates);
+        applyDriverUI();
+    });
+};
 window.toggleSetting = function(el, key) {
     el.classList.toggle('on');
     if (DRIVER_KEY) { db.ref('drivers/' + DRIVER_KEY + '/settings/' + key).set(el.classList.contains('on')); }
@@ -385,7 +433,23 @@ function regBack(step) { if (step === 1) { document.getElementById('step1').clas
 async function submitDriverRegistration() { const err = document.getElementById('regError'); const suc = document.getElementById('regSuccess'); const btn = document.getElementById('regSubmitBtn');
     const email = document.getElementById('reg-email').value.trim(); const vehicle = document.getElementById('reg-vehicle').value; const license = document.getElementById('reg-license').value.trim();
     if (!email || !vehicle || !license) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return;
-    } btn.disabled = true; btn.textContent = 'Submitting…'; const data = { name: document.getElementById('reg-name').value.trim(), phone: document.getElementById('reg-phone').value.trim(), city: document.getElementById('reg-city').value.trim(), province: document.getElementById('reg-province').value, email, vehicleType: vehicle, licenseNumber: license, status: 'pending', createdAt: Date.now() };
+    } btn.disabled = true; btn.textContent = 'Submitting…';
+    const fullName = document.getElementById('reg-name').value.trim();
+    const firstName = fullName.split(' ')[0] || '';
+    const lastName = fullName.split(' ').slice(1).join(' ') || '';
+    const data = {
+        name: fullName,
+        firstName: firstName,
+        lastName: lastName,
+        phone: document.getElementById('reg-phone').value.trim(),
+        city: document.getElementById('reg-city').value.trim(),
+        province: document.getElementById('reg-province').value,
+        email,
+        vehicleType: vehicle,
+        licenseNumber: license,
+        status: 'pending',
+        createdAt: Date.now()
+    };
     try { await db.ref('drivers').push(data); suc.innerHTML = '✅ Application submitted! Admin will review and assign your Driver ID.'; suc.style.display = 'block';
     err.style.display = 'none'; btn.textContent = '✓ Sent!'; setTimeout(() => { switchAuthTab('login'); btn.disabled=false; btn.textContent='Submit Application'; suc.style.display='none'; }, 3500);
     } catch(e) { err.textContent = 'Submission failed. Try again.'; err.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Application'; } }
