@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vynix Eats | Driver Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -36,6 +36,7 @@
             --shadow: 0 4px 16px rgba(0,0,0,0.05);
             --shadow-hover: 0 8px 28px rgba(0,0,0,0.10);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --mobile-bottom-nav: 64px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -127,6 +128,8 @@
         .shim-card { height: 200px; border-radius: 20px; }
         .shim-logo { width: 42px; height: 42px; border-radius: 14px; }
         .shim-nav { height: 36px; border-radius: 999px; width: 42px; }
+
+        /* ── DESKTOP SIDEBAR ── */
         .sidebar {
             width: var(--sidebar-collapsed); background: var(--surface);
             border-right: 1px solid var(--border); padding: 24px 12px;
@@ -246,25 +249,402 @@
         .history-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
         .accepted-banner { background: #dcfce7; border: 1px solid #86efac; border-radius: 12px; padding: 10px 14px; font-size: 0.8rem; font-weight: 700; color: #16a34a; display: flex; align-items: center; gap: 8px; margin-top: 8px; }
         .customer-name-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border-radius: 999px; padding: 3px 12px; font-size: 0.7rem; font-weight: 600; color: var(--accent); margin-left: 8px; }
+        .distance-badge { display: inline-flex; align-items: center; gap: 4px; background: #dcfce7; border-radius: 999px; padding: 3px 10px; font-size: 0.7rem; font-weight: 700; color: #16a34a; }
+
+        /* ── LOCATION BANNER ── */
+        .location-banner {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 1px solid #fcd34d;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: #92400e;
+        }
+        .location-banner.success {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-color: #86efac;
+            color: #14532d;
+        }
+        .location-banner.error {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-color: #fca5a5;
+            color: #7f1d1d;
+        }
+
+        /* ── MOBILE STYLES ── */
+        @media (max-width: 768px) {
+            /* Hide desktop sidebar */
+            .sidebar { display: none !important; }
+            .shim-sidebar { display: none !important; }
+            .shim-main { margin-left: 0 !important; padding: 20px 16px !important; }
+
+            /* Main panel full width */
+            .main-panel {
+                margin-left: 0 !important;
+                max-width: 100% !important;
+                padding: 16px 16px calc(var(--mobile-bottom-nav) + 20px) !important;
+            }
+            .main-panel.shifted { margin-left: 0 !important; max-width: 100% !important; }
+
+            /* Mobile top bar */
+            .mobile-topbar {
+                display: flex !important;
+                align-items: center;
+                justify-content: space-between;
+                padding: 14px 16px;
+                background: white;
+                border-bottom: 1px solid var(--border);
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                z-index: 200;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            }
+            .mobile-topbar-logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; color: var(--text); }
+            .mobile-topbar-logo span { color: var(--accent); }
+            .mobile-topbar-right { display: flex; align-items: center; gap: 10px; }
+            .mobile-avatar { width: 36px; height: 36px; border-radius: 10px; background: var(--store-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; }
+
+            /* Offset content for topbar */
+            #driverMainPanel { padding-top: calc(64px + 16px) !important; }
+
+            /* Bottom nav */
+            .mobile-bottom-nav {
+                display: flex !important;
+                position: fixed;
+                bottom: 0; left: 0; right: 0;
+                background: white;
+                border-top: 1px solid var(--border);
+                z-index: 200;
+                height: var(--mobile-bottom-nav);
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            }
+            .mobile-nav-item {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3px;
+                padding: 8px 4px;
+                cursor: pointer;
+                color: var(--dim);
+                font-size: 0.6rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                border: none;
+                background: transparent;
+                transition: var(--transition);
+                position: relative;
+            }
+            .mobile-nav-item.active { color: var(--accent); }
+            .mobile-nav-item.active svg { stroke: var(--accent); }
+            .mobile-nav-item svg { width: 22px; height: 22px; stroke: var(--dim); transition: var(--transition); }
+            .mobile-nav-item.active svg { stroke: var(--accent); }
+            .mobile-nav-badge {
+                position: absolute;
+                top: 6px;
+                right: calc(50% - 18px);
+                background: var(--danger);
+                color: white;
+                font-size: 0.55rem;
+                font-weight: 700;
+                padding: 1px 5px;
+                border-radius: 999px;
+                min-width: 16px;
+                text-align: center;
+            }
+
+            /* Responsive tweaks */
+            .dashboard-hero { border-radius: 18px; padding: 20px 20px; margin-bottom: 16px; }
+            .hero-left h1 { font-size: 1.2rem; }
+            .hero-emoji { font-size: 2.4rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+            .stat-card { padding: 14px 16px; border-radius: 14px; }
+            .stat-card p { font-size: 1.5rem; }
+            .stat-card h3 { font-size: 0.62rem; }
+            .stat-icon { width: 30px; height: 30px; border-radius: 8px; right: 10px; top: 10px; }
+            .stat-icon i { width: 14px; height: 14px; }
+
+            /* Dashboard two-col → single col */
+            #dashboard > div:last-child { grid-template-columns: 1fr !important; }
+
+            /* Cards */
+            .content-card { border-radius: 16px; }
+            .card-header { padding: 14px 16px; }
+            .order-card { padding: 14px 16px; }
+
+            /* Profile */
+            .profile-container { max-width: 100%; }
+            .profile-hero-card { padding: 22px; border-radius: 18px; }
+            .profile-avatar-large { width: 56px; height: 56px; font-size: 1.4rem; }
+            .profile-hero-info h2 { font-size: 1.1rem; }
+            .profile-field-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .profile-pill-input { max-width: 100%; width: 100%; }
+
+            /* Settings */
+            .settings-container { max-width: 100%; }
+
+            /* History */
+            .history-card { border-radius: 14px; padding: 14px 16px; }
+
+            /* Modal */
+            .modal-content { padding: 22px; border-radius: 20px; }
+            .modal-btn-row { flex-direction: column; }
+
+            /* Toast bottom offset for mobile nav */
+            .toast { bottom: calc(var(--mobile-bottom-nav) + 12px); right: 12px; left: 12px; max-width: 100%; }
+
+            /* Auth card */
+            .auth-card { padding: 28px 24px; border-radius: 22px; }
+            .auth-form-row { grid-template-columns: 1fr; }
+
+            /* Page headings */
+            .page-content > h1 { font-size: 1.5rem !important; margin-bottom: 18px !important; }
+        }
+
+        /* Desktop: hide mobile elements */
+        @media (min-width: 769px) {
+            .mobile-topbar { display: none; }
+            .mobile-bottom-nav { display: none; }
+        }
     </style>
 </head>
 <body>
-<div id="authScreen"><div class="auth-bg-circles"><div class="auth-circle"></div><div class="auth-circle"></div><div class="auth-circle"></div></div><div class="auth-card"><div class="auth-logo"><i data-lucide="bike" style="width:32px;height:32px;color:#3b82f6;"></i><div class="auth-logo-text">VYNIX<span>DRIVE</span></div></div><div class="auth-tabs"><button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button><button class="auth-tab" onclick="switchAuthTab('register')">Register</button></div><div id="loginPanel"><div class="auth-title">Ready to Ride? 🛵</div><div class="auth-sub">Sign in with your Driver ID</div><div class="auth-error" id="loginError"></div><div class="auth-form"><div class="auth-form-group"><label>Driver ID</label><input type="text" class="auth-input" id="driverLoginId" placeholder="e.g. DRV-ABC123"></div><button class="auth-btn" onclick="partnerLogin()" id="loginBtn">Sign In to Driver Portal</button></div><div class="auth-divider">or sign in with Google</div><button class="auth-btn" style="background:#4285F4;color:white;box-shadow:0 6px 20px rgba(66,133,244,0.4);" onclick="signInWithGoogle()">Sign in with Google</button></div><div id="registerPanel" style="display:none;"><div class="step-indicator" id="stepIndicator"><div class="step-dot active" id="dot-0"></div><div class="step-dot" id="dot-1"></div></div><div class="auth-error" id="regError"></div><div class="auth-success" id="regSuccess"></div><div class="reg-step active" id="step0"><div class="auth-title">Join as a Driver</div><div class="auth-sub">Fill in your details to apply</div><div class="auth-form-group"><label>Full Name *</label><input type="text" class="auth-input" id="reg-name" placeholder="e.g. Thabo Nkosi"></div><div class="auth-form-row"><div class="auth-form-group"><label>City *</label><input type="text" class="auth-input" id="reg-city" placeholder="Mokopane"></div><div class="auth-form-group"><label>Province *</label><select class="auth-input" id="reg-province"><option value="" style="color:#000;">Province…</option><option style="color:#000;">Limpopo</option><option style="color:#000;">Gauteng</option><option style="color:#000;">Western Cape</option><option style="color:#000;">KwaZulu-Natal</option><option style="color:#000;">Eastern Cape</option><option style="color:#000;">Mpumalanga</option><option style="color:#000;">North West</option><option style="color:#000;">Free State</option><option style="color:#000;">Northern Cape</option></select></div></div><div class="auth-form-group"><label>Phone *</label><input type="tel" class="auth-input" id="reg-phone" placeholder="+27 71 000 0000"></div><button class="auth-btn" onclick="regNext(0)">Next →</button></div><div class="reg-step" id="step1"><div class="auth-title">Vehicle Details</div><div class="auth-sub">Almost there!</div><div class="auth-form-group"><label>Email *</label><input type="email" class="auth-input" id="reg-email" placeholder="you@email.com"></div><div class="auth-form-row"><div class="auth-form-group"><label>Vehicle Type *</label><select class="auth-input" id="reg-vehicle"><option value="" style="color:#000;">Select…</option><option style="color:#000;">Motorcycle</option><option style="color:#000;">Bicycle</option><option style="color:#000;">Car</option><option style="color:#000;">Scooter</option><option style="color:#000;">Bakkie</option></select></div><div class="auth-form-group"><label>License No. *</label><input type="text" class="auth-input" id="reg-license" placeholder="LN 12345678"></div></div><div style="display:flex;gap:10px;"><button class="auth-btn" style="background:rgba(255,255,255,0.1);flex:1;" onclick="regBack(1)">← Back</button><button class="auth-btn" style="flex:2;" onclick="submitDriverRegistration()" id="regSubmitBtn">Submit Application</button></div></div></div></div></div>
-<div id="shimmerOverlay"><div class="shim-sidebar"></div><div class="shim-main"></div></div>
-<nav class="sidebar" id="driverSidebar" style="display:none;"><div class="logo"><i data-lucide="bike" class="logo-icon"></i><span class="logo-text">VYNIX<span>DRIVE</span></span></div><div class="nav-scroll" style="flex:1;overflow-y:auto;"><div class="nav-section"><div class="nav-label">Main</div><div class="nav-item active" onclick="showTab('dashboard',this)"><i data-lucide="layout-dashboard" class="nav-icon"></i><span class="nav-text">Dashboard</span></div><div class="nav-item" onclick="showTab('available',this)"><i data-lucide="shopping-bag" class="nav-icon"></i><span class="nav-text">Available Orders</span><span class="nav-badge" id="availableBadge" style="display:none;">0</span></div><div class="nav-item" onclick="showTab('deliveries',this)"><i data-lucide="map-pin" class="nav-icon"></i><span class="nav-text">My Deliveries</span></div><div class="nav-item" onclick="showTab('history',this)"><i data-lucide="clock" class="nav-icon"></i><span class="nav-text">Order History</span></div><div class="nav-item" onclick="showTab('earnings',this)"><i data-lucide="dollar-sign" class="nav-icon"></i><span class="nav-text">Earnings</span></div></div><div class="nav-section"><div class="nav-label">Account</div><div class="nav-item" onclick="showTab('profile',this)"><i data-lucide="user" class="nav-icon"></i><span class="nav-text">Profile</span></div><div class="nav-item" onclick="showTab('settings',this)"><i data-lucide="settings" class="nav-icon"></i><span class="nav-text">Settings</span></div><button class="logout-btn" onclick="openLogoutModal()"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-text">Log Out</span></button></div></div><div class="user-profile" onclick="showTab('profile',null)"><div class="user-avatar" id="driverAvatar">D</div><div class="user-info"><div style="font-weight:700;" id="driverSidebarName">Driver</div><div style="font-size:0.72rem;color:var(--accent);"><span class="online-dot"></span><span id="driverSidebarStatus">Online</span></div></div></div></nav>
+
+<!-- AUTH SCREEN -->
+<div id="authScreen">
+    <div class="auth-bg-circles"><div class="auth-circle"></div><div class="auth-circle"></div><div class="auth-circle"></div></div>
+    <div class="auth-card">
+        <div class="auth-logo"><i data-lucide="bike" style="width:32px;height:32px;color:#3b82f6;"></i><div class="auth-logo-text">VYNIX<span>DRIVE</span></div></div>
+        <div class="auth-tabs"><button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button><button class="auth-tab" onclick="switchAuthTab('register')">Register</button></div>
+        <div id="loginPanel">
+            <div class="auth-title">Ready to Ride? 🛵</div>
+            <div class="auth-sub">Sign in with your Driver ID</div>
+            <div class="auth-error" id="loginError"></div>
+            <div class="auth-form">
+                <div class="auth-form-group"><label>Driver ID</label><input type="text" class="auth-input" id="driverLoginId" placeholder="e.g. DRV-ABC123"></div>
+                <button class="auth-btn" onclick="partnerLogin()" id="loginBtn">Sign In to Driver Portal</button>
+            </div>
+            <div class="auth-divider">or sign in with Google</div>
+            <button class="auth-btn" style="background:#4285F4;color:white;box-shadow:0 6px 20px rgba(66,133,244,0.4);" onclick="signInWithGoogle()">Sign in with Google</button>
+        </div>
+        <div id="registerPanel" style="display:none;">
+            <div class="step-indicator" id="stepIndicator"><div class="step-dot active" id="dot-0"></div><div class="step-dot" id="dot-1"></div></div>
+            <div class="auth-error" id="regError"></div>
+            <div class="auth-success" id="regSuccess"></div>
+            <div class="reg-step active" id="step0">
+                <div class="auth-title">Join as a Driver</div><div class="auth-sub">Fill in your details to apply</div>
+                <div class="auth-form-group"><label>Full Name *</label><input type="text" class="auth-input" id="reg-name" placeholder="e.g. Thabo Nkosi"></div>
+                <div class="auth-form-row"><div class="auth-form-group"><label>City *</label><input type="text" class="auth-input" id="reg-city" placeholder="Mokopane"></div><div class="auth-form-group"><label>Province *</label><select class="auth-input" id="reg-province"><option value="" style="color:#000;">Province…</option><option style="color:#000;">Limpopo</option><option style="color:#000;">Gauteng</option><option style="color:#000;">Western Cape</option><option style="color:#000;">KwaZulu-Natal</option><option style="color:#000;">Eastern Cape</option><option style="color:#000;">Mpumalanga</option><option style="color:#000;">North West</option><option style="color:#000;">Free State</option><option style="color:#000;">Northern Cape</option></select></div></div>
+                <div class="auth-form-group"><label>Phone *</label><input type="tel" class="auth-input" id="reg-phone" placeholder="+27 71 000 0000"></div>
+                <button class="auth-btn" onclick="regNext(0)">Next →</button>
+            </div>
+            <div class="reg-step" id="step1">
+                <div class="auth-title">Vehicle Details</div><div class="auth-sub">Almost there!</div>
+                <div class="auth-form-group"><label>Email *</label><input type="email" class="auth-input" id="reg-email" placeholder="you@email.com"></div>
+                <div class="auth-form-row"><div class="auth-form-group"><label>Vehicle Type *</label><select class="auth-input" id="reg-vehicle"><option value="" style="color:#000;">Select…</option><option style="color:#000;">Motorcycle</option><option style="color:#000;">Bicycle</option><option style="color:#000;">Car</option><option style="color:#000;">Scooter</option><option style="color:#000;">Bakkie</option></select></div><div class="auth-form-group"><label>License No. *</label><input type="text" class="auth-input" id="reg-license" placeholder="LN 12345678"></div></div>
+                <div style="display:flex;gap:10px;"><button class="auth-btn" style="background:rgba(255,255,255,0.1);flex:1;" onclick="regBack(1)">← Back</button><button class="auth-btn" style="flex:2;" onclick="submitDriverRegistration()" id="regSubmitBtn">Submit Application</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SHIMMER -->
+<div id="shimmerOverlay">
+    <div class="shim-sidebar"></div>
+    <div class="shim-main">
+        <div class="shim-block shim-header"></div>
+        <div class="shim-stats"><div class="shim-block shim-stat"></div><div class="shim-block shim-stat"></div><div class="shim-block shim-stat"></div><div class="shim-block shim-stat"></div></div>
+        <div class="shim-row"><div class="shim-block shim-card"></div><div class="shim-block shim-card"></div></div>
+    </div>
+</div>
+
+<!-- MOBILE TOP BAR -->
+<div class="mobile-topbar" id="mobileTopbar" style="display:none;">
+    <div class="mobile-topbar-logo">VYNIX<span>DRIVE</span></div>
+    <div class="mobile-topbar-right">
+        <div style="font-size:0.75rem;color:var(--dim);font-weight:600;" id="mobileLocationStatus">📍 Locating…</div>
+        <div class="mobile-avatar" id="mobileAvatar">D</div>
+    </div>
+</div>
+
+<!-- DESKTOP SIDEBAR -->
+<nav class="sidebar" id="driverSidebar" style="display:none;">
+    <div class="logo"><i data-lucide="bike" class="logo-icon"></i><span class="logo-text">VYNIX<span>DRIVE</span></span></div>
+    <div class="nav-scroll" style="flex:1;overflow-y:auto;">
+        <div class="nav-section">
+            <div class="nav-label">Main</div>
+            <div class="nav-item active" onclick="showTab('dashboard',this)"><i data-lucide="layout-dashboard" class="nav-icon"></i><span class="nav-text">Dashboard</span></div>
+            <div class="nav-item" onclick="showTab('available',this)"><i data-lucide="shopping-bag" class="nav-icon"></i><span class="nav-text">Available Orders</span><span class="nav-badge" id="availableBadge" style="display:none;">0</span></div>
+            <div class="nav-item" onclick="showTab('deliveries',this)"><i data-lucide="map-pin" class="nav-icon"></i><span class="nav-text">My Deliveries</span></div>
+            <div class="nav-item" onclick="showTab('history',this)"><i data-lucide="clock" class="nav-icon"></i><span class="nav-text">Order History</span></div>
+            <div class="nav-item" onclick="showTab('earnings',this)"><i data-lucide="dollar-sign" class="nav-icon"></i><span class="nav-text">Earnings</span></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Account</div>
+            <div class="nav-item" onclick="showTab('profile',this)"><i data-lucide="user" class="nav-icon"></i><span class="nav-text">Profile</span></div>
+            <div class="nav-item" onclick="showTab('settings',this)"><i data-lucide="settings" class="nav-icon"></i><span class="nav-text">Settings</span></div>
+            <button class="logout-btn" onclick="openLogoutModal()"><i data-lucide="log-out" class="nav-icon"></i><span class="nav-text">Log Out</span></button>
+        </div>
+    </div>
+    <div class="user-profile" onclick="showTab('profile',null)">
+        <div class="user-avatar" id="driverAvatar">D</div>
+        <div class="user-info"><div style="font-weight:700;" id="driverSidebarName">Driver</div><div style="font-size:0.72rem;color:var(--accent);"><span class="online-dot"></span><span id="driverSidebarStatus">Online</span></div></div>
+    </div>
+</nav>
+
+<!-- MAIN PANEL -->
 <main class="main-panel" id="driverMainPanel" style="display:none;">
-    <section id="dashboard" class="page-content active"><div class="dashboard-hero"><div class="hero-inner"><div class="hero-left"><h1 id="dashHeroTitle">Ready to Ride? 🛵</h1><p id="dashHeroSub">Available deliveries near you</p></div><div class="hero-emoji">🛵</div></div></div><div class="stats-grid" id="driverStatsGrid"></div><div style="display:grid;grid-template-columns:1fr 340px;gap:20px;"><div class="content-card"><div class="card-header"><h2><i data-lucide="shopping-bag" style="width:18px;height:18px;color:var(--accent);"></i> Available Orders <span id="availableCount" style="background:var(--accent);color:white;border-radius:999px;padding:2px 8px;font-size:0.72rem;margin-left:4px;">0</span></h2></div><div id="availableOrdersList" style="padding:16px;max-height:420px;overflow-y:auto;"></div></div><div class="content-card"><div class="card-header"><h2><i data-lucide="map-pin" style="width:18px;height:18px;color:var(--accent);"></i> My Active Deliveries</h2></div><div id="myDeliveriesList" style="padding:16px;max-height:420px;overflow-y:auto;"></div></div></div></section>
-    <section id="available" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Available Orders</h1><div id="availableFullList" class="content-card" style="padding:0;"></div></section>
-    <section id="deliveries" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">My Current Deliveries</h1><div id="myDeliveriesFullList" class="content-card" style="padding:0;"></div></section>
-    <section id="history" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Order History</h1><div id="orderHistoryList"></div></section>
-    <section id="earnings" class="page-content"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Earnings</h1><div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i data-lucide="dollar-sign"></i></div><h3>Today</h3><p id="earningsToday" style="color:var(--accent);">R 0</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="trending-up"></i></div><h3>This Week</h3><p id="earningsWeek" style="color:var(--accent);">R 0</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="calendar"></i></div><h3>This Month</h3><p id="earningsMonth" style="color:var(--accent);">R 0</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="package-check"></i></div><h3>Total Delivered</h3><p id="totalDelivered" style="color:var(--accent);">0</p></div></div></section>
-    <section id="profile" class="page-content"><div class="profile-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Driver Profile</h1><div class="profile-hero-card"><div class="profile-hero-inner"><div class="profile-avatar-large" id="profileAvatar">D</div><div class="profile-hero-info"><h2 id="profileName">Driver Name</h2><p id="profileID">DRV-XXXXXX</p><div class="profile-status-pill"><span class="online-dot"></span> Active Driver</div></div></div></div><div class="profile-section-card"><div class="profile-section-title">Personal Information</div><div class="profile-field-row"><div><div class="profile-field-label">Full Name</div></div><input type="text" class="profile-pill-input" id="p-fullname" placeholder="Your full name"></div><div class="profile-field-row"><div><div class="profile-field-label">Vehicle Type</div></div><select class="profile-pill-input" id="p-vehicle"><option>Motorcycle</option><option>Bicycle</option><option>Car</option><option>Scooter</option><option>Bakkie</option></select></div><div class="profile-field-row"><div><div class="profile-field-label">License / Reg Number</div></div><input type="text" class="profile-pill-input" id="p-license" placeholder="LN 12345678"></div><div class="profile-field-row"><div><div class="profile-field-label">Phone Number</div></div><input type="tel" class="profile-pill-input" id="p-phone" placeholder="+27 71 000 0000"></div><div class="profile-field-row"><div><div class="profile-field-label">Email Address</div></div><input type="email" class="profile-pill-input" id="p-email" placeholder="you@email.com"></div><div class="profile-field-row"><div><div class="profile-field-label">Emergency Contact</div></div><input type="tel" class="profile-pill-input" id="p-emergency" placeholder="+27 82 000 0000"></div></div><div class="profile-section-card"><div class="profile-section-title">Driver Stats</div><div class="profile-field-row"><div><div class="profile-field-label">Total Deliveries</div></div><input type="text" class="profile-pill-input" id="p-total-deliveries" value="0" readonly></div><div class="profile-field-row"><div><div class="profile-field-label">Current Rating</div></div><input type="text" class="profile-pill-input" id="p-rating" value="5.0 ★" readonly></div></div><div class="profile-section-card"><div class="profile-section-title">Payout Details</div><div class="profile-field-row"><div><div class="profile-field-label">Bank Details</div></div><input type="text" class="profile-pill-input" id="p-bank" placeholder="Bank name & account number"></div></div><button class="btn-primary" onclick="saveDriverProfile()" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;margin-top:4px;"><i data-lucide="save" style="width:16px;height:16px;"></i> Save Profile</button></div></section>
-    <section id="settings" class="page-content"><div class="settings-container"><h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Settings</h1><div class="settings-card"><div class="settings-card-title">Availability</div><div class="settings-row"><div><div class="settings-label">Online Status</div><div class="settings-sub">Show as available to receive orders</div></div><div class="toggle on" id="tog-online" onclick="toggleSetting(this,'online')"></div></div><div class="settings-row"><div><div class="settings-label">Auto-Accept Nearby Orders</div><div class="settings-sub">Automatically accept orders within 2km</div></div><div class="toggle" id="tog-autoaccept" onclick="toggleSetting(this,'autoaccept')"></div></div><div class="settings-row"><div><div class="settings-label">Availability Schedule</div><div class="settings-sub">Use preset working hours</div></div><div class="toggle on" id="tog-schedule" onclick="toggleSetting(this,'schedule')"></div></div></div><div class="settings-card"><div class="settings-card-title">Notifications</div><div class="settings-row"><div><div class="settings-label">Receive Order Alerts</div><div class="settings-sub">Get notified when new orders arrive</div></div><div class="toggle on" id="tog-alerts" onclick="toggleSetting(this,'alerts')"></div></div><div class="settings-row"><div><div class="settings-label">Push Notifications</div><div class="settings-sub">Browser push notifications</div></div><div class="toggle on" id="tog-push" onclick="toggleSetting(this,'push')"></div></div></div><div class="settings-card"><div class="settings-card-title">Privacy & Location</div><div class="settings-row"><div><div class="settings-label">Live Location Sharing</div><div class="settings-sub">Share real-time location with customers</div></div><div class="toggle on" id="tog-location" onclick="toggleSetting(this,'location')"></div></div></div><div class="settings-card"><div class="settings-card-title">App</div><div class="settings-row"><div><div class="settings-label">Dark Mode</div><div class="settings-sub">Switch to dark theme</div></div><div class="toggle" id="tog-dark" onclick="toggleSetting(this,'dark')"></div></div></div></div></section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page-content active">
+        <div id="locationBanner" class="location-banner" style="display:none;"></div>
+        <div class="dashboard-hero">
+            <div class="hero-inner">
+                <div class="hero-left"><h1 id="dashHeroTitle">Ready to Ride? 🛵</h1><p id="dashHeroSub">Available deliveries near you</p></div>
+                <div class="hero-emoji">🛵</div>
+            </div>
+        </div>
+        <div class="stats-grid" id="driverStatsGrid"></div>
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:20px;">
+            <div class="content-card">
+                <div class="card-header"><h2><i data-lucide="shopping-bag" style="width:18px;height:18px;color:var(--accent);"></i> Available Orders <span id="availableCount" style="background:var(--accent);color:white;border-radius:999px;padding:2px 8px;font-size:0.72rem;margin-left:4px;">0</span></h2></div>
+                <div id="availableOrdersList" style="padding:16px;max-height:420px;overflow-y:auto;"></div>
+            </div>
+            <div class="content-card">
+                <div class="card-header"><h2><i data-lucide="map-pin" style="width:18px;height:18px;color:var(--accent);"></i> My Active Deliveries</h2></div>
+                <div id="myDeliveriesList" style="padding:16px;max-height:420px;overflow-y:auto;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AVAILABLE -->
+    <section id="available" class="page-content">
+        <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Available Orders</h1>
+        <div id="locationBanner2" class="location-banner" style="display:none;margin-bottom:16px;"></div>
+        <div id="availableFullList" class="content-card" style="padding:0;"></div>
+    </section>
+
+    <!-- MY DELIVERIES -->
+    <section id="deliveries" class="page-content">
+        <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">My Current Deliveries</h1>
+        <div id="myDeliveriesFullList" class="content-card" style="padding:0;"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="page-content">
+        <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Order History</h1>
+        <div id="orderHistoryList"></div>
+    </section>
+
+    <!-- EARNINGS -->
+    <section id="earnings" class="page-content">
+        <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Earnings</h1>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-icon"><i data-lucide="dollar-sign"></i></div><h3>Today</h3><p id="earningsToday" style="color:var(--accent);">R 0</p></div>
+            <div class="stat-card"><div class="stat-icon"><i data-lucide="trending-up"></i></div><h3>This Week</h3><p id="earningsWeek" style="color:var(--accent);">R 0</p></div>
+            <div class="stat-card"><div class="stat-icon"><i data-lucide="calendar"></i></div><h3>This Month</h3><p id="earningsMonth" style="color:var(--accent);">R 0</p></div>
+            <div class="stat-card"><div class="stat-icon"><i data-lucide="package-check"></i></div><h3>Total Delivered</h3><p id="totalDelivered" style="color:var(--accent);">0</p></div>
+        </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="page-content">
+        <div class="profile-container">
+            <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Driver Profile</h1>
+            <div class="profile-hero-card">
+                <div class="profile-hero-inner">
+                    <div class="profile-avatar-large" id="profileAvatar">D</div>
+                    <div class="profile-hero-info"><h2 id="profileName">Driver Name</h2><p id="profileID">DRV-XXXXXX</p><div class="profile-status-pill"><span class="online-dot"></span> Active Driver</div></div>
+                </div>
+            </div>
+            <div class="profile-section-card">
+                <div class="profile-section-title">Personal Information</div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Full Name</div></div><input type="text" class="profile-pill-input" id="p-fullname" placeholder="Your full name"></div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Vehicle Type</div></div><select class="profile-pill-input" id="p-vehicle"><option>Motorcycle</option><option>Bicycle</option><option>Car</option><option>Scooter</option><option>Bakkie</option></select></div>
+                <div class="profile-field-row"><div><div class="profile-field-label">License / Reg Number</div></div><input type="text" class="profile-pill-input" id="p-license" placeholder="LN 12345678"></div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Phone Number</div></div><input type="tel" class="profile-pill-input" id="p-phone" placeholder="+27 71 000 0000"></div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Email Address</div></div><input type="email" class="profile-pill-input" id="p-email" placeholder="you@email.com"></div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Emergency Contact</div></div><input type="tel" class="profile-pill-input" id="p-emergency" placeholder="+27 82 000 0000"></div>
+            </div>
+            <div class="profile-section-card">
+                <div class="profile-section-title">Driver Stats</div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Total Deliveries</div></div><input type="text" class="profile-pill-input" id="p-total-deliveries" value="0" readonly></div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Current Rating</div></div><input type="text" class="profile-pill-input" id="p-rating" value="5.0 ★" readonly></div>
+            </div>
+            <div class="profile-section-card">
+                <div class="profile-section-title">Payout Details</div>
+                <div class="profile-field-row"><div><div class="profile-field-label">Bank Details</div></div><input type="text" class="profile-pill-input" id="p-bank" placeholder="Bank name & account number"></div>
+            </div>
+            <button class="btn-primary" onclick="saveDriverProfile()" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;margin-top:4px;"><i data-lucide="save" style="width:16px;height:16px;"></i> Save Profile</button>
+        </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settings" class="page-content">
+        <div class="settings-container">
+            <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Settings</h1>
+            <div class="settings-card">
+                <div class="settings-card-title">Availability</div>
+                <div class="settings-row"><div><div class="settings-label">Online Status</div><div class="settings-sub">Show as available to receive orders</div></div><div class="toggle on" id="tog-online" onclick="toggleSetting(this,'online')"></div></div>
+                <div class="settings-row"><div><div class="settings-label">Auto-Accept Nearby Orders</div><div class="settings-sub">Automatically accept orders within 2km</div></div><div class="toggle" id="tog-autoaccept" onclick="toggleSetting(this,'autoaccept')"></div></div>
+                <div class="settings-row"><div><div class="settings-label">Availability Schedule</div><div class="settings-sub">Use preset working hours</div></div><div class="toggle on" id="tog-schedule" onclick="toggleSetting(this,'schedule')"></div></div>
+            </div>
+            <div class="settings-card">
+                <div class="settings-card-title">Notifications</div>
+                <div class="settings-row"><div><div class="settings-label">Receive Order Alerts</div><div class="settings-sub">Get notified when new orders arrive</div></div><div class="toggle on" id="tog-alerts" onclick="toggleSetting(this,'alerts')"></div></div>
+                <div class="settings-row"><div><div class="settings-label">Push Notifications</div><div class="settings-sub">Browser push notifications</div></div><div class="toggle on" id="tog-push" onclick="toggleSetting(this,'push')"></div></div>
+            </div>
+            <div class="settings-card">
+                <div class="settings-card-title">Privacy & Location</div>
+                <div class="settings-row"><div><div class="settings-label">Live Location Sharing</div><div class="settings-sub">Share real-time location with customers</div></div><div class="toggle on" id="tog-location" onclick="toggleSetting(this,'location')"></div></div>
+            </div>
+            <div class="settings-card">
+                <div class="settings-card-title">App</div>
+                <div class="settings-row"><div><div class="settings-label">Dark Mode</div><div class="settings-sub">Switch to dark theme</div></div><div class="toggle" id="tog-dark" onclick="toggleSetting(this,'dark')"></div></div>
+            </div>
+        </div>
+    </section>
 </main>
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav" id="mobileBottomNav" style="display:none;">
+    <button class="mobile-nav-item active" id="mn-dashboard" onclick="showTab('dashboard',null);setMobileNav('mn-dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Home
+    </button>
+    <button class="mobile-nav-item" id="mn-available" onclick="showTab('available',null);setMobileNav('mn-available')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Orders
+        <span class="mobile-nav-badge" id="mobileAvailBadge" style="display:none;">0</span>
+    </button>
+    <button class="mobile-nav-item" id="mn-deliveries" onclick="showTab('deliveries',null);setMobileNav('mn-deliveries')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Active
+    </button>
+    <button class="mobile-nav-item" id="mn-earnings" onclick="showTab('earnings',null);setMobileNav('mn-earnings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Earnings
+    </button>
+    <button class="mobile-nav-item" id="mn-profile" onclick="showTab('profile',null);setMobileNav('mn-profile')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+    </button>
+</div>
+
+<!-- MODALS -->
 <div class="modal-overlay" id="logoutModal"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="log-out" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Log Out?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to log out?</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="confirmLogout()"><i data-lucide="log-out" style="width:15px;height:15px;"></i> Log Out</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('logoutModal')">Cancel</button></div></div></div>
 <div class="modal-overlay" id="orderDetailModal"><div class="modal-content" style="max-width:600px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h3 style="font-size:1.1rem;font-weight:800;" id="orderDetailTitle">Order Details</h3><button onclick="hideModal('orderDetailModal')" style="background:var(--surface2);border:none;border-radius:999px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i data-lucide="x" style="width:16px;height:16px;"></i></button></div><div id="orderDetailBody"></div></div></div>
 <div class="modal-overlay" id="deleteConfirmModal"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="trash-2" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Delete Order?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to delete this order? This action cannot be undone.</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" id="confirmDeleteBtn"><i data-lucide="trash-2" style="width:15px;height:15px;"></i> Delete</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('deleteConfirmModal')">Cancel</button></div></div></div>
+
 <div class="toast" id="toast"><i data-lucide="check-circle" style="width:18px;height:18px;"></i><span id="toastMsg">Done</span></div>
+
 <script>
 const firebaseConfig = { apiKey: "AIzaSyCh7Ute6LeSAxcNDEQwZg5m0cA4ujnLCfg", authDomain: "test-17881.firebaseapp.com", projectId: "test-17881", storageBucket: "test-17881.firebasestorage.app", messagingSenderId: "1057428047643", appId: "1:1057428047643:web:f3801c0d933225a5cd35be", databaseURL: "https://test-17881-default-rtdb.firebaseio.com/" };
 firebase.initializeApp(firebaseConfig);
@@ -272,12 +652,146 @@ const db = firebase.database();
 const auth = firebase.auth();
 const MAPBOX_TOKEN = 'pk.eyJ1Ijoia2F0bGVnb3BoYXNoYSIsImEiOiJjbTlpOTdzbmYwMGNsMmpzYWJtZzN4d3pqIn0.Zt-aSMEoahrV3zkiVVHbOw';
 mapboxgl.accessToken = MAPBOX_TOKEN;
+
 let DRIVER_KEY = null;
 let driverData = null;
 let ordersCache = {};
 let currentMapInstance = null;
 let pendingDeleteOrderKey = null;
 
+// ── LOCATION STATE ──
+let driverLat = null;
+let driverLng = null;
+let locationError = null;
+let locationWatcher = null;
+const NEARBY_RADIUS_KM = 1.0; // 1 kilometre
+
+// ── HAVERSINE DISTANCE ──
+function haversineKm(lat1, lng1, lat2, lng2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+              Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+              Math.sin(dLng/2)*Math.sin(dLng/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function formatDistance(km) {
+    if (km < 1) return `${Math.round(km * 1000)}m away`;
+    return `${km.toFixed(1)}km away`;
+}
+
+// ── START LOCATION WATCHING ──
+function startLocationWatch() {
+    if (!navigator.geolocation) {
+        locationError = 'Geolocation not supported by your browser.';
+        updateLocationBanners();
+        renderDriverDashboard();
+        return;
+    }
+    updateLocationBanners('fetching');
+    navigator.geolocation.getCurrentPosition(
+        pos => {
+            driverLat = pos.coords.latitude;
+            driverLng = pos.coords.longitude;
+            locationError = null;
+            updateLocationBanners('success');
+            // Save location to Firebase
+            if (DRIVER_KEY) {
+                db.ref('drivers/' + DRIVER_KEY).update({ lastLat: driverLat, lastLng: driverLng, lastSeen: Date.now() });
+            }
+            renderDriverDashboard();
+        },
+        err => {
+            locationError = err.code === 1
+                ? 'Location permission denied. Showing all orders.'
+                : 'Could not get your location. Showing all orders.';
+            updateLocationBanners('error');
+            renderDriverDashboard();
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+    );
+    // Watch for position updates
+    if (locationWatcher) navigator.geolocation.clearWatch(locationWatcher);
+    locationWatcher = navigator.geolocation.watchPosition(
+        pos => {
+            driverLat = pos.coords.latitude;
+            driverLng = pos.coords.longitude;
+            locationError = null;
+            if (DRIVER_KEY) {
+                db.ref('drivers/' + DRIVER_KEY).update({ lastLat: driverLat, lastLng: driverLng, lastSeen: Date.now() });
+            }
+            updateLocationBanners('success');
+            renderDriverDashboard();
+        },
+        () => {},
+        { enableHighAccuracy: true, maximumAge: 60000 }
+    );
+}
+
+function updateLocationBanners(state) {
+    const banners = [document.getElementById('locationBanner'), document.getElementById('locationBanner2')];
+    const mobileStatus = document.getElementById('mobileLocationStatus');
+    banners.forEach(b => { if (!b) return; b.style.display = 'none'; });
+
+    if (state === 'fetching') {
+        banners.forEach(b => { if (!b) return; b.className = 'location-banner'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="loader" style="width:18px;height:18px;animation:spin 1s linear infinite;"></i> Getting your location to find nearby orders…`; });
+        if (mobileStatus) mobileStatus.textContent = '📍 Locating…';
+    } else if (state === 'success') {
+        banners.forEach(b => { if (!b) return; b.className = 'location-banner success'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="check-circle" style="width:18px;height:18px;"></i> Location found — showing orders within ${NEARBY_RADIUS_KM}km of you`; setTimeout(() => { b.style.display = 'none'; }, 4000); });
+        if (mobileStatus) mobileStatus.textContent = '📍 Located';
+    } else if (state === 'error') {
+        banners.forEach(b => { if (!b) return; b.className = 'location-banner error'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="alert-circle" style="width:18px;height:18px;"></i> ${locationError}`; });
+        if (mobileStatus) mobileStatus.textContent = '📍 No location';
+    }
+    lucide.createIcons();
+}
+
+// ── GEOCODE VENDOR ADDRESS & CHECK DISTANCE ──
+const geocodeCache = {};
+async function geocodeAddress(addr) {
+    if (geocodeCache[addr]) return geocodeCache[addr];
+    try {
+        const res = await fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`);
+        const data = await res.json();
+        if (data.features && data.features.length > 0) {
+            const [lng, lat] = data.features[0].geometry.coordinates;
+            geocodeCache[addr] = { lat, lng };
+            return { lat, lng };
+        }
+    } catch(e) {}
+    return null;
+}
+
+async function isOrderNearby(order) {
+    // If driver location unknown → show all orders
+    if (driverLat === null || driverLng === null) return { nearby: true, dist: null };
+
+    // Priority 1: vendor coords stored directly on order
+    if (order.vendorLat && order.vendorLng) {
+        const dist = haversineKm(driverLat, driverLng, Number(order.vendorLat), Number(order.vendorLng));
+        return { nearby: dist <= NEARBY_RADIUS_KM, dist };
+    }
+    // Priority 2: order lat/lng fields
+    if (order.lat && order.lng) {
+        const dist = haversineKm(driverLat, driverLng, Number(order.lat), Number(order.lng));
+        return { nearby: dist <= NEARBY_RADIUS_KM, dist };
+    }
+    // Priority 3: geocode vendor address
+    const vendorAddr = order.vendorAddress || order.restaurantAddress || order.pickupAddress || order.vendorName;
+    if (vendorAddr) {
+        const coords = await geocodeAddress(vendorAddr);
+        if (coords) {
+            const dist = haversineKm(driverLat, driverLng, coords.lat, coords.lng);
+            return { nearby: dist <= NEARBY_RADIUS_KM, dist };
+        }
+    }
+    // Fallback: no coordinate info → show order
+    return { nearby: true, dist: null };
+}
+
+// ── PORTAL ENTRY ──
 function getDriverFullName(driver) {
     if (!driver) return 'Driver';
     if (driver.name && driver.name.trim()) return driver.name.trim();
@@ -286,38 +800,49 @@ function getDriverFullName(driver) {
     if (first || last) return `${first} ${last}`.trim();
     return 'Driver';
 }
-
 function getCustomerName(order) {
     if (order.customerName && order.customerName.trim() !== '') return order.customerName.trim();
     if (order.userName && order.userName.trim() !== '') return order.userName.trim();
     if (order.customer && order.customer.trim() !== '') return order.customer.trim();
     if (order.user && order.user.name) return order.user.name;
     if (order.userEmail && order.userEmail.includes('@')) return order.userEmail.split('@')[0];
-    if (order.userId && order.userId !== 'guest') return 'Customer';
     return 'Customer';
 }
-
 function getOrderAddress(o) {
-    return o.deliveryAddress || 
-           o.address || 
-           o.customerAddress || 
-           o.shippingAddress || 
-           o.fullAddress || 
-           o.locationAddress || 
-           (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) || 
-           (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) || 
-           (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) || 
+    return o.deliveryAddress || o.address || o.customerAddress || o.shippingAddress || o.fullAddress || o.locationAddress ||
+           (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) ||
+           (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) ||
+           (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) ||
            'Address not provided';
 }
 
-function enterPortal() { document.getElementById('authScreen').classList.add('hidden'); showShimmer(); startDriverSync();
-setTimeout(() => { document.getElementById('driverSidebar').style.display = 'flex'; document.getElementById('driverMainPanel').style.display = 'block'; hideShimmer(); lucide.createIcons(); }, 1500); }
-function showShimmer() { document.getElementById('shimmerOverlay').classList.add('active'); }
-function hideShimmer() { const s = document.getElementById('shimmerOverlay'); s.classList.add('fade-out'); setTimeout(() => { s.classList.remove('active','fade-out'); }, 600); }
-function startDriverSync() { if (!DRIVER_KEY) return;
-db.ref('drivers/' + DRIVER_KEY).on('value', snap => { driverData = snap.val(); if (driverData) applyDriverUI(); });
-db.ref('orders').on('value', snap => { ordersCache = snap.val() || {}; renderDriverDashboard(); updateHistoryTab(); updateEarningsTab(); });
+function enterPortal() {
+    document.getElementById('authScreen').classList.add('hidden');
+    showShimmer();
+    startDriverSync();
+    startLocationWatch();
+    setTimeout(() => {
+        const isMobile = window.innerWidth <= 768;
+        document.getElementById('driverSidebar').style.display = isMobile ? 'none' : 'flex';
+        document.getElementById('driverMainPanel').style.display = 'block';
+        if (isMobile) {
+            document.getElementById('mobileTopbar').style.display = 'flex';
+            document.getElementById('mobileBottomNav').style.display = 'flex';
+        }
+        hideShimmer();
+        lucide.createIcons();
+    }, 1500);
 }
+
+function showShimmer() { document.getElementById('shimmerOverlay').classList.add('active'); }
+function hideShimmer() { const s = document.getElementById('shimmerOverlay'); s.classList.add('fade-out'); setTimeout(() => s.classList.remove('active','fade-out'), 600); }
+
+function startDriverSync() {
+    if (!DRIVER_KEY) return;
+    db.ref('drivers/' + DRIVER_KEY).on('value', snap => { driverData = snap.val(); if (driverData) applyDriverUI(); });
+    db.ref('orders').on('value', snap => { ordersCache = snap.val() || {}; renderDriverDashboard(); updateHistoryTab(); updateEarningsTab(); });
+}
+
 function applyDriverUI() {
     const fullName = getDriverFullName(driverData);
     document.getElementById('driverSidebarName').textContent = fullName;
@@ -325,8 +850,9 @@ function applyDriverUI() {
     document.getElementById('profileName').textContent = fullName;
     document.getElementById('profileID').textContent = driverData.driverID || 'DRV-XXXXXX';
     document.getElementById('profileAvatar').textContent = fullName.charAt(0).toUpperCase();
-    const firstName = (driverData.name && driverData.name.split(' ')[0]) || 
-                     (driverData.firstName ? driverData.firstName.split(' ')[0] : 'Driver');
+    const mobileAv = document.getElementById('mobileAvatar');
+    if (mobileAv) mobileAv.textContent = fullName.charAt(0).toUpperCase();
+    const firstName = (driverData.name && driverData.name.split(' ')[0]) || (driverData.firstName ? driverData.firstName.split(' ')[0] : 'Driver');
     document.getElementById('dashHeroTitle').textContent = `Hey ${firstName}! 🛵`;
     document.getElementById('p-fullname').value = fullName;
     if (driverData.vehicleType) document.getElementById('p-vehicle').value = driverData.vehicleType;
@@ -336,73 +862,194 @@ function applyDriverUI() {
     if (driverData.emergencyContact) document.getElementById('p-emergency').value = driverData.emergencyContact;
     if (driverData.bankDetails) document.getElementById('p-bank').value = driverData.bankDetails;
     if (driverData.rating) document.getElementById('p-rating').value = driverData.rating + ' ★';
-    if (driverData.settings) { ['online', 'autoaccept', 'schedule', 'alerts', 'push', 'location', 'dark'].forEach(k => { const tog = document.getElementById('tog-' + k); if (tog) { if (driverData.settings[k]) tog.classList.add('on'); else tog.classList.remove('on'); } }); }
+    if (driverData.settings) {
+        ['online','autoaccept','schedule','alerts','push','location','dark'].forEach(k => {
+            const tog = document.getElementById('tog-' + k);
+            if (tog) { if (driverData.settings[k]) tog.classList.add('on'); else tog.classList.remove('on'); }
+        });
+    }
+    // Use saved location from Firebase if we don't have fresh GPS yet
+    if (driverLat === null && driverData.lastLat) {
+        driverLat = driverData.lastLat;
+        driverLng = driverData.lastLng;
+    }
 }
+
+// ── RENDER DASHBOARD (async for geocoding) ──
+let renderDashboardDebounce = null;
 function renderDriverDashboard() {
+    clearTimeout(renderDashboardDebounce);
+    renderDashboardDebounce = setTimeout(_renderDriverDashboard, 150);
+}
+
+async function _renderDriverDashboard() {
     const orders = Object.entries(ordersCache);
-
-    // Only show orders the vendor has marked as 'ready' — not 'pending' (still being processed by vendor).
-    // This ensures drivers only see orders after the vendor has confirmed and assigned them for pickup.
-    const available = orders.filter(([k,o]) => o.status === 'ready' && !o.driverKey);
-
+    const readyOrders = orders.filter(([k,o]) => o.status === 'ready' && !o.driverKey);
     const myDel = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
+
+    // Filter by proximity
+    const nearbyResults = await Promise.all(readyOrders.map(async ([k,o]) => {
+        const r = await isOrderNearby(o);
+        return { key: k, order: o, nearby: r.nearby, dist: r.dist };
+    }));
+    const available = nearbyResults.filter(r => r.nearby);
+
     const count = available.length;
     document.getElementById('availableCount').textContent = count;
-    const badge = document.getElementById('availableBadge'); if (count > 0) { badge.style.display = 'inline-block'; badge.textContent = count;
-    } else { badge.style.display = 'none'; }
-    let availHTML = available.length === 0 ?
-`<div class="empty-state"><div class="es-emoji">🛵</div><div class="es-title">No available orders</div><div class="es-sub">Check back soon</div></div>` : available.map(([key,o]) => buildAvailableOrderCard(key, o)).join('');
+    const badge = document.getElementById('availableBadge');
+    const mobileBadge = document.getElementById('mobileAvailBadge');
+    if (count > 0) {
+        badge.style.display = 'inline-block'; badge.textContent = count;
+        if (mobileBadge) { mobileBadge.style.display = 'inline-block'; mobileBadge.textContent = count; }
+    } else {
+        badge.style.display = 'none';
+        if (mobileBadge) mobileBadge.style.display = 'none';
+    }
+
+    const noLocMsg = (driverLat !== null)
+        ? `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">🛵</div><div style="font-weight:700;margin-bottom:4px;">No orders within ${NEARBY_RADIUS_KM}km</div><div style="font-size:0.82rem;">All current orders are outside your area</div></div>`
+        : `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">📍</div><div style="font-weight:700;margin-bottom:4px;">Enable location</div><div style="font-size:0.82rem;">Allow location access to see nearby orders</div></div>`;
+
+    let availHTML = available.length === 0 ? noLocMsg : available.map(r => buildAvailableOrderCard(r.key, r.order, false, r.dist)).join('');
     document.getElementById('availableOrdersList').innerHTML = availHTML;
-    document.getElementById('availableFullList').innerHTML = available.length === 0 ? `<div style="padding:16px">${availHTML}</div>` : available.map(([key,o]) => buildAvailableOrderCard(key, o, true)).join('');
-    let myHTML = myDel.length === 0 ? `<div class="empty-state"><div class="es-emoji">📦</div><div class="es-title">No active deliveries</div><div class="es-sub">Accept an order to get started</div></div>` : myDel.map(([key,o]) => buildMyDeliveryCard(key, o)).join('');
+    document.getElementById('availableFullList').innerHTML = available.length === 0 ? `<div style="padding:16px">${noLocMsg}</div>` : available.map(r => buildAvailableOrderCard(r.key, r.order, true, r.dist)).join('');
+
+    let myHTML = myDel.length === 0
+        ? `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">📦</div><div style="font-weight:700;margin-bottom:4px;">No active deliveries</div><div style="font-size:0.82rem;">Accept an order to get started</div></div>`
+        : myDel.map(([key,o]) => buildMyDeliveryCard(key, o)).join('');
     document.getElementById('myDeliveriesList').innerHTML = myHTML;
     document.getElementById('myDeliveriesFullList').innerHTML = myDel.length === 0 ? `<div style="padding:16px">${myHTML}</div>` : myDel.map(([key,o]) => buildMyDeliveryCard(key, o, true)).join('');
-    const today = new Date().toDateString(); const todayDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY && new Date(o.createdAt).toDateString() === today);
-    const todayEarnings = todayDelivered.reduce((s,[k,o]) => s + (Number(o.total||0)*0.15), 0); const totalDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY).length;
-    document.getElementById('p-total-deliveries').value = totalDelivered; document.getElementById('totalDelivered').textContent = totalDelivered;
-    document.getElementById('driverStatsGrid').innerHTML = `<div class="stat-card"><div class="stat-icon"><i data-lucide="package"></i></div><h3>Deliveries Today</h3><p>${todayDelivered.length}</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="dollar-sign"></i></div><h3>Earnings Today</h3><p style="color:var(--accent);">R${todayEarnings.toFixed(0)}</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="star"></i></div><h3>Rating</h3><p>${driverData?.rating || '5.0'} ★</p></div><div class="stat-card"><div class="stat-icon"><i data-lucide="clock"></i></div><h3>Active Orders</h3><p>${myDel.length}</p></div>`;
+
+    const today = new Date().toDateString();
+    const todayDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY && new Date(o.createdAt).toDateString() === today);
+    const todayEarnings = todayDelivered.reduce((s,[k,o]) => s + (Number(o.total||0)*0.15), 0);
+    const totalDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY).length;
+    document.getElementById('p-total-deliveries').value = totalDelivered;
+    document.getElementById('totalDelivered').textContent = totalDelivered;
+    document.getElementById('driverStatsGrid').innerHTML = `
+        <div class="stat-card"><div class="stat-icon"><i data-lucide="package"></i></div><h3>Deliveries Today</h3><p>${todayDelivered.length}</p></div>
+        <div class="stat-card"><div class="stat-icon"><i data-lucide="dollar-sign"></i></div><h3>Earnings Today</h3><p style="color:var(--accent);">R${todayEarnings.toFixed(0)}</p></div>
+        <div class="stat-card"><div class="stat-icon"><i data-lucide="star"></i></div><h3>Rating</h3><p>${driverData?.rating || '5.0'} ★</p></div>
+        <div class="stat-card"><div class="stat-icon"><i data-lucide="clock"></i></div><h3>Active Orders</h3><p>${myDel.length}</p></div>`;
     lucide.createIcons();
 }
-function buildAvailableOrderCard(key, o, fullView = false) {
+
+function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
     const addr = getOrderAddress(o);
     const total = Number(o.total||0).toFixed(2);
     const orderNum = o.orderNumber || key.slice(-6);
     const vendor = o.vendorName || 'Restaurant';
     const items = (o.items||[]).length;
     const customer = getCustomerName(o);
-    return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${vendor}</strong><span class="order-meta-pill pill-blue">Order #${orderNum}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span><span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;"><button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button></div></div></div>`;
+    const distBadge = dist !== null ? `<span class="distance-badge"><i data-lucide="navigation" style="width:11px;height:11px;"></i> ${formatDistance(dist)}</span>` : '';
+    return `<div class="order-card" style="padding:16px 22px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+            <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+                    <strong style="font-size:0.92rem;">${vendor}</strong>
+                    <span class="order-meta-pill pill-blue">Order #${orderNum}</span>
+                    ${distBadge}
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i>
+                    <span style="font-size:0.8rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;">${addr}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;">
+                    <span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span>
+                    <span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span>
+                    <span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0;">
+                <button onclick="acceptDelivery('${key}')" class="btn btn-primary" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="check" style="width:13px;height:13px;"></i> Accept</button>
+                <button onclick="viewOrderDetail('${key}')" class="btn btn-edit" style="padding:8px 16px;font-size:0.8rem;"><i data-lucide="eye" style="width:13px;height:13px;"></i> Details</button>
+            </div>
+        </div>
+    </div>`;
 }
+
 function buildMyDeliveryCard(key, o, fullView = false) {
     const addr = getOrderAddress(o);
-    const orderNum = o.orderNumber || key.slice(-6); const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } };
-    const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' }; const customer = getCustomerName(o);
-    return `<div class="order-card" style="padding:16px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-size:0.92rem;">${o.vendorName||'Restaurant'}</strong><span class="order-meta-pill ${st.cls}">${st.label}</span></div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.8rem;color:var(--dim);">${addr}</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><span style="font-weight:800;color:var(--accent);">R${Number(o.total||0).toFixed(2)}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div></div><div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;"><button onclick="markDelivered('${key}')" class="btn btn-success"><i data-lucide="check-circle" style="width:13px;height:13px;"></i> Delivered</button><button onclick="viewOrderDetail('${key}')" class="btn btn-edit"><i data-lucide="map" style="width:13px;height:13px;"></i> Map</button><button onclick="confirmDeleteOrder('${key}')" class="btn btn-danger"><i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete</button></div></div></div>`;
+    const orderNum = o.orderNumber || key.slice(-6);
+    const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } };
+    const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' };
+    const customer = getCustomerName(o);
+    return `<div class="order-card" style="padding:16px 22px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+            <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+                    <strong style="font-size:0.92rem;">${o.vendorName||'Restaurant'}</strong>
+                    <span class="order-meta-pill ${st.cls}">${st.label}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                    <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i>
+                    <span style="font-size:0.8rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">${addr}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                    <span style="font-weight:800;color:var(--accent);">R${Number(o.total||0).toFixed(2)}</span>
+                    <span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+                <button onclick="markDelivered('${key}')" class="btn btn-success"><i data-lucide="check-circle" style="width:13px;height:13px;"></i> Delivered</button>
+                <button onclick="viewOrderDetail('${key}')" class="btn btn-edit"><i data-lucide="map" style="width:13px;height:13px;"></i> Map</button>
+                <button onclick="confirmDeleteOrder('${key}')" class="btn btn-danger"><i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete</button>
+            </div>
+        </div>
+    </div>`;
 }
+
 function updateHistoryTab() {
     const orders = Object.entries(ordersCache);
     const myHistory = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'delivered' || o.status === 'cancelled')).sort(([,a],[,b]) => (b.createdAt||0) - (a.createdAt||0));
     const container = document.getElementById('orderHistoryList'); if (!container) return;
-    if (!myHistory.length) { container.innerHTML = `<div class="empty-state"><div class="es-emoji">📋</div><div class="es-title">No completed orders yet</div><div class="es-sub">Delivered orders will appear here</div></div>`; return; }
-    container.innerHTML = myHistory.map(([key,o]) => { 
-        const date = new Date(o.createdAt||Date.now()); 
-        const dateStr = date.toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'}); 
-        const timeStr = date.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'}); 
-        const earning = (Number(o.total||0)*0.15).toFixed(2); 
-        const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red'; 
-        const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled'; 
+    if (!myHistory.length) { container.innerHTML = `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">📋</div><div style="font-weight:700;margin-bottom:4px;">No completed orders yet</div><div style="font-size:0.82rem;">Delivered orders will appear here</div></div>`; return; }
+    container.innerHTML = myHistory.map(([key,o]) => {
+        const date = new Date(o.createdAt||Date.now());
+        const dateStr = date.toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'});
+        const timeStr = date.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+        const earning = (Number(o.total||0)*0.15).toFixed(2);
+        const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red';
+        const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled';
         const addr = getOrderAddress(o);
         const customer = getCustomerName(o);
-        return `<div class="history-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;"><div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><strong>${o.vendorName||'Restaurant'}</strong><span class="order-meta-pill ${statusCls}">${statusLabel}</span><span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span></div><div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;"><i data-lucide="map-pin" style="width:13px;height:13px;color:var(--accent);flex-shrink:0;"></i><span style="font-size:0.78rem;color:var(--dim);">${addr}</span></div><div style="font-size:0.75rem;color:var(--dim);">${dateStr} · ${timeStr}</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-size:1.1rem;font-weight:800;color:var(--text);">R${Number(o.total||0).toFixed(2)}</div><div style="font-size:0.75rem;color:var(--green);font-weight:700;">+R${earning} earned</div><button onclick="confirmDeleteOrder('${key}')" class="btn btn-danger" style="margin-top:8px;padding:5px 12px;font-size:0.7rem;"><i data-lucide="trash-2" style="width:12px;height:12px;"></i> Delete Order</button></div></div></div>`;
-    }).join(''); lucide.createIcons();
+        return `<div class="history-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+            <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+                    <strong>${o.vendorName||'Restaurant'}</strong>
+                    <span class="order-meta-pill ${statusCls}">${statusLabel}</span>
+                    <span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;">
+                    <i data-lucide="map-pin" style="width:13px;height:13px;color:var(--accent);flex-shrink:0;"></i>
+                    <span style="font-size:0.78rem;color:var(--dim);">${addr}</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--dim);">${dateStr} · ${timeStr}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:1.1rem;font-weight:800;color:var(--text);">R${Number(o.total||0).toFixed(2)}</div>
+                <div style="font-size:0.75rem;color:var(--green);font-weight:700;">+R${earning} earned</div>
+                <button onclick="confirmDeleteOrder('${key}')" class="btn btn-danger" style="margin-top:8px;padding:5px 12px;font-size:0.7rem;"><i data-lucide="trash-2" style="width:12px;height:12px;"></i> Delete</button>
+            </div>
+        </div></div>`;
+    }).join('');
+    lucide.createIcons();
 }
-function updateEarningsTab() { const orders = Object.values(ordersCache).filter(o => o.driverKey === DRIVER_KEY && o.status === 'delivered');
-    const now = new Date(); const todayStr = now.toDateString(); const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
-    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1); const todayEarn = orders.filter(o => new Date(o.createdAt).toDateString() === todayStr).reduce((s,o) => s + Number(o.total||0)*0.15, 0);
+
+function updateEarningsTab() {
+    const orders = Object.values(ordersCache).filter(o => o.driverKey === DRIVER_KEY && o.status === 'delivered');
+    const now = new Date(); const todayStr = now.toDateString();
+    const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const todayEarn = orders.filter(o => new Date(o.createdAt).toDateString() === todayStr).reduce((s,o) => s + Number(o.total||0)*0.15, 0);
     const weekEarn = orders.filter(o => new Date(o.createdAt) >= weekStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0);
-    const monthEarn = orders.filter(o => new Date(o.createdAt) >= monthStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0); const te = document.getElementById('earningsToday');
-    if(te) te.textContent = `R ${todayEarn.toFixed(2)}`; const we = document.getElementById('earningsWeek'); if(we) we.textContent = `R ${weekEarn.toFixed(2)}`; const me = document.getElementById('earningsMonth');
-    if(me) me.textContent = `R ${monthEarn.toFixed(2)}`; const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length;
+    const monthEarn = orders.filter(o => new Date(o.createdAt) >= monthStart).reduce((s,o) => s + Number(o.total||0)*0.15, 0);
+    const te = document.getElementById('earningsToday'); if(te) te.textContent = `R ${todayEarn.toFixed(2)}`;
+    const we = document.getElementById('earningsWeek'); if(we) we.textContent = `R ${weekEarn.toFixed(2)}`;
+    const me = document.getElementById('earningsMonth'); if(me) me.textContent = `R ${monthEarn.toFixed(2)}`;
+    const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length;
 }
+
 window.confirmDeleteOrder = function(key) {
     pendingDeleteOrderKey = key;
     showModal('deleteConfirmModal');
@@ -412,30 +1059,92 @@ window.confirmDeleteOrder = function(key) {
                 showToast('Order deleted successfully', 'success');
                 hideModal('deleteConfirmModal');
                 pendingDeleteOrderKey = null;
-            }).catch(() => {
-                showToast('Failed to delete order', 'error');
-                hideModal('deleteConfirmModal');
-            });
+            }).catch(() => { showToast('Failed to delete order', 'error'); hideModal('deleteConfirmModal'); });
         }
     };
 };
+
 window.viewOrderDetail = function(key) {
-    const o = ordersCache[key]; if (!o) return; const addr = getOrderAddress(o); const orderNum = o.orderNumber || key.slice(-6); const items = (o.items||[]); const total = Number(o.total||0).toFixed(2);
+    const o = ordersCache[key]; if (!o) return;
+    const addr = getOrderAddress(o); const orderNum = o.orderNumber || key.slice(-6);
+    const items = (o.items||[]); const total = Number(o.total||0).toFixed(2);
     const customer = getCustomerName(o);
     let itemsHTML = items.map(item => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;"><span>${item.name} ×${item.quantity||1}</span><span style="font-weight:700;">R${(Number(item.price||0)*(item.quantity||1)).toFixed(2)}</span></div>`).join('');
     document.getElementById('orderDetailTitle').textContent = `Order #${orderNum}`;
-    document.getElementById('orderDetailBody').innerHTML = `<div class="order-detail-section"><h4>Customer</h4><div class="addr-display"><div class="addr-display-icon"><i data-lucide="user" style="width:18px;height:18px;"></i></div><div class="addr-display-text"><strong>${customer}</strong></div></div></div><div class="order-detail-section"><h4>Delivery Address</h4><div class="addr-display"><div class="addr-display-icon"><i data-lucide="map-pin" style="width:18px;height:18px;"></i></div><div class="addr-display-text">${addr}</div></div></div><div class="order-detail-section"><h4>Order Items</h4>${itemsHTML || '<p style="color:var(--dim);font-size:0.85rem;">No items listed</p>'}<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:800;font-size:0.95rem;"><span>Total</span><span style="color:var(--accent);">R${total}</span></div></div><div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div><div style="margin-top:10px;display:flex;gap:8px;"><button onclick="openMapsDirections('${addr.replace(/'/g,"\\'")}','${o.vendorName||'Restaurant'}')" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;"><i data-lucide="navigation" style="width:14px;height:14px;"></i> Open in Maps</button></div></div>${o.driverKey && o.driverKey !== DRIVER_KEY ? `<div class="accepted-banner"><i data-lucide="check-circle" style="width:16px;height:16px;"></i> This order has been accepted by another driver</div>` : ''}`;
+    document.getElementById('orderDetailBody').innerHTML = `
+        <div class="order-detail-section"><h4>Customer</h4><div class="addr-display"><i data-lucide="user" style="width:18px;height:18px;"></i><strong>${customer}</strong></div></div>
+        <div class="order-detail-section"><h4>Delivery Address</h4><div class="addr-display"><i data-lucide="map-pin" style="width:18px;height:18px;"></i><div>${addr}</div></div></div>
+        <div class="order-detail-section"><h4>Order Items</h4>${itemsHTML || '<p style="color:var(--dim);font-size:0.85rem;">No items listed</p>'}<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:800;font-size:0.95rem;"><span>Total</span><span style="color:var(--accent);">R${total}</span></div></div>
+        <div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div><div style="margin-top:10px;display:flex;gap:8px;"><button onclick="openMapsDirections('${addr.replace(/'/g,"\\'")}','${(o.vendorName||'Restaurant').replace(/'/g,"\\'")}' )" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;"><i data-lucide="navigation" style="width:14px;height:14px;"></i> Open in Maps</button></div></div>
+        ${o.driverKey && o.driverKey !== DRIVER_KEY ? `<div class="accepted-banner"><i data-lucide="check-circle" style="width:16px;height:16px;"></i> This order has been accepted by another driver</div>` : ''}`;
     showModal('orderDetailModal'); lucide.createIcons();
-    setTimeout(() => { if (currentMapInstance) { currentMapInstance.remove(); currentMapInstance = null; } try { const map = new mapboxgl.Map({ container: 'orderMap', style: 'mapbox://styles/mapbox/streets-v12', center: [28.4, -25.7], zoom: 11 }); currentMapInstance = map; map.on('load', () => map.resize()); if (addr && addr !== 'Address not provided') { fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => { if (data.features && data.features.length > 0) { const [lng, lat] = data.features[0].geometry.coordinates; map.flyTo({ center: [lng, lat], zoom: 14 }); new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([lng, lat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>Delivery Address</strong><br>${addr}`)).addTo(map); } }).catch(() => {}); } if (o.vendorLat && o.vendorLng) { new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([o.vendorLng, o.vendorLat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'}</strong>`)).addTo(map);
-    if (addr && addr !== 'Address not provided') { fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => { if (data.features && data.features.length > 0) { const [dLng, dLat] = data.features[0].geometry.coordinates; const vLng = o.vendorLng, vLat = o.vendorLat; fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`).then(r => r.json()).then(routeData => { if (routeData.routes && routeData.routes.length > 0) { const route = routeData.routes[0].geometry; map.on('load', () => { map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } }); map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } }); const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat]));
-    map.fitBounds(bounds, { padding:40 }); }); } }).catch(() => {}); } }).catch(() => {});
-    } } } catch(e) { console.error('Map init error:', e); } }, 300);
+    setTimeout(() => {
+        if (currentMapInstance) { currentMapInstance.remove(); currentMapInstance = null; }
+        try {
+            const map = new mapboxgl.Map({ container: 'orderMap', style: 'mapbox://styles/mapbox/streets-v12', center: [28.4, -25.7], zoom: 11 });
+            currentMapInstance = map; map.on('load', () => map.resize());
+            if (addr && addr !== 'Address not provided') {
+                fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => {
+                    if (data.features && data.features.length > 0) {
+                        const [lng, lat] = data.features[0].geometry.coordinates;
+                        map.flyTo({ center: [lng, lat], zoom: 14 });
+                        new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([lng, lat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>Delivery Address</strong><br>${addr}`)).addTo(map);
+                    }
+                }).catch(() => {});
+            }
+            if (o.vendorLat && o.vendorLng) {
+                new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([o.vendorLng, o.vendorLat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'}</strong>`)).addTo(map);
+                if (addr && addr !== 'Address not provided') {
+                    fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => {
+                        if (data.features && data.features.length > 0) {
+                            const [dLng, dLat] = data.features[0].geometry.coordinates;
+                            const vLng = o.vendorLng, vLat = o.vendorLat;
+                            fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`).then(r => r.json()).then(routeData => {
+                                if (routeData.routes && routeData.routes.length > 0) {
+                                    const route = routeData.routes[0].geometry;
+                                    if (map.loaded()) {
+                                        map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } });
+                                        map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } });
+                                        const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat]));
+                                        map.fitBounds(bounds, { padding:40 });
+                                    } else {
+                                        map.on('load', () => {
+                                            map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } });
+                                            map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } });
+                                            const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat]));
+                                            map.fitBounds(bounds, { padding:40 });
+                                        });
+                                    }
+                                }
+                            }).catch(() => {});
+                        }
+                    }).catch(() => {});
+                }
+            }
+        } catch(e) { console.error('Map init error:', e); }
+    }, 300);
 };
+
 window.openMapsDirections = function(addr, vendor) { window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); };
-window.acceptDelivery = function(key) { if (!DRIVER_KEY || !driverData) return;
-    db.ref('orders/' + key).transaction(currentData => { if (!currentData) return; if (currentData.driverKey) return; currentData.driverKey = DRIVER_KEY; currentData.driverName = driverData.name || getDriverFullName(driverData); currentData.status = 'assigned'; currentData.updatedAt = Date.now(); return currentData; }).then(result => { if (result.committed) showToast('Delivery accepted! 🛵', 'success'); else showToast('Order already taken by another driver', ''); }).catch(() => showToast('Failed to accept order'));
+
+window.acceptDelivery = function(key) {
+    if (!DRIVER_KEY || !driverData) return;
+    db.ref('orders/' + key).transaction(currentData => {
+        if (!currentData) return;
+        if (currentData.driverKey) return;
+        currentData.driverKey = DRIVER_KEY;
+        currentData.driverName = driverData.name || getDriverFullName(driverData);
+        currentData.status = 'assigned';
+        currentData.updatedAt = Date.now();
+        return currentData;
+    }).then(result => {
+        if (result.committed) showToast('Delivery accepted! 🛵', 'success');
+        else showToast('Order already taken by another driver', '');
+    }).catch(() => showToast('Failed to accept order'));
 };
+
 window.markDelivered = function(key) { db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); };
+
 window.saveDriverProfile = function() {
     if (!DRIVER_KEY) return;
     const newFullName = document.getElementById('p-fullname').value.trim();
@@ -458,70 +1167,134 @@ window.saveDriverProfile = function() {
         applyDriverUI();
     });
 };
+
 window.toggleSetting = function(el, key) {
     el.classList.toggle('on');
     if (DRIVER_KEY) { db.ref('drivers/' + DRIVER_KEY + '/settings/' + key).set(el.classList.contains('on')); }
 };
-function regNext(step) { const err = document.getElementById('regError'); err.style.display = 'none'; if (step === 0) { const name = document.getElementById('reg-name').value.trim();
-    const city = document.getElementById('reg-city').value.trim(); const province = document.getElementById('reg-province').value; const phone = document.getElementById('reg-phone').value.trim();
-    if (!name || !city || !province || !phone) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block';
-    return; } document.getElementById('step0').classList.remove('active'); document.getElementById('step1').classList.add('active'); document.getElementById('dot-0').classList.remove('active'); document.getElementById('dot-1').classList.add('active'); } }
-function regBack(step) { if (step === 1) { document.getElementById('step1').classList.remove('active'); document.getElementById('step0').classList.add('active'); document.getElementById('dot-1').classList.remove('active'); document.getElementById('dot-0').classList.add('active'); } }
-async function submitDriverRegistration() { const err = document.getElementById('regError'); const suc = document.getElementById('regSuccess'); const btn = document.getElementById('regSubmitBtn');
+
+// ── AUTH ──
+function regNext(step) {
+    const err = document.getElementById('regError'); err.style.display = 'none';
+    if (step === 0) {
+        const name = document.getElementById('reg-name').value.trim();
+        const city = document.getElementById('reg-city').value.trim();
+        const province = document.getElementById('reg-province').value;
+        const phone = document.getElementById('reg-phone').value.trim();
+        if (!name || !city || !province || !phone) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return; }
+        document.getElementById('step0').classList.remove('active'); document.getElementById('step1').classList.add('active');
+        document.getElementById('dot-0').classList.remove('active'); document.getElementById('dot-1').classList.add('active');
+    }
+}
+function regBack(step) {
+    if (step === 1) {
+        document.getElementById('step1').classList.remove('active'); document.getElementById('step0').classList.add('active');
+        document.getElementById('dot-1').classList.remove('active'); document.getElementById('dot-0').classList.add('active');
+    }
+}
+async function submitDriverRegistration() {
+    const err = document.getElementById('regError'); const suc = document.getElementById('regSuccess'); const btn = document.getElementById('regSubmitBtn');
     const email = document.getElementById('reg-email').value.trim(); const vehicle = document.getElementById('reg-vehicle').value; const license = document.getElementById('reg-license').value.trim();
-    if (!email || !vehicle || !license) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return;
-    } btn.disabled = true; btn.textContent = 'Submitting…';
+    if (!email || !vehicle || !license) { err.textContent = 'Please fill in all required fields'; err.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = 'Submitting…';
     const fullName = document.getElementById('reg-name').value.trim();
-    const firstName = fullName.split(' ')[0] || '';
-    const lastName = fullName.split(' ').slice(1).join(' ') || '';
     const data = {
-        name: fullName,
-        firstName: firstName,
-        lastName: lastName,
-        phone: document.getElementById('reg-phone').value.trim(),
-        city: document.getElementById('reg-city').value.trim(),
-        province: document.getElementById('reg-province').value,
-        email,
-        vehicleType: vehicle,
-        licenseNumber: license,
-        status: 'pending',
-        createdAt: Date.now()
+        name: fullName, firstName: fullName.split(' ')[0] || '', lastName: fullName.split(' ').slice(1).join(' ') || '',
+        phone: document.getElementById('reg-phone').value.trim(), city: document.getElementById('reg-city').value.trim(),
+        province: document.getElementById('reg-province').value, email, vehicleType: vehicle, licenseNumber: license,
+        status: 'pending', createdAt: Date.now()
     };
-    try { await db.ref('drivers').push(data); suc.innerHTML = '✅ Application submitted! Admin will review and assign your Driver ID.'; suc.style.display = 'block';
-    err.style.display = 'none'; btn.textContent = '✓ Sent!'; setTimeout(() => { switchAuthTab('login'); btn.disabled=false; btn.textContent='Submit Application'; suc.style.display='none'; }, 3500);
-    } catch(e) { err.textContent = 'Submission failed. Try again.'; err.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Application'; } }
-async function partnerLogin() { const id = document.getElementById('driverLoginId').value.trim().toUpperCase(); const err = document.getElementById('loginError'); err.style.display = 'none';
-    if (!id) { err.textContent = 'Enter your Driver ID'; err.style.display = 'block'; return; } const btn = document.getElementById('loginBtn');
-    btn.textContent = 'Signing in…'; btn.disabled = true; try { const snap = await db.ref('drivers').orderByChild('driverID').equalTo(id).once('value'); const data = snap.val();
-    if (!data) throw new Error('Driver ID not found'); const key = Object.keys(data)[0]; const driver = data[key];
-    if (driver.status !== 'active') throw new Error('Your account is not yet approved'); DRIVER_KEY = key;
-    localStorage.setItem('vynix_driver_session', JSON.stringify({ key, id, role: 'driver', loggedAt: Date.now() })); enterPortal(); } catch (e) { err.textContent = e.message; err.style.display = 'block';
-    } finally { btn.textContent = 'Sign In to Driver Portal'; btn.disabled = false; } }
-async function signInWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); try { const result = await auth.signInWithPopup(provider);
-    const user = result.user; const snap = await db.ref('drivers').orderByChild('email').equalTo(user.email).once('value'); if (!snap.val()) throw new Error('No driver account linked to this email');
-    const key = Object.keys(snap.val())[0]; DRIVER_KEY = key; localStorage.setItem('vynix_driver_session', JSON.stringify({ key, role: 'driver', loggedAt: Date.now() })); enterPortal();
-    } catch (e) { document.getElementById('loginError').textContent = e.message; document.getElementById('loginError').style.display = 'block'; } }
-function switchAuthTab(tab) { document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
-    document.getElementById('loginPanel').style.display = tab === 'login' ? 'block' : 'none'; document.getElementById('registerPanel').style.display = tab === 'register' ? 'block' : 'none';
-    if (tab === 'register') { document.querySelectorAll('.reg-step').forEach(s => s.classList.remove('active')); document.getElementById('step0').classList.add('active'); document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active'); } }
+    try {
+        await db.ref('drivers').push(data);
+        suc.innerHTML = '✅ Application submitted! Admin will review and assign your Driver ID.'; suc.style.display = 'block'; err.style.display = 'none';
+        btn.textContent = '✓ Sent!';
+        setTimeout(() => { switchAuthTab('login'); btn.disabled=false; btn.textContent='Submit Application'; suc.style.display='none'; }, 3500);
+    } catch(e) { err.textContent = 'Submission failed. Try again.'; err.style.display = 'block'; btn.disabled = false; btn.textContent = 'Submit Application'; }
+}
+async function partnerLogin() {
+    const id = document.getElementById('driverLoginId').value.trim().toUpperCase(); const err = document.getElementById('loginError'); err.style.display = 'none';
+    if (!id) { err.textContent = 'Enter your Driver ID'; err.style.display = 'block'; return; }
+    const btn = document.getElementById('loginBtn'); btn.textContent = 'Signing in…'; btn.disabled = true;
+    try {
+        const snap = await db.ref('drivers').orderByChild('driverID').equalTo(id).once('value'); const data = snap.val();
+        if (!data) throw new Error('Driver ID not found');
+        const key = Object.keys(data)[0]; const driver = data[key];
+        if (driver.status !== 'active') throw new Error('Your account is not yet approved');
+        DRIVER_KEY = key;
+        localStorage.setItem('vynix_driver_session', JSON.stringify({ key, id, role: 'driver', loggedAt: Date.now() }));
+        enterPortal();
+    } catch (e) { err.textContent = e.message; err.style.display = 'block';
+    } finally { btn.textContent = 'Sign In to Driver Portal'; btn.disabled = false; }
+}
+async function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+        const result = await auth.signInWithPopup(provider); const user = result.user;
+        const snap = await db.ref('drivers').orderByChild('email').equalTo(user.email).once('value');
+        if (!snap.val()) throw new Error('No driver account linked to this email');
+        const key = Object.keys(snap.val())[0]; DRIVER_KEY = key;
+        localStorage.setItem('vynix_driver_session', JSON.stringify({ key, role: 'driver', loggedAt: Date.now() }));
+        enterPortal();
+    } catch (e) { document.getElementById('loginError').textContent = e.message; document.getElementById('loginError').style.display = 'block'; }
+}
+function switchAuthTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
+    document.getElementById('loginPanel').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('registerPanel').style.display = tab === 'register' ? 'block' : 'none';
+    if (tab === 'register') {
+        document.querySelectorAll('.reg-step').forEach(s => s.classList.remove('active')); document.getElementById('step0').classList.add('active');
+        document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active');
+    }
+}
+
+// ── NAVIGATION ──
 function showTab(id, el) {
     document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('#driverSidebar .nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    if (el) { el.classList.add('active'); }
+    if (el) el.classList.add('active');
     else { const targetNav = document.querySelector(`.nav-item[onclick="showTab('${id}',this)"]`); if(targetNav) targetNav.classList.add('active'); }
     lucide.createIcons();
 }
+function setMobileNav(activeId) {
+    document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+    const el = document.getElementById(activeId); if (el) el.classList.add('active');
+}
+
+// ── LOGOUT ──
 function openLogoutModal() { showModal('logoutModal'); }
-function confirmLogout() { localStorage.removeItem('vynix_driver_session'); DRIVER_KEY = null; driverData = null; document.getElementById('driverSidebar').style.display = 'none'; document.getElementById('driverMainPanel').style.display = 'none';
-    document.getElementById('authScreen').classList.remove('hidden'); hideModal('logoutModal'); lucide.createIcons(); }
+function confirmLogout() {
+    localStorage.removeItem('vynix_driver_session'); DRIVER_KEY = null; driverData = null;
+    if (locationWatcher) { navigator.geolocation.clearWatch(locationWatcher); locationWatcher = null; }
+    driverLat = null; driverLng = null;
+    document.getElementById('driverSidebar').style.display = 'none';
+    document.getElementById('driverMainPanel').style.display = 'none';
+    document.getElementById('mobileTopbar').style.display = 'none';
+    document.getElementById('mobileBottomNav').style.display = 'none';
+    document.getElementById('authScreen').classList.remove('hidden');
+    hideModal('logoutModal'); lucide.createIcons();
+}
+
+// ── MODALS & TOAST ──
 function showModal(id) { const el = document.getElementById(id); el.style.display = 'flex'; setTimeout(() => { el.classList.add('active'); lucide.createIcons(); }, 10); }
 function hideModal(id) { const el = document.getElementById(id); el.classList.remove('active'); setTimeout(() => el.style.display = 'none', 320); }
-function showToast(msg, type='success') { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.className = 'toast show ' + type; clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
-(function checkSession() { const s = JSON.parse(localStorage.getItem('vynix_driver_session') || 'null'); if (s && s.key && (Date.now() - s.loggedAt) < 86400000) { DRIVER_KEY = s.key; enterPortal(); } })();
+function showToast(msg, type='success') { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.className = 'toast show ' + type; clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
+
+// ── SESSION RESTORE ──
+(function checkSession() {
+    const s = JSON.parse(localStorage.getItem('vynix_driver_session') || 'null');
+    if (s && s.key && (Date.now() - s.loggedAt) < 86400000) { DRIVER_KEY = s.key; enterPortal(); }
+})();
+
+// ── DESKTOP SIDEBAR HOVER ──
 document.getElementById('driverSidebar').addEventListener('mouseenter', () => { document.getElementById('driverSidebar').classList.add('expanded'); document.getElementById('driverMainPanel').classList.add('shifted'); });
 document.getElementById('driverSidebar').addEventListener('mouseleave', () => { document.getElementById('driverSidebar').classList.remove('expanded'); document.getElementById('driverMainPanel').classList.remove('shifted'); });
+
+// ── SPIN ANIMATION FOR LOADER ICON ──
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }';
+document.head.appendChild(style);
+
 lucide.createIcons();
 </script>
 </body>
