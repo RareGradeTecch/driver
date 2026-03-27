@@ -288,7 +288,6 @@ function getDriverFullName(driver) {
 }
 
 function getCustomerName(order) {
-    // Get real customer name from order data - priority: customerName, userName, customer, user.name, or userEmail
     if (order.customerName && order.customerName.trim() !== '') return order.customerName.trim();
     if (order.userName && order.userName.trim() !== '') return order.userName.trim();
     if (order.customer && order.customer.trim() !== '') return order.customer.trim();
@@ -299,7 +298,6 @@ function getCustomerName(order) {
 }
 
 function getOrderAddress(o) {
-    // Get the full delivery address as assigned by vendor
     return o.deliveryAddress || 
            o.address || 
            o.customerAddress || 
@@ -342,7 +340,11 @@ function applyDriverUI() {
 }
 function renderDriverDashboard() {
     const orders = Object.entries(ordersCache);
-    const available = orders.filter(([k,o]) => (o.status === 'ready' || o.status === 'pending') && !o.driverKey);
+
+    // Only show orders the vendor has marked as 'ready' — not 'pending' (still being processed by vendor).
+    // This ensures drivers only see orders after the vendor has confirmed and assigned them for pickup.
+    const available = orders.filter(([k,o]) => o.status === 'ready' && !o.driverKey);
+
     const myDel = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
     const count = available.length;
     document.getElementById('availableCount').textContent = count;
