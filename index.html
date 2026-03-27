@@ -706,8 +706,8 @@ function updateLocationBanners(state) {
     } else if (state === 'success') {
         if (!locationBannerShown) {
             banners.forEach(b => { if (!b) return; b.className = 'location-banner success'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="check-circle" style="width:18px;height:18px;"></i> Location found — showing orders within ${NEARBY_RADIUS_KM}km of you`; });
-            setTimeout(() => { 
-                banners.forEach(b => { if (b) b.style.display = 'none'; }); 
+            setTimeout(() => {
+                banners.forEach(b => { if (b) b.style.display = 'none'; });
             }, 4000);
             locationBannerShown = true;
         }
