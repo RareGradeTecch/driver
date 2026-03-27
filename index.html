@@ -702,7 +702,7 @@ function updateLocationBanners(state) {
         if (mobileStatus) mobileStatus.textContent = '📍 Locating…';
     } else if (state === 'success') {
         if (!locationBannerShown) {
-            banners.forEach(b => { if (!b) return; b.className = 'location-banner success'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="check-circle" style="width:18px;height:18px;"></i> Showing all orders from restaurants`; });
+            banners.forEach(b => { if (!b) return; b.className = 'location-banner success'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="check-circle" style="width:18px;height:18px;"></i> Showing restaurant orders within 10 km`; });
             setTimeout(() => { banners.forEach(b => { if (b) b.style.display = 'none'; }); }, 4000);
             locationBannerShown = true;
         }
@@ -728,9 +728,45 @@ async function geocodeAddress(addr) {
     } catch(e) {}
     return null;
 }
-// ── SHOW ALL ORDERS (removed 10 km filter) ──
+// ── RESTAURANT LOCATION HELPERS (linked from vendor portal data) ──
+function getRestaurantAddress(o) {
+    // Vendor location stored in order (copied from vendor profile at order creation)
+    return o.vendorAddress || o.restaurantAddress || o.vendorLocation || o.vendorName || 'Restaurant pickup location';
+}
+function getCustomerAddress(o) {
+    return o.deliveryAddress || o.address || o.customerAddress || o.shippingAddress || o.fullAddress || o.locationAddress ||
+           (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) ||
+           (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) ||
+           (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) ||
+           'Customer address';
+}
+// ── NEW: ONLY SHOW ORDERS WHERE RESTAURANT IS WITHIN 10 KM ──
 async function isOrderNearby(order) {
-    return { nearby: true, dist: null };
+    if (!driverLat || !driverLng) return { nearby: true, dist: null }; // fallback if location not ready
+
+    // 1. Prefer vendor lat/lng stored directly in the order (best practice - vendor copies its location when order is created)
+    let vLat = order.vendorLat || order.vendorLatitude;
+    let vLng = order.vendorLng || order.vendorLongitude;
+
+    // 2. Fallback: geocode restaurant address if lat/lng not present
+    if (!vLat || !vLng) {
+        const vAddr = getRestaurantAddress(order);
+        if (vAddr && vAddr !== 'Restaurant pickup location') {
+            const geo = await geocodeAddress(vAddr);
+            if (geo) {
+                vLat = geo.lat;
+                vLng = geo.lng;
+            }
+        }
+    }
+
+    if (vLat && vLng) {
+        const dist = haversineKm(driverLat, driverLng, parseFloat(vLat), parseFloat(vLng));
+        return { nearby: dist <= 10, dist: dist };
+    }
+
+    // If we cannot determine restaurant location → hide order (strict enforcement)
+    return { nearby: false, dist: null };
 }
 // ── PORTAL ENTRY ──
 function getDriverFullName(driver) {
@@ -748,13 +784,6 @@ function getCustomerName(order) {
     if (order.user && order.user.name) return order.user.name;
     if (order.userEmail && order.userEmail.includes('@')) return order.userEmail.split('@')[0];
     return 'Customer';
-}
-function getOrderAddress(o) {
-    return o.deliveryAddress || o.address || o.customerAddress || o.shippingAddress || o.fullAddress || o.locationAddress ||
-           (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) ||
-           (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) ||
-           (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) ||
-           'Address not provided';
 }
 function enterPortal() {
     document.getElementById('authScreen').classList.add('hidden');
@@ -820,7 +849,8 @@ async function _renderDriverDashboard() {
     const orders = Object.entries(ordersCache);
     const readyOrders = orders.filter(([k,o]) => o.status === 'ready' && !o.driverKey);
     const myDel = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
-    // Show ALL orders (no location filter)
+
+    // ── CRITICAL CHANGE: ONLY restaurant within 10 km ──
     const nearbyResults = await Promise.all(readyOrders.map(async ([k,o]) => {
         const r = await isOrderNearby(o);
         return { key: k, order: o, nearby: r.nearby, dist: r.dist };
@@ -837,15 +867,17 @@ async function _renderDriverDashboard() {
         badge.style.display = 'none';
         if (mobileBadge) mobileBadge.style.display = 'none';
     }
-    const noOrdersMsg = `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">🛵</div><div style="font-weight:700;margin-bottom:4px;">No available orders</div><div style="font-size:0.82rem;">New restaurant orders will appear here</div></div>`;
+    const noOrdersMsg = `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">🛵</div><div style="font-weight:700;margin-bottom:4px;">No available orders</div><div style="font-size:0.82rem;">New restaurant orders within 10 km will appear here</div></div>`;
     let availHTML = available.length === 0 ? noOrdersMsg : available.map(r => buildAvailableOrderCard(r.key, r.order, false, r.dist)).join('');
     document.getElementById('availableOrdersList').innerHTML = availHTML;
     document.getElementById('availableFullList').innerHTML = available.length === 0 ? `<div style="padding:16px">${noOrdersMsg}</div>` : available.map(r => buildAvailableOrderCard(r.key, r.order, true, r.dist)).join('');
+
     let myHTML = myDel.length === 0
         ? `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">📦</div><div style="font-weight:700;margin-bottom:4px;">No active deliveries</div><div style="font-size:0.82rem;">Accept an order to get started</div></div>`
         : myDel.map(([key,o]) => buildMyDeliveryCard(key, o)).join('');
     document.getElementById('myDeliveriesList').innerHTML = myHTML;
     document.getElementById('myDeliveriesFullList').innerHTML = myDel.length === 0 ? `<div style="padding:16px">${myHTML}</div>` : myDel.map(([key,o]) => buildMyDeliveryCard(key, o, true)).join('');
+
     const today = new Date().toDateString();
     const todayDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY && new Date(o.createdAt).toDateString() === today);
     const todayEarnings = todayDelivered.reduce((s,[k,o]) => s + (Number(o.total||0)*0.15), 0);
@@ -860,7 +892,7 @@ async function _renderDriverDashboard() {
     lucide.createIcons();
 }
 function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
-    const addr = getOrderAddress(o);
+    const addr = getRestaurantAddress(o);               // ← RESTAURANT LOCATION FIRST
     const total = Number(o.total||0).toFixed(2);
     const orderNum = o.orderNumber || key.slice(-6);
     const vendor = o.vendorName || 'Restaurant';
@@ -871,7 +903,7 @@ function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
             <div style="flex:1;min-width:0;">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
-                    <strong style="font-size:0.92rem;">${vendor}</strong>
+                    <strong style="font-size:0.92rem;">${vendor} <span style="font-size:0.75rem;color:var(--dim);">(Pickup)</span></strong>
                     <span class="order-meta-pill pill-blue">Order #${orderNum}</span>
                     ${distBadge}
                 </div>
@@ -893,7 +925,7 @@ function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
     </div>`;
 }
 function buildMyDeliveryCard(key, o, fullView = false) {
-    const addr = getOrderAddress(o);
+    const addr = getCustomerAddress(o);                // ← CUSTOMER LOCATION after accept
     const orderNum = o.orderNumber || key.slice(-6);
     const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } };
     const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' };
@@ -934,7 +966,7 @@ function updateHistoryTab() {
         const earning = (Number(o.total||0)*0.15).toFixed(2);
         const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red';
         const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled';
-        const addr = getOrderAddress(o);
+        const addr = getCustomerAddress(o);
         const customer = getCustomerName(o);
         return `<div class="history-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
             <div style="flex:1;">
@@ -986,65 +1018,86 @@ window.confirmDeleteOrder = function(key) {
 };
 window.viewOrderDetail = function(key) {
     const o = ordersCache[key]; if (!o) return;
-    const addr = getOrderAddress(o); const orderNum = o.orderNumber || key.slice(-6);
-    const items = (o.items||[]); const total = Number(o.total||0).toFixed(2);
+    const orderNum = o.orderNumber || key.slice(-6);
+    const items = (o.items||[]); 
+    const total = Number(o.total||0).toFixed(2);
     const customer = getCustomerName(o);
+    const isMyDelivery = (o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
+
+    // ── RESTAURANT FIRST, CUSTOMER ONLY AFTER ACCEPT ──
+    let addressHTML = '';
+    if (isMyDelivery) {
+        addressHTML = `
+        <div class="order-detail-section"><h4>Customer Delivery Address</h4><div class="addr-display"><i data-lucide="map-pin" style="width:18px;height:18px;"></i><div>${getCustomerAddress(o)}</div></div></div>`;
+    } else {
+        addressHTML = `
+        <div class="order-detail-section"><h4>Restaurant Pickup Location</h4><div class="addr-display"><i data-lucide="map-pin" style="width:18px;height:18px;"></i><div>${getRestaurantAddress(o)}</div></div></div>`;
+    }
+
     let itemsHTML = items.map(item => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;"><span>${item.name} ×${item.quantity||1}</span><span style="font-weight:700;">R${(Number(item.price||0)*(item.quantity||1)).toFixed(2)}</span></div>`).join('');
-    document.getElementById('orderDetailTitle').textContent = `Order #${orderNum}`;
+
+    document.getElementById('orderDetailTitle').textContent = `Order #${orderNum} ${isMyDelivery ? '(Active)' : '(Pickup)'}`;
     document.getElementById('orderDetailBody').innerHTML = `
         <div class="order-detail-section"><h4>Customer</h4><div class="addr-display"><i data-lucide="user" style="width:18px;height:18px;"></i><strong>${customer}</strong></div></div>
-        <div class="order-detail-section"><h4>Delivery Address</h4><div class="addr-display"><i data-lucide="map-pin" style="width:18px;height:18px;"></i><div>${addr}</div></div></div>
+        ${addressHTML}
         <div class="order-detail-section"><h4>Order Items</h4>${itemsHTML || '<p style="color:var(--dim);font-size:0.85rem;">No items listed</p>'}<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:800;font-size:0.95rem;"><span>Total</span><span style="color:var(--accent);">R${total}</span></div></div>
-        <div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div><div style="margin-top:10px;display:flex;gap:8px;"><button onclick="openMapsDirections('${addr.replace(/'/g,"\\'")}','${(o.vendorName||'Restaurant').replace(/'/g,"\\'")}' )" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;"><i data-lucide="navigation" style="width:14px;height:14px;"></i> Open in Maps</button></div></div>
+        <div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div><div style="margin-top:10px;display:flex;gap:8px;"><button onclick="openMapsDirections('${(isMyDelivery ? getCustomerAddress(o) : getRestaurantAddress(o)).replace(/'/g,"\\'")}','${(o.vendorName||'Restaurant').replace(/'/g,"\\'")}' )" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;"><i data-lucide="navigation" style="width:14px;height:14px;"></i> Open in Maps</button></div></div>
         ${o.driverKey && o.driverKey !== DRIVER_KEY ? `<div class="accepted-banner"><i data-lucide="check-circle" style="width:16px;height:16px;"></i> This order has been accepted by another driver</div>` : ''}`;
-    showModal('orderDetailModal'); lucide.createIcons();
+
+    showModal('orderDetailModal'); 
+    lucide.createIcons();
+
     setTimeout(() => {
         if (currentMapInstance) { currentMapInstance.remove(); currentMapInstance = null; }
         try {
             const map = new mapboxgl.Map({ container: 'orderMap', style: 'mapbox://styles/mapbox/streets-v12', center: [28.4, -25.7], zoom: 11 });
-            currentMapInstance = map; map.on('load', () => map.resize());
-            if (addr && addr !== 'Address not provided') {
-                fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => {
-                    if (data.features && data.features.length > 0) {
-                        const [lng, lat] = data.features[0].geometry.coordinates;
-                        map.flyTo({ center: [lng, lat], zoom: 14 });
-                        new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([lng, lat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>Delivery Address</strong><br>${addr}`)).addTo(map);
-                    }
-                }).catch(() => {});
-            }
+            currentMapInstance = map; 
+            map.on('load', () => map.resize());
+
+            // ALWAYS show restaurant marker
             if (o.vendorLat && o.vendorLng) {
-                new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([o.vendorLng, o.vendorLat]).setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'}</strong>`)).addTo(map);
-                if (addr && addr !== 'Address not provided') {
-                    fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(addr)}&access_token=${MAPBOX_TOKEN}&limit=1`).then(r => r.json()).then(data => {
+                new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([parseFloat(o.vendorLng), parseFloat(o.vendorLat)])
+                    .setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'} (Pickup)</strong>`)).addTo(map);
+            }
+
+            // Show customer + route ONLY if driver has accepted the order
+            if (isMyDelivery) {
+                const custAddr = getCustomerAddress(o);
+                if (custAddr && custAddr !== 'Customer address') {
+                    fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(custAddr)}&access_token=${MAPBOX_TOKEN}&limit=1`)
+                    .then(r => r.json()).then(data => {
                         if (data.features && data.features.length > 0) {
                             const [dLng, dLat] = data.features[0].geometry.coordinates;
-                            const vLng = o.vendorLng, vLat = o.vendorLat;
-                            fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`).then(r => r.json()).then(routeData => {
-                                if (routeData.routes && routeData.routes.length > 0) {
-                                    const route = routeData.routes[0].geometry;
-                                    if (map.loaded()) {
+                            new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([dLng, dLat])
+                                .setPopup(new mapboxgl.Popup().setHTML(`<strong>Customer Delivery</strong><br>${custAddr}`)).addTo(map);
+
+                            // Route from restaurant → customer
+                            if (o.vendorLat && o.vendorLng) {
+                                const vLng = parseFloat(o.vendorLng);
+                                const vLat = parseFloat(o.vendorLat);
+                                fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`)
+                                .then(r => r.json()).then(routeData => {
+                                    if (routeData.routes && routeData.routes.length > 0) {
+                                        const route = routeData.routes[0].geometry;
                                         map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } });
                                         map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } });
-                                        const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat]));
+                                        const bounds = new mapboxgl.LngLatBounds()
+                                            .extend([vLng, vLat])
+                                            .extend([dLng, dLat]);
                                         map.fitBounds(bounds, { padding:40 });
-                                    } else {
-                                        map.on('load', () => {
-                                            map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } });
-                                            map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } });
-                                            const bounds = [[vLng,vLat],[dLng,dLat]].reduce((b,c) => b.extend(c), new mapboxgl.LngLatBounds([vLng,vLat],[vLng,vLat]));
-                                            map.fitBounds(bounds, { padding:40 });
-                                        });
                                     }
-                                }
-                            }).catch(() => {});
+                                });
+                            }
                         }
-                    }).catch(() => {});
+                    });
                 }
             }
         } catch(e) { console.error('Map init error:', e); }
     }, 300);
 };
-window.openMapsDirections = function(addr, vendor) { window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); };
+window.openMapsDirections = function(addr, vendor) { 
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); 
+};
 window.acceptDelivery = function(key) {
     if (!DRIVER_KEY || !driverData) return;
     db.ref('orders/' + key).transaction(currentData => {
@@ -1060,7 +1113,9 @@ window.acceptDelivery = function(key) {
         else showToast('Order already taken by another driver', '');
     }).catch(() => showToast('Failed to accept order'));
 };
-window.markDelivered = function(key) { db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); };
+window.markDelivered = function(key) { 
+    db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); 
+};
 window.saveDriverProfile = function() {
     if (!DRIVER_KEY) return;
     const newFullName = document.getElementById('p-fullname').value.trim();
