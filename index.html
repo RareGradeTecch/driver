@@ -128,7 +128,6 @@
         .shim-card { height: 200px; border-radius: 20px; }
         .shim-logo { width: 42px; height: 42px; border-radius: 14px; }
         .shim-nav { height: 36px; border-radius: 999px; width: 42px; }
-
         /* ── DESKTOP SIDEBAR ── */
         .sidebar {
             width: var(--sidebar-collapsed); background: var(--surface);
@@ -250,7 +249,6 @@
         .accepted-banner { background: #dcfce7; border: 1px solid #86efac; border-radius: 12px; padding: 10px 14px; font-size: 0.8rem; font-weight: 700; color: #16a34a; display: flex; align-items: center; gap: 8px; margin-top: 8px; }
         .customer-name-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border-radius: 999px; padding: 3px 12px; font-size: 0.7rem; font-weight: 600; color: var(--accent); margin-left: 8px; }
         .distance-badge { display: inline-flex; align-items: center; gap: 4px; background: #dcfce7; border-radius: 999px; padding: 3px 10px; font-size: 0.7rem; font-weight: 700; color: #16a34a; }
-
         /* ── LOCATION BANNER ── */
         .location-banner {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
@@ -275,14 +273,12 @@
             border-color: #fca5a5;
             color: #7f1d1d;
         }
-
         /* ── MOBILE STYLES ── */
         @media (max-width: 768px) {
             /* Hide desktop sidebar */
             .sidebar { display: none !important; }
             .shim-sidebar { display: none !important; }
             .shim-main { margin-left: 0 !important; padding: 20px 16px !important; }
-
             /* Main panel full width */
             .main-panel {
                 margin-left: 0 !important;
@@ -290,7 +286,6 @@
                 padding: 16px 16px calc(var(--mobile-bottom-nav) + 20px) !important;
             }
             .main-panel.shifted { margin-left: 0 !important; max-width: 100% !important; }
-
             /* Mobile top bar */
             .mobile-topbar {
                 display: flex !important;
@@ -308,10 +303,8 @@
             .mobile-topbar-logo span { color: var(--accent); }
             .mobile-topbar-right { display: flex; align-items: center; gap: 10px; }
             .mobile-avatar { width: 36px; height: 36px; border-radius: 10px; background: var(--store-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; }
-
             /* Offset content for topbar */
             #driverMainPanel { padding-top: calc(64px + 16px) !important; }
-
             /* Bottom nav */
             .mobile-bottom-nav {
                 display: flex !important;
@@ -359,7 +352,6 @@
                 min-width: 16px;
                 text-align: center;
             }
-
             /* Responsive tweaks */
             .dashboard-hero { border-radius: 18px; padding: 20px 20px; margin-bottom: 16px; }
             .hero-left h1 { font-size: 1.2rem; }
@@ -370,15 +362,12 @@
             .stat-card h3 { font-size: 0.62rem; }
             .stat-icon { width: 30px; height: 30px; border-radius: 8px; right: 10px; top: 10px; }
             .stat-icon i { width: 14px; height: 14px; }
-
             /* Dashboard two-col → single col */
             #dashboard > div:last-child { grid-template-columns: 1fr !important; }
-
             /* Cards */
             .content-card { border-radius: 16px; }
             .card-header { padding: 14px 16px; }
             .order-card { padding: 14px 16px; }
-
             /* Profile */
             .profile-container { max-width: 100%; }
             .profile-hero-card { padding: 22px; border-radius: 18px; }
@@ -386,28 +375,21 @@
             .profile-hero-info h2 { font-size: 1.1rem; }
             .profile-field-row { flex-direction: column; align-items: flex-start; gap: 8px; }
             .profile-pill-input { max-width: 100%; width: 100%; }
-
             /* Settings */
             .settings-container { max-width: 100%; }
-
             /* History */
             .history-card { border-radius: 14px; padding: 14px 16px; }
-
             /* Modal */
             .modal-content { padding: 22px; border-radius: 20px; }
             .modal-btn-row { flex-direction: column; }
-
             /* Toast bottom offset for mobile nav */
             .toast { bottom: calc(var(--mobile-bottom-nav) + 12px); right: 12px; left: 12px; max-width: 100%; }
-
             /* Auth card */
             .auth-card { padding: 28px 24px; border-radius: 22px; }
             .auth-form-row { grid-template-columns: 1fr; }
-
             /* Page headings */
             .page-content > h1 { font-size: 1.5rem !important; margin-bottom: 18px !important; }
         }
-
         /* Desktop: hide mobile elements */
         @media (min-width: 769px) {
             .mobile-topbar { display: none; }
@@ -416,7 +398,6 @@
     </style>
 </head>
 <body>
-
 <!-- AUTH SCREEN -->
 <div id="authScreen">
     <div class="auth-bg-circles"><div class="auth-circle"></div><div class="auth-circle"></div><div class="auth-circle"></div></div>
@@ -454,7 +435,6 @@
         </div>
     </div>
 </div>
-
 <!-- SHIMMER -->
 <div id="shimmerOverlay">
     <div class="shim-sidebar"></div>
@@ -464,7 +444,6 @@
         <div class="shim-row"><div class="shim-block shim-card"></div><div class="shim-block shim-card"></div></div>
     </div>
 </div>
-
 <!-- MOBILE TOP BAR -->
 <div class="mobile-topbar" id="mobileTopbar" style="display:none;">
     <div class="mobile-topbar-logo">VYNIX<span>DRIVE</span></div>
@@ -473,7 +452,6 @@
         <div class="mobile-avatar" id="mobileAvatar">D</div>
     </div>
 </div>
-
 <!-- DESKTOP SIDEBAR -->
 <nav class="sidebar" id="driverSidebar" style="display:none;">
     <div class="logo"><i data-lucide="bike" class="logo-icon"></i><span class="logo-text">VYNIX<span>DRIVE</span></span></div>
@@ -498,10 +476,8 @@
         <div class="user-info"><div style="font-weight:700;" id="driverSidebarName">Driver</div><div style="font-size:0.72rem;color:var(--accent);"><span class="online-dot"></span><span id="driverSidebarStatus">Online</span></div></div>
     </div>
 </nav>
-
 <!-- MAIN PANEL -->
 <main class="main-panel" id="driverMainPanel" style="display:none;">
-
     <!-- DASHBOARD -->
     <section id="dashboard" class="page-content active">
         <div id="locationBanner" class="location-banner" style="display:none;"></div>
@@ -523,26 +499,22 @@
             </div>
         </div>
     </section>
-
     <!-- AVAILABLE -->
     <section id="available" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Available Orders</h1>
         <div id="locationBanner2" class="location-banner" style="display:none;margin-bottom:16px;"></div>
         <div id="availableFullList" class="content-card" style="padding:0;"></div>
     </section>
-
     <!-- MY DELIVERIES -->
     <section id="deliveries" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">My Current Deliveries</h1>
         <div id="myDeliveriesFullList" class="content-card" style="padding:0;"></div>
     </section>
-
     <!-- HISTORY -->
     <section id="history" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Order History</h1>
         <div id="orderHistoryList"></div>
     </section>
-
     <!-- EARNINGS -->
     <section id="earnings" class="page-content">
         <h1 style="font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:26px;">Earnings</h1>
@@ -553,7 +525,6 @@
             <div class="stat-card"><div class="stat-icon"><i data-lucide="package-check"></i></div><h3>Total Delivered</h3><p id="totalDelivered" style="color:var(--accent);">0</p></div>
         </div>
     </section>
-
     <!-- PROFILE -->
     <section id="profile" class="page-content">
         <div class="profile-container">
@@ -583,9 +554,9 @@
                 <div class="profile-field-row"><div><div class="profile-field-label">Bank Details</div></div><input type="text" class="profile-pill-input" id="p-bank" placeholder="Bank name & account number"></div>
             </div>
             <button class="btn-primary" onclick="saveDriverProfile()" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;margin-top:4px;"><i data-lucide="save" style="width:16px;height:16px;"></i> Save Profile</button>
+            <button onclick="openLogoutModal()" class="btn-danger" style="width:100%;margin-top:16px;justify-content:center;padding:14px;font-size:0.95rem;border-radius:999px;display:flex;align-items:center;gap:8px;"><i data-lucide="log-out" style="width:18px;height:18px;"></i> Log Out</button>
         </div>
     </section>
-
     <!-- SETTINGS -->
     <section id="settings" class="page-content">
         <div class="settings-container">
@@ -612,7 +583,6 @@
         </div>
     </section>
 </main>
-
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-bottom-nav" id="mobileBottomNav" style="display:none;">
     <button class="mobile-nav-item active" id="mn-dashboard" onclick="showTab('dashboard',null);setMobileNav('mn-dashboard')">
@@ -632,19 +602,20 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         Earnings
     </button>
+    <button class="mobile-nav-item" id="mn-history" onclick="showTab('history',null);setMobileNav('mn-history')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+        History
+    </button>
     <button class="mobile-nav-item" id="mn-profile" onclick="showTab('profile',null);setMobileNav('mn-profile')">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Profile
     </button>
 </div>
-
 <!-- MODALS -->
 <div class="modal-overlay" id="logoutModal"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="log-out" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Log Out?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to log out?</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="confirmLogout()"><i data-lucide="log-out" style="width:15px;height:15px;"></i> Log Out</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('logoutModal')">Cancel</button></div></div></div>
 <div class="modal-overlay" id="orderDetailModal"><div class="modal-content" style="max-width:600px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h3 style="font-size:1.1rem;font-weight:800;" id="orderDetailTitle">Order Details</h3><button onclick="hideModal('orderDetailModal')" style="background:var(--surface2);border:none;border-radius:999px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i data-lucide="x" style="width:16px;height:16px;"></i></button></div><div id="orderDetailBody"></div></div></div>
 <div class="modal-overlay" id="deleteConfirmModal"><div class="modal-content" style="max-width:400px;text-align:center;"><div style="width:64px;height:64px;border-radius:50%;background:#fff1f0;border:2px solid #ffcdc9;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><i data-lucide="trash-2" style="width:28px;height:28px;color:var(--danger);"></i></div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">Delete Order?</h3><p style="color:var(--dim);margin-bottom:0;">Are you sure you want to delete this order? This action cannot be undone.</p><div class="modal-btn-row"><button class="btn btn-danger" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" id="confirmDeleteBtn"><i data-lucide="trash-2" style="width:15px;height:15px;"></i> Delete</button><button class="btn btn-edit" style="flex:1;justify-content:center;padding:14px;border-radius:999px;" onclick="hideModal('deleteConfirmModal')">Cancel</button></div></div></div>
-
 <div class="toast" id="toast"><i data-lucide="check-circle" style="width:18px;height:18px;"></i><span id="toastMsg">Done</span></div>
-
 <script>
 const firebaseConfig = { apiKey: "AIzaSyCh7Ute6LeSAxcNDEQwZg5m0cA4ujnLCfg", authDomain: "test-17881.firebaseapp.com", projectId: "test-17881", storageBucket: "test-17881.firebasestorage.app", messagingSenderId: "1057428047643", appId: "1:1057428047643:web:f3801c0d933225a5cd35be", databaseURL: "https://test-17881-default-rtdb.firebaseio.com/" };
 firebase.initializeApp(firebaseConfig);
@@ -652,20 +623,18 @@ const db = firebase.database();
 const auth = firebase.auth();
 const MAPBOX_TOKEN = 'pk.eyJ1Ijoia2F0bGVnb3BoYXNoYSIsImEiOiJjbTlpOTdzbmYwMGNsMmpzYWJtZzN4d3pqIn0.Zt-aSMEoahrV3zkiVVHbOw';
 mapboxgl.accessToken = MAPBOX_TOKEN;
-
 let DRIVER_KEY = null;
 let driverData = null;
 let ordersCache = {};
 let currentMapInstance = null;
 let pendingDeleteOrderKey = null;
-
 // ── LOCATION STATE ──
 let driverLat = null;
 let driverLng = null;
 let locationError = null;
 let locationWatcher = null;
 const NEARBY_RADIUS_KM = 1.0; // 1 kilometre
-
+let locationBannerShown = false;
 // ── HAVERSINE DISTANCE ──
 function haversineKm(lat1, lng1, lat2, lng2) {
     const R = 6371;
@@ -676,12 +645,10 @@ function haversineKm(lat1, lng1, lat2, lng2) {
               Math.sin(dLng/2)*Math.sin(dLng/2);
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
-
 function formatDistance(km) {
     if (km < 1) return `${Math.round(km * 1000)}m away`;
     return `${km.toFixed(1)}km away`;
 }
-
 // ── START LOCATION WATCHING ──
 function startLocationWatch() {
     if (!navigator.geolocation) {
@@ -729,17 +696,21 @@ function startLocationWatch() {
         { enableHighAccuracy: true, maximumAge: 60000 }
     );
 }
-
 function updateLocationBanners(state) {
     const banners = [document.getElementById('locationBanner'), document.getElementById('locationBanner2')];
     const mobileStatus = document.getElementById('mobileLocationStatus');
     banners.forEach(b => { if (!b) return; b.style.display = 'none'; });
-
     if (state === 'fetching') {
         banners.forEach(b => { if (!b) return; b.className = 'location-banner'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="loader" style="width:18px;height:18px;animation:spin 1s linear infinite;"></i> Getting your location to find nearby orders…`; });
         if (mobileStatus) mobileStatus.textContent = '📍 Locating…';
     } else if (state === 'success') {
-        banners.forEach(b => { if (!b) return; b.className = 'location-banner success'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="check-circle" style="width:18px;height:18px;"></i> Location found — showing orders within ${NEARBY_RADIUS_KM}km of you`; setTimeout(() => { b.style.display = 'none'; }, 4000); });
+        if (!locationBannerShown) {
+            banners.forEach(b => { if (!b) return; b.className = 'location-banner success'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="check-circle" style="width:18px;height:18px;"></i> Location found — showing orders within ${NEARBY_RADIUS_KM}km of you`; });
+            setTimeout(() => { 
+                banners.forEach(b => { if (b) b.style.display = 'none'; }); 
+            }, 4000);
+            locationBannerShown = true;
+        }
         if (mobileStatus) mobileStatus.textContent = '📍 Located';
     } else if (state === 'error') {
         banners.forEach(b => { if (!b) return; b.className = 'location-banner error'; b.style.display = 'flex'; b.innerHTML = `<i data-lucide="alert-circle" style="width:18px;height:18px;"></i> ${locationError}`; });
@@ -747,7 +718,6 @@ function updateLocationBanners(state) {
     }
     lucide.createIcons();
 }
-
 // ── GEOCODE VENDOR ADDRESS & CHECK DISTANCE ──
 const geocodeCache = {};
 async function geocodeAddress(addr) {
@@ -763,11 +733,9 @@ async function geocodeAddress(addr) {
     } catch(e) {}
     return null;
 }
-
 async function isOrderNearby(order) {
     // If driver location unknown → show all orders
     if (driverLat === null || driverLng === null) return { nearby: true, dist: null };
-
     // Priority 1: vendor coords stored directly on order
     if (order.vendorLat && order.vendorLng) {
         const dist = haversineKm(driverLat, driverLng, Number(order.vendorLat), Number(order.vendorLng));
@@ -790,7 +758,6 @@ async function isOrderNearby(order) {
     // Fallback: no coordinate info → show order
     return { nearby: true, dist: null };
 }
-
 // ── PORTAL ENTRY ──
 function getDriverFullName(driver) {
     if (!driver) return 'Driver';
@@ -815,7 +782,6 @@ function getOrderAddress(o) {
            (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) ||
            'Address not provided';
 }
-
 function enterPortal() {
     document.getElementById('authScreen').classList.add('hidden');
     showShimmer();
@@ -833,16 +799,13 @@ function enterPortal() {
         lucide.createIcons();
     }, 1500);
 }
-
 function showShimmer() { document.getElementById('shimmerOverlay').classList.add('active'); }
 function hideShimmer() { const s = document.getElementById('shimmerOverlay'); s.classList.add('fade-out'); setTimeout(() => s.classList.remove('active','fade-out'), 600); }
-
 function startDriverSync() {
     if (!DRIVER_KEY) return;
     db.ref('drivers/' + DRIVER_KEY).on('value', snap => { driverData = snap.val(); if (driverData) applyDriverUI(); });
     db.ref('orders').on('value', snap => { ordersCache = snap.val() || {}; renderDriverDashboard(); updateHistoryTab(); updateEarningsTab(); });
 }
-
 function applyDriverUI() {
     const fullName = getDriverFullName(driverData);
     document.getElementById('driverSidebarName').textContent = fullName;
@@ -874,26 +837,22 @@ function applyDriverUI() {
         driverLng = driverData.lastLng;
     }
 }
-
 // ── RENDER DASHBOARD (async for geocoding) ──
 let renderDashboardDebounce = null;
 function renderDriverDashboard() {
     clearTimeout(renderDashboardDebounce);
     renderDashboardDebounce = setTimeout(_renderDriverDashboard, 150);
 }
-
 async function _renderDriverDashboard() {
     const orders = Object.entries(ordersCache);
     const readyOrders = orders.filter(([k,o]) => o.status === 'ready' && !o.driverKey);
     const myDel = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
-
     // Filter by proximity
     const nearbyResults = await Promise.all(readyOrders.map(async ([k,o]) => {
         const r = await isOrderNearby(o);
         return { key: k, order: o, nearby: r.nearby, dist: r.dist };
     }));
     const available = nearbyResults.filter(r => r.nearby);
-
     const count = available.length;
     document.getElementById('availableCount').textContent = count;
     const badge = document.getElementById('availableBadge');
@@ -905,21 +864,17 @@ async function _renderDriverDashboard() {
         badge.style.display = 'none';
         if (mobileBadge) mobileBadge.style.display = 'none';
     }
-
     const noLocMsg = (driverLat !== null)
         ? `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">🛵</div><div style="font-weight:700;margin-bottom:4px;">No orders within ${NEARBY_RADIUS_KM}km</div><div style="font-size:0.82rem;">All current orders are outside your area</div></div>`
         : `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">📍</div><div style="font-weight:700;margin-bottom:4px;">Enable location</div><div style="font-size:0.82rem;">Allow location access to see nearby orders</div></div>`;
-
     let availHTML = available.length === 0 ? noLocMsg : available.map(r => buildAvailableOrderCard(r.key, r.order, false, r.dist)).join('');
     document.getElementById('availableOrdersList').innerHTML = availHTML;
     document.getElementById('availableFullList').innerHTML = available.length === 0 ? `<div style="padding:16px">${noLocMsg}</div>` : available.map(r => buildAvailableOrderCard(r.key, r.order, true, r.dist)).join('');
-
     let myHTML = myDel.length === 0
         ? `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">📦</div><div style="font-weight:700;margin-bottom:4px;">No active deliveries</div><div style="font-size:0.82rem;">Accept an order to get started</div></div>`
         : myDel.map(([key,o]) => buildMyDeliveryCard(key, o)).join('');
     document.getElementById('myDeliveriesList').innerHTML = myHTML;
     document.getElementById('myDeliveriesFullList').innerHTML = myDel.length === 0 ? `<div style="padding:16px">${myHTML}</div>` : myDel.map(([key,o]) => buildMyDeliveryCard(key, o, true)).join('');
-
     const today = new Date().toDateString();
     const todayDelivered = orders.filter(([k,o]) => o.status === 'delivered' && o.driverKey === DRIVER_KEY && new Date(o.createdAt).toDateString() === today);
     const todayEarnings = todayDelivered.reduce((s,[k,o]) => s + (Number(o.total||0)*0.15), 0);
@@ -933,7 +888,6 @@ async function _renderDriverDashboard() {
         <div class="stat-card"><div class="stat-icon"><i data-lucide="clock"></i></div><h3>Active Orders</h3><p>${myDel.length}</p></div>`;
     lucide.createIcons();
 }
-
 function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
     const addr = getOrderAddress(o);
     const total = Number(o.total||0).toFixed(2);
@@ -967,7 +921,6 @@ function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
         </div>
     </div>`;
 }
-
 function buildMyDeliveryCard(key, o, fullView = false) {
     const addr = getOrderAddress(o);
     const orderNum = o.orderNumber || key.slice(-6);
@@ -998,7 +951,6 @@ function buildMyDeliveryCard(key, o, fullView = false) {
         </div>
     </div>`;
 }
-
 function updateHistoryTab() {
     const orders = Object.entries(ordersCache);
     const myHistory = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'delivered' || o.status === 'cancelled')).sort(([,a],[,b]) => (b.createdAt||0) - (a.createdAt||0));
@@ -1035,7 +987,6 @@ function updateHistoryTab() {
     }).join('');
     lucide.createIcons();
 }
-
 function updateEarningsTab() {
     const orders = Object.values(ordersCache).filter(o => o.driverKey === DRIVER_KEY && o.status === 'delivered');
     const now = new Date(); const todayStr = now.toDateString();
@@ -1049,7 +1000,6 @@ function updateEarningsTab() {
     const me = document.getElementById('earningsMonth'); if(me) me.textContent = `R ${monthEarn.toFixed(2)}`;
     const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length;
 }
-
 window.confirmDeleteOrder = function(key) {
     pendingDeleteOrderKey = key;
     showModal('deleteConfirmModal');
@@ -1063,7 +1013,6 @@ window.confirmDeleteOrder = function(key) {
         }
     };
 };
-
 window.viewOrderDetail = function(key) {
     const o = ordersCache[key]; if (!o) return;
     const addr = getOrderAddress(o); const orderNum = o.orderNumber || key.slice(-6);
@@ -1124,9 +1073,7 @@ window.viewOrderDetail = function(key) {
         } catch(e) { console.error('Map init error:', e); }
     }, 300);
 };
-
 window.openMapsDirections = function(addr, vendor) { window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); };
-
 window.acceptDelivery = function(key) {
     if (!DRIVER_KEY || !driverData) return;
     db.ref('orders/' + key).transaction(currentData => {
@@ -1142,9 +1089,7 @@ window.acceptDelivery = function(key) {
         else showToast('Order already taken by another driver', '');
     }).catch(() => showToast('Failed to accept order'));
 };
-
 window.markDelivered = function(key) { db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); };
-
 window.saveDriverProfile = function() {
     if (!DRIVER_KEY) return;
     const newFullName = document.getElementById('p-fullname').value.trim();
@@ -1167,12 +1112,10 @@ window.saveDriverProfile = function() {
         applyDriverUI();
     });
 };
-
 window.toggleSetting = function(el, key) {
     el.classList.toggle('on');
     if (DRIVER_KEY) { db.ref('drivers/' + DRIVER_KEY + '/settings/' + key).set(el.classList.contains('on')); }
 };
-
 // ── AUTH ──
 function regNext(step) {
     const err = document.getElementById('regError'); err.style.display = 'none';
@@ -1246,7 +1189,6 @@ function switchAuthTab(tab) {
         document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active');
     }
 }
-
 // ── NAVIGATION ──
 function showTab(id, el) {
     document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active'));
@@ -1260,10 +1202,10 @@ function setMobileNav(activeId) {
     document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
     const el = document.getElementById(activeId); if (el) el.classList.add('active');
 }
-
 // ── LOGOUT ──
 function openLogoutModal() { showModal('logoutModal'); }
 function confirmLogout() {
+    locationBannerShown = false;
     localStorage.removeItem('vynix_driver_session'); DRIVER_KEY = null; driverData = null;
     if (locationWatcher) { navigator.geolocation.clearWatch(locationWatcher); locationWatcher = null; }
     driverLat = null; driverLng = null;
@@ -1274,27 +1216,22 @@ function confirmLogout() {
     document.getElementById('authScreen').classList.remove('hidden');
     hideModal('logoutModal'); lucide.createIcons();
 }
-
 // ── MODALS & TOAST ──
 function showModal(id) { const el = document.getElementById(id); el.style.display = 'flex'; setTimeout(() => { el.classList.add('active'); lucide.createIcons(); }, 10); }
 function hideModal(id) { const el = document.getElementById(id); el.classList.remove('active'); setTimeout(() => el.style.display = 'none', 320); }
 function showToast(msg, type='success') { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.className = 'toast show ' + type; clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
-
 // ── SESSION RESTORE ──
 (function checkSession() {
     const s = JSON.parse(localStorage.getItem('vynix_driver_session') || 'null');
     if (s && s.key && (Date.now() - s.loggedAt) < 86400000) { DRIVER_KEY = s.key; enterPortal(); }
 })();
-
 // ── DESKTOP SIDEBAR HOVER ──
 document.getElementById('driverSidebar').addEventListener('mouseenter', () => { document.getElementById('driverSidebar').classList.add('expanded'); document.getElementById('driverMainPanel').classList.add('shifted'); });
 document.getElementById('driverSidebar').addEventListener('mouseleave', () => { document.getElementById('driverSidebar').classList.remove('expanded'); document.getElementById('driverMainPanel').classList.remove('shifted'); });
-
 // ── SPIN ANIMATION FOR LOADER ICON ──
 const style = document.createElement('style');
 style.textContent = '@keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }';
 document.head.appendChild(style);
-
 lucide.createIcons();
 </script>
 </body>
