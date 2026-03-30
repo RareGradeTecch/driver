@@ -13,7 +13,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <style>
         /* (keep all existing styles – unchanged) */
-        :root { --accent: #ff751f; --accent-dark: #2563eb; --accent-light: #dbeafe; --accent-rgb: 59,130,246; --store-gradient: linear-gradient(135deg, #ff751f, #2563eb); --store-bg-gradient: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); --bg: #f4f7f6; --surface: #ffffff; --surface2: #f1f3f5; --border: #e9ecef; --text: #1a1d23; --dim: #6c757d; --danger: #ff3b30; --warning: #ff9500; --yellow: #ffc107; --purple: #5856d6; --green: #22c55e; --sidebar-width: 280px; --sidebar-collapsed: 72px; --radius: 20px; --shadow: 0 4px 16px rgba(0,0,0,0.05); --shadow-hover: 0 8px 28px rgba(0,0,0,0.10); --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); --mobile-bottom-nav: 64px; }
+        :root { --accent: #ff751f; --accent-dark: #ff751f; --accent-light: #dbeafe; --accent-rgb: 59,130,246; --store-gradient: linear-gradient(135deg, #ff751f, #ff751f); --store-bg-gradient: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); --bg: #f4f7f6; --surface: #ffffff; --surface2: #f1f3f5; --border: #e9ecef; --text: #1a1d23; --dim: #6c757d; --danger: #ff3b30; --warning: #ff9500; --yellow: #ffc107; --purple: #5856d6; --green: #22c55e; --sidebar-width: 280px; --sidebar-collapsed: 72px; --radius: 20px; --shadow: 0 4px 16px rgba(0,0,0,0.05); --shadow-hover: 0 8px 28px rgba(0,0,0,0.10); --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); --mobile-bottom-nav: 64px; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; line-height: 1.5; transition: background 0.4s ease; }
         ::-webkit-scrollbar { width: 6px; }
@@ -49,7 +49,7 @@
         .auth-input:focus { border-color: #ff751f !important; background: rgba(59,130,246,0.08) !important; box-shadow: 0 0 0 3px rgba(59,130,246,0.15) !important; }
         .auth-input option { color: #000 !important; background: #fff !important; }
         .auth-btn { background: #ff751f; color: white; border: none; padding: 13px; border-radius: 999px; font-weight: 700; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: var(--transition); margin-top: 6px; box-shadow: 0 6px 20px rgba(59,130,246,0.4); width: 100%; }
-        .auth-btn:hover { background: #2563eb; transform: translateY(-2px); }
+        .auth-btn:hover { background: #ff751f; transform: translateY(-2px); }
         .auth-error { background: rgba(255,59,48,0.15); border: 1px solid rgba(255,59,48,0.3); border-radius: 12px; padding: 10px 14px; color: #ff6b63; font-size: 0.82rem; font-weight: 600; display: none; margin-bottom: 8px; }
         .auth-tabs { display: flex; background: rgba(255,255,255,0.06); border-radius: 999px; padding: 4px; margin-bottom: 18px; gap: 4px; }
         .auth-tab { flex: 1; padding: 8px; border-radius: 999px; border: none; background: transparent; color: rgba(255,255,255,0.5); font-family: inherit; font-weight: 600; font-size: 0.82rem; cursor: pointer; transition: var(--transition); }
