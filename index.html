@@ -243,6 +243,11 @@
         .order-detail-section { margin-bottom: 18px; }
         .order-detail-section h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--dim); margin-bottom: 10px; }
         .addr-display { background: var(--accent-light); border: 1px solid rgba(59,130,246,0.2); border-radius: 14px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px; }
+        /* GREEN for restaurant pickup */
+        .addr-display.pickup { background: #dcfce7; border: 1px solid rgba(34,197,94,0.25); }
+        /* BLUE for customer delivery */
+        .addr-display.delivery { background: var(--accent-light); border: 1px solid rgba(59,130,246,0.2); }
+        .addr-display.locked { background: #fef9c3; border: 1px solid #fcd34d; }
         .empty-state { text-align: center; padding: 48px 24px; color: var(--dim); }
         .history-card { background: white; border-radius: 16px; padding: 16px 20px; border: 1px solid var(--border); margin-bottom: 12px; transition: var(--transition); }
         .history-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
@@ -275,18 +280,15 @@
         }
         /* ── MOBILE STYLES ── */
         @media (max-width: 768px) {
-            /* Hide desktop sidebar */
             .sidebar { display: none !important; }
             .shim-sidebar { display: none !important; }
             .shim-main { margin-left: 0 !important; padding: 20px 16px !important; }
-            /* Main panel full width */
             .main-panel {
                 margin-left: 0 !important;
                 max-width: 100% !important;
                 padding: 16px 16px calc(var(--mobile-bottom-nav) + 20px) !important;
             }
             .main-panel.shifted { margin-left: 0 !important; max-width: 100% !important; }
-            /* Mobile top bar */
             .mobile-topbar {
                 display: flex !important;
                 align-items: center;
@@ -303,9 +305,7 @@
             .mobile-topbar-logo span { color: var(--accent); }
             .mobile-topbar-right { display: flex; align-items: center; gap: 10px; }
             .mobile-avatar { width: 36px; height: 36px; border-radius: 10px; background: var(--store-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; }
-            /* Offset content for topbar */
             #driverMainPanel { padding-top: calc(64px + 16px) !important; }
-            /* Bottom nav */
             .mobile-bottom-nav {
                 display: flex !important;
                 position: fixed;
@@ -352,7 +352,6 @@
                 min-width: 16px;
                 text-align: center;
             }
-            /* Responsive tweaks */
             .dashboard-hero { border-radius: 18px; padding: 20px 20px; margin-bottom: 16px; }
             .hero-left h1 { font-size: 1.2rem; }
             .hero-emoji { font-size: 2.4rem; }
@@ -362,35 +361,25 @@
             .stat-card h3 { font-size: 0.62rem; }
             .stat-icon { width: 30px; height: 30px; border-radius: 8px; right: 10px; top: 10px; }
             .stat-icon i { width: 14px; height: 14px; }
-            /* Dashboard two-col → single col */
             #dashboard > div:last-child { grid-template-columns: 1fr !important; }
-            /* Cards */
             .content-card { border-radius: 16px; }
             .card-header { padding: 14px 16px; }
             .order-card { padding: 14px 16px; }
-            /* Profile */
             .profile-container { max-width: 100%; }
             .profile-hero-card { padding: 22px; border-radius: 18px; }
             .profile-avatar-large { width: 56px; height: 56px; font-size: 1.4rem; }
             .profile-hero-info h2 { font-size: 1.1rem; }
             .profile-field-row { flex-direction: column; align-items: flex-start; gap: 8px; }
             .profile-pill-input { max-width: 100%; width: 100%; }
-            /* Settings */
             .settings-container { max-width: 100%; }
-            /* History */
             .history-card { border-radius: 14px; padding: 14px 16px; }
-            /* Modal */
             .modal-content { padding: 22px; border-radius: 20px; }
             .modal-btn-row { flex-direction: column; }
-            /* Toast bottom offset for mobile nav */
             .toast { bottom: calc(var(--mobile-bottom-nav) + 12px); right: 12px; left: 12px; max-width: 100%; }
-            /* Auth card */
             .auth-card { padding: 28px 24px; border-radius: 22px; }
             .auth-form-row { grid-template-columns: 1fr; }
-            /* Page headings */
             .page-content > h1 { font-size: 1.5rem !important; margin-bottom: 18px !important; }
         }
-        /* Desktop: hide mobile elements */
         @media (min-width: 769px) {
             .mobile-topbar { display: none; }
             .mobile-bottom-nav { display: none; }
@@ -634,6 +623,7 @@ let driverLng = null;
 let locationError = null;
 let locationWatcher = null;
 let locationBannerShown = false;
+
 // ── HAVERSINE DISTANCE ──
 function haversineKm(lat1, lng1, lat2, lng2) {
     const R = 6371;
@@ -648,6 +638,7 @@ function formatDistance(km) {
     if (km < 1) return `${Math.round(km * 1000)}m away`;
     return `${km.toFixed(1)}km away`;
 }
+
 // ── START LOCATION WATCHING ──
 function startLocationWatch() {
     if (!navigator.geolocation) {
@@ -713,7 +704,8 @@ function updateLocationBanners(state) {
     }
     lucide.createIcons();
 }
-// ── GEOCODE VENDOR ADDRESS & CHECK DISTANCE ──
+
+// ── GEOCODE ──
 const geocodeCache = {};
 async function geocodeAddress(addr) {
     if (geocodeCache[addr]) return geocodeCache[addr];
@@ -728,47 +720,99 @@ async function geocodeAddress(addr) {
     } catch(e) {}
     return null;
 }
-// ── RESTAURANT LOCATION HELPERS (linked from vendor portal data) ──
-function getRestaurantAddress(o) {
-    // Vendor location stored in order (copied from vendor profile at order creation)
-    return o.vendorAddress || o.restaurantAddress || o.vendorLocation || o.vendorName || 'Restaurant pickup location';
-}
-function getCustomerAddress(o) {
-    return o.deliveryAddress || o.address || o.customerAddress || o.shippingAddress || o.fullAddress || o.locationAddress ||
-           (o.location && (o.location.address || o.location.formatted_address || o.location.fullAddress)) ||
-           (o.deliveryLocation && (o.deliveryLocation.address || o.deliveryLocation.formatted_address)) ||
-           (o.customer && (o.customer.address || o.customer.deliveryAddress || o.customer.fullAddress)) ||
-           'Customer address';
-}
-// ── NEW: ONLY SHOW ORDERS WHERE RESTAURANT IS WITHIN 10 KM ──
-async function isOrderNearby(order) {
-    if (!driverLat || !driverLng) return { nearby: true, dist: null }; // fallback if location not ready
 
-    // 1. Prefer vendor lat/lng stored directly in the order (best practice - vendor copies its location when order is created)
+// ─────────────────────────────────────────────────────────────
+// ── RESTAURANT ADDRESS: read exactly as vendor stores it ──
+// Tries every known field the vendor portal might write to.
+// ─────────────────────────────────────────────────────────────
+function getRestaurantAddress(o) {
+    return o.vendorAddress
+        || o.restaurantAddress
+        || o.vendorLocation
+        || (o.vendor && (o.vendor.address || o.vendor.location || o.vendor.fullAddress))
+        || o.pickupAddress
+        || o.pickupLocation
+        || o.storeAddress
+        || o.shopAddress
+        || null;
+}
+
+// ─────────────────────────────────────────────────────────────
+// ── CUSTOMER ADDRESS: read EXACTLY as vendor stored it ──
+// This mirrors every field the vendor / customer portal writes.
+// ─────────────────────────────────────────────────────────────
+function getCustomerAddress(o) {
+    // Flat top-level fields (most common)
+    if (o.deliveryAddress && o.deliveryAddress.trim() !== '') return o.deliveryAddress.trim();
+    if (o.address && o.address.trim() !== '') return o.address.trim();
+    if (o.customerAddress && o.customerAddress.trim() !== '') return o.customerAddress.trim();
+    if (o.shippingAddress && o.shippingAddress.trim() !== '') return o.shippingAddress.trim();
+    if (o.fullAddress && o.fullAddress.trim() !== '') return o.fullAddress.trim();
+    if (o.locationAddress && o.locationAddress.trim() !== '') return o.locationAddress.trim();
+    if (o.dropoffAddress && o.dropoffAddress.trim() !== '') return o.dropoffAddress.trim();
+    if (o.dropAddress && o.dropAddress.trim() !== '') return o.dropAddress.trim();
+    if (o.destination && o.destination.trim() !== '') return o.destination.trim();
+    if (o.streetAddress && o.streetAddress.trim() !== '') return o.streetAddress.trim();
+    // Nested location object
+    if (o.location) {
+        const loc = o.location;
+        if (typeof loc === 'string' && loc.trim() !== '') return loc.trim();
+        if (loc.address && loc.address.trim() !== '') return loc.address.trim();
+        if (loc.formatted_address && loc.formatted_address.trim() !== '') return loc.formatted_address.trim();
+        if (loc.fullAddress && loc.fullAddress.trim() !== '') return loc.fullAddress.trim();
+        if (loc.street && loc.street.trim() !== '') return loc.street.trim();
+        if (loc.name && loc.name.trim() !== '') return loc.name.trim();
+    }
+    // Nested deliveryLocation object
+    if (o.deliveryLocation) {
+        const dl = o.deliveryLocation;
+        if (typeof dl === 'string' && dl.trim() !== '') return dl.trim();
+        if (dl.address && dl.address.trim() !== '') return dl.address.trim();
+        if (dl.formatted_address && dl.formatted_address.trim() !== '') return dl.formatted_address.trim();
+        if (dl.fullAddress && dl.fullAddress.trim() !== '') return dl.fullAddress.trim();
+        if (dl.street && dl.street.trim() !== '') return dl.street.trim();
+    }
+    // Nested customer object
+    if (o.customer) {
+        const c = o.customer;
+        if (typeof c === 'string' && c.trim() !== '') return c.trim();
+        if (c.address && c.address.trim() !== '') return c.address.trim();
+        if (c.deliveryAddress && c.deliveryAddress.trim() !== '') return c.deliveryAddress.trim();
+        if (c.fullAddress && c.fullAddress.trim() !== '') return c.fullAddress.trim();
+        if (c.location && c.location.trim() !== '') return c.location.trim();
+    }
+    // Nested user object
+    if (o.user) {
+        const u = o.user;
+        if (u.address && u.address.trim() !== '') return u.address.trim();
+        if (u.deliveryAddress && u.deliveryAddress.trim() !== '') return u.deliveryAddress.trim();
+        if (u.fullAddress && u.fullAddress.trim() !== '') return u.fullAddress.trim();
+    }
+    // Email-as-fallback
+    if (o.userEmail && o.userEmail.includes('@')) return o.userEmail.split('@')[0];
+    return null;
+}
+
+// ── NEARBY CHECK: restaurant within 10 km ──
+async function isOrderNearby(order) {
+    if (!driverLat || !driverLng) return { nearby: true, dist: null };
     let vLat = order.vendorLat || order.vendorLatitude;
     let vLng = order.vendorLng || order.vendorLongitude;
-
-    // 2. Fallback: geocode restaurant address if lat/lng not present
     if (!vLat || !vLng) {
         const vAddr = getRestaurantAddress(order);
-        if (vAddr && vAddr !== 'Restaurant pickup location') {
+        if (vAddr) {
             const geo = await geocodeAddress(vAddr);
-            if (geo) {
-                vLat = geo.lat;
-                vLng = geo.lng;
-            }
+            if (geo) { vLat = geo.lat; vLng = geo.lng; }
         }
     }
-
     if (vLat && vLng) {
         const dist = haversineKm(driverLat, driverLng, parseFloat(vLat), parseFloat(vLng));
-        return { nearby: dist <= 10, dist: dist };
+        return { nearby: dist <= 10, dist };
     }
-
-    // If we cannot determine restaurant location → hide order (strict enforcement)
     return { nearby: false, dist: null };
 }
-// ── PORTAL ENTRY ──
+
+// ── HELPERS ──
 function getDriverFullName(driver) {
     if (!driver) return 'Driver';
     if (driver.name && driver.name.trim()) return driver.name.trim();
@@ -780,11 +824,14 @@ function getDriverFullName(driver) {
 function getCustomerName(order) {
     if (order.customerName && order.customerName.trim() !== '') return order.customerName.trim();
     if (order.userName && order.userName.trim() !== '') return order.userName.trim();
-    if (order.customer && order.customer.trim() !== '') return order.customer.trim();
+    if (order.customer && typeof order.customer === 'string' && order.customer.trim() !== '') return order.customer.trim();
+    if (order.customer && order.customer.name) return order.customer.name;
     if (order.user && order.user.name) return order.user.name;
     if (order.userEmail && order.userEmail.includes('@')) return order.userEmail.split('@')[0];
     return 'Customer';
 }
+
+// ── PORTAL ENTRY ──
 function enterPortal() {
     document.getElementById('authScreen').classList.add('hidden');
     showShimmer();
@@ -839,7 +886,8 @@ function applyDriverUI() {
         driverLng = driverData.lastLng;
     }
 }
-// ── RENDER DASHBOARD (async for geocoding) ──
+
+// ── RENDER DASHBOARD ──
 let renderDashboardDebounce = null;
 function renderDriverDashboard() {
     clearTimeout(renderDashboardDebounce);
@@ -850,7 +898,6 @@ async function _renderDriverDashboard() {
     const readyOrders = orders.filter(([k,o]) => o.status === 'ready' && !o.driverKey);
     const myDel = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
 
-    // ── CRITICAL CHANGE: ONLY restaurant within 10 km ──
     const nearbyResults = await Promise.all(readyOrders.map(async ([k,o]) => {
         const r = await isOrderNearby(o);
         return { key: k, order: o, nearby: r.nearby, dist: r.dist };
@@ -867,6 +914,7 @@ async function _renderDriverDashboard() {
         badge.style.display = 'none';
         if (mobileBadge) mobileBadge.style.display = 'none';
     }
+
     const noOrdersMsg = `<div class="empty-state"><div style="font-size:2.5rem;margin-bottom:8px;">🛵</div><div style="font-weight:700;margin-bottom:4px;">No available orders</div><div style="font-size:0.82rem;">New restaurant orders within 10 km will appear here</div></div>`;
     let availHTML = available.length === 0 ? noOrdersMsg : available.map(r => buildAvailableOrderCard(r.key, r.order, false, r.dist)).join('');
     document.getElementById('availableOrdersList').innerHTML = availHTML;
@@ -891,8 +939,13 @@ async function _renderDriverDashboard() {
         <div class="stat-card"><div class="stat-icon"><i data-lucide="clock"></i></div><h3>Active Orders</h3><p>${myDel.length}</p></div>`;
     lucide.createIcons();
 }
+
+// ─────────────────────────────────────────────────────────────
+// AVAILABLE ORDER CARD
+// Before accept → shows RESTAURANT address prominently
+// ─────────────────────────────────────────────────────────────
 function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
-    const addr = getRestaurantAddress(o);               // ← RESTAURANT LOCATION FIRST
+    const restaurantAddr = getRestaurantAddress(o) || 'Restaurant pickup location';
     const total = Number(o.total||0).toFixed(2);
     const orderNum = o.orderNumber || key.slice(-6);
     const vendor = o.vendorName || 'Restaurant';
@@ -903,15 +956,24 @@ function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
             <div style="flex:1;min-width:0;">
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
-                    <strong style="font-size:0.92rem;">${vendor} <span style="font-size:0.75rem;color:var(--dim);">(Pickup)</span></strong>
+                    <strong style="font-size:0.92rem;">${vendor}</strong>
                     <span class="order-meta-pill pill-blue">Order #${orderNum}</span>
                     ${distBadge}
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-                    <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i>
-                    <span style="font-size:0.8rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;">${addr}</span>
+                <!-- RESTAURANT PICKUP LOCATION — shown BEFORE accept -->
+                <div style="background:#dcfce7;border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:8px 12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;">
+                    <i data-lucide="store" style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:2px;"></i>
+                    <div>
+                        <div style="font-size:0.68rem;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">Pickup from Restaurant</div>
+                        <div style="font-size:0.82rem;font-weight:600;color:#14532d;">${restaurantAddr}</div>
+                    </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;">
+                <!-- CUSTOMER ADDRESS HIDDEN until accepted -->
+                <div style="background:#fef9c3;border:1px solid #fcd34d;border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px;">
+                    <i data-lucide="lock" style="width:13px;height:13px;color:#92400e;flex-shrink:0;"></i>
+                    <div style="font-size:0.75rem;color:#92400e;font-weight:600;">Customer address revealed after accepting</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;">
                     <span style="font-weight:800;color:var(--accent);font-size:1rem;">R${total}</span>
                     <span style="font-size:0.75rem;color:var(--dim);">${items} item${items!==1?'s':''}</span>
                     <span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span>
@@ -924,8 +986,14 @@ function buildAvailableOrderCard(key, o, fullView = false, dist = null) {
         </div>
     </div>`;
 }
+
+// ─────────────────────────────────────────────────────────────
+// MY DELIVERY CARD
+// After accept → shows CUSTOMER address exactly as vendor stored
+// ─────────────────────────────────────────────────────────────
 function buildMyDeliveryCard(key, o, fullView = false) {
-    const addr = getCustomerAddress(o);                // ← CUSTOMER LOCATION after accept
+    const customerAddr = getCustomerAddress(o) || 'Customer address not available';
+    const restaurantAddr = getRestaurantAddress(o) || 'Restaurant pickup location';
     const orderNum = o.orderNumber || key.slice(-6);
     const statusMap = { assigned: { label: 'Assigned', cls: 'pill-yellow' }, out_for_delivery: { label: 'Out for Delivery', cls: 'pill-blue' } };
     const st = statusMap[o.status] || { label: o.status, cls: 'pill-gray' };
@@ -933,15 +1001,27 @@ function buildMyDeliveryCard(key, o, fullView = false) {
     return `<div class="order-card" style="padding:16px 22px;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
             <div style="flex:1;min-width:0;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
                     <strong style="font-size:0.92rem;">${o.vendorName||'Restaurant'}</strong>
                     <span class="order-meta-pill ${st.cls}">${st.label}</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-                    <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;"></i>
-                    <span style="font-size:0.8rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">${addr}</span>
+                <!-- RESTAURANT — still shown for reference (step 1: go here first) -->
+                <div style="background:#dcfce7;border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:8px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:8px;">
+                    <i data-lucide="store" style="width:14px;height:14px;color:#16a34a;flex-shrink:0;margin-top:2px;"></i>
+                    <div>
+                        <div style="font-size:0.68rem;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">① Pick up from Restaurant</div>
+                        <div style="font-size:0.82rem;font-weight:600;color:#14532d;">${restaurantAddr}</div>
+                    </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                <!-- CUSTOMER ADDRESS — revealed now that order is accepted -->
+                <div style="background:var(--accent-light);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:8px 12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;">
+                    <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--accent);flex-shrink:0;margin-top:2px;"></i>
+                    <div>
+                        <div style="font-size:0.68rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;">② Deliver to Customer</div>
+                        <div style="font-size:0.82rem;font-weight:700;color:var(--text);">${customerAddr}</div>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                     <span style="font-weight:800;color:var(--accent);">R${Number(o.total||0).toFixed(2)}</span>
                     <span class="customer-name-badge"><i data-lucide="user" style="width:12px;height:12px;"></i> ${customer}</span>
                 </div>
@@ -954,6 +1034,7 @@ function buildMyDeliveryCard(key, o, fullView = false) {
         </div>
     </div>`;
 }
+
 function updateHistoryTab() {
     const orders = Object.entries(ordersCache);
     const myHistory = orders.filter(([k,o]) => o.driverKey === DRIVER_KEY && (o.status === 'delivered' || o.status === 'cancelled')).sort(([,a],[,b]) => (b.createdAt||0) - (a.createdAt||0));
@@ -966,7 +1047,7 @@ function updateHistoryTab() {
         const earning = (Number(o.total||0)*0.15).toFixed(2);
         const statusCls = o.status === 'delivered' ? 'pill-green' : 'pill-red';
         const statusLabel = o.status === 'delivered' ? '✓ Delivered' : '✗ Cancelled';
-        const addr = getCustomerAddress(o);
+        const addr = getCustomerAddress(o) || 'Customer address';
         const customer = getCustomerName(o);
         return `<div class="history-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
             <div style="flex:1;">
@@ -1003,6 +1084,7 @@ function updateEarningsTab() {
     const me = document.getElementById('earningsMonth'); if(me) me.textContent = `R ${monthEarn.toFixed(2)}`;
     const td = document.getElementById('totalDelivered'); if(td) td.textContent = orders.length;
 }
+
 window.confirmDeleteOrder = function(key) {
     pendingDeleteOrderKey = key;
     showModal('deleteConfirmModal');
@@ -1016,88 +1098,161 @@ window.confirmDeleteOrder = function(key) {
         }
     };
 };
+
+// ─────────────────────────────────────────────────────────────
+// ORDER DETAIL MODAL
+// Before accept → restaurant address + locked customer note
+// After accept  → both restaurant AND exact customer address
+// ─────────────────────────────────────────────────────────────
 window.viewOrderDetail = function(key) {
     const o = ordersCache[key]; if (!o) return;
     const orderNum = o.orderNumber || key.slice(-6);
-    const items = (o.items||[]); 
+    const items = (o.items||[]);
     const total = Number(o.total||0).toFixed(2);
     const customer = getCustomerName(o);
     const isMyDelivery = (o.driverKey === DRIVER_KEY && (o.status === 'assigned' || o.status === 'out_for_delivery'));
 
-    // ── RESTAURANT FIRST, CUSTOMER ONLY AFTER ACCEPT ──
+    const restaurantAddr = getRestaurantAddress(o) || 'Restaurant pickup location';
+    const customerAddr   = getCustomerAddress(o);
+
+    // ── ADDRESS BLOCK ──
     let addressHTML = '';
     if (isMyDelivery) {
+        // Show BOTH: restaurant first, then customer
         addressHTML = `
-        <div class="order-detail-section"><h4>Customer Delivery Address</h4><div class="addr-display"><i data-lucide="map-pin" style="width:18px;height:18px;"></i><div>${getCustomerAddress(o)}</div></div></div>`;
+        <div class="order-detail-section">
+            <h4>① Pickup — Restaurant Location</h4>
+            <div class="addr-display pickup">
+                <i data-lucide="store" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;"></i>
+                <div>
+                    <div style="font-size:0.72rem;font-weight:700;color:#16a34a;margin-bottom:3px;">Go here first to collect the order</div>
+                    <div style="font-weight:700;color:#14532d;">${restaurantAddr}</div>
+                </div>
+            </div>
+        </div>
+        <div class="order-detail-section">
+            <h4>② Deliver — Customer Address</h4>
+            <div class="addr-display delivery">
+                <i data-lucide="map-pin" style="width:18px;height:18px;color:var(--accent);flex-shrink:0;"></i>
+                <div>
+                    <div style="font-size:0.72rem;font-weight:700;color:var(--accent);margin-bottom:3px;">Deliver here</div>
+                    <div style="font-weight:700;color:var(--text);">${customerAddr || 'Address not provided by customer'}</div>
+                </div>
+            </div>
+        </div>`;
     } else {
+        // Before accept → only restaurant, customer address locked
         addressHTML = `
-        <div class="order-detail-section"><h4>Restaurant Pickup Location</h4><div class="addr-display"><i data-lucide="map-pin" style="width:18px;height:18px;"></i><div>${getRestaurantAddress(o)}</div></div></div>`;
+        <div class="order-detail-section">
+            <h4>Restaurant Pickup Location</h4>
+            <div class="addr-display pickup">
+                <i data-lucide="store" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;"></i>
+                <div>
+                    <div style="font-size:0.72rem;font-weight:700;color:#16a34a;margin-bottom:3px;">Go here to collect the order</div>
+                    <div style="font-weight:700;color:#14532d;">${restaurantAddr}</div>
+                </div>
+            </div>
+        </div>
+        <div class="order-detail-section">
+            <h4>Customer Delivery Address</h4>
+            <div class="addr-display locked" style="opacity:0.75;">
+                <i data-lucide="lock" style="width:18px;height:18px;color:#92400e;flex-shrink:0;"></i>
+                <div style="color:#92400e;font-size:0.84rem;font-weight:600;">Accept this order to reveal the customer's delivery address</div>
+            </div>
+        </div>`;
     }
+
+    // ── MAP NAVIGATE TARGET ──
+    // Before accept → navigate to restaurant; after accept → navigate to customer
+    const navTarget = isMyDelivery ? (customerAddr || restaurantAddr) : restaurantAddr;
+    const navLabel  = isMyDelivery ? 'Navigate to Customer' : 'Navigate to Restaurant';
 
     let itemsHTML = items.map(item => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;"><span>${item.name} ×${item.quantity||1}</span><span style="font-weight:700;">R${(Number(item.price||0)*(item.quantity||1)).toFixed(2)}</span></div>`).join('');
 
-    document.getElementById('orderDetailTitle').textContent = `Order #${orderNum} ${isMyDelivery ? '(Active)' : '(Pickup)'}`;
+    document.getElementById('orderDetailTitle').textContent = `Order #${orderNum} ${isMyDelivery ? '— Active Delivery' : '— Available'}`;
     document.getElementById('orderDetailBody').innerHTML = `
         <div class="order-detail-section"><h4>Customer</h4><div class="addr-display"><i data-lucide="user" style="width:18px;height:18px;"></i><strong>${customer}</strong></div></div>
         ${addressHTML}
         <div class="order-detail-section"><h4>Order Items</h4>${itemsHTML || '<p style="color:var(--dim);font-size:0.85rem;">No items listed</p>'}<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:800;font-size:0.95rem;"><span>Total</span><span style="color:var(--accent);">R${total}</span></div></div>
-        <div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div><div style="margin-top:10px;display:flex;gap:8px;"><button onclick="openMapsDirections('${(isMyDelivery ? getCustomerAddress(o) : getRestaurantAddress(o)).replace(/'/g,"\\'")}','${(o.vendorName||'Restaurant').replace(/'/g,"\\'")}' )" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;"><i data-lucide="navigation" style="width:14px;height:14px;"></i> Open in Maps</button></div></div>
+        <div class="order-detail-section"><h4>Directions Map</h4><div class="map-container"><div id="orderMap"></div></div>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+            <button onclick="openMapsDirections('${navTarget.replace(/'/g,"\\'")}')" class="btn btn-primary" style="flex:1;justify-content:center;padding:10px;">
+                <i data-lucide="navigation" style="width:14px;height:14px;"></i> ${navLabel}
+            </button>
+        </div></div>
         ${o.driverKey && o.driverKey !== DRIVER_KEY ? `<div class="accepted-banner"><i data-lucide="check-circle" style="width:16px;height:16px;"></i> This order has been accepted by another driver</div>` : ''}`;
 
-    showModal('orderDetailModal'); 
+    showModal('orderDetailModal');
     lucide.createIcons();
 
     setTimeout(() => {
         if (currentMapInstance) { currentMapInstance.remove(); currentMapInstance = null; }
         try {
             const map = new mapboxgl.Map({ container: 'orderMap', style: 'mapbox://styles/mapbox/streets-v12', center: [28.4, -25.7], zoom: 11 });
-            currentMapInstance = map; 
+            currentMapInstance = map;
             map.on('load', () => map.resize());
 
-            // ALWAYS show restaurant marker
+            // Always place restaurant marker (green)
             if (o.vendorLat && o.vendorLng) {
-                new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([parseFloat(o.vendorLng), parseFloat(o.vendorLat)])
-                    .setPopup(new mapboxgl.Popup().setHTML(`<strong>${o.vendorName||'Restaurant'} (Pickup)</strong>`)).addTo(map);
+                const vLng = parseFloat(o.vendorLng);
+                const vLat = parseFloat(o.vendorLat);
+                new mapboxgl.Marker({ color: '#22c55e' })
+                    .setLngLat([vLng, vLat])
+                    .setPopup(new mapboxgl.Popup().setHTML(`<strong>🏪 ${o.vendorName||'Restaurant'}</strong><br>${restaurantAddr}`))
+                    .addTo(map);
+                map.setCenter([vLng, vLat]);
+            } else if (restaurantAddr && restaurantAddr !== 'Restaurant pickup location') {
+                geocodeAddress(restaurantAddr).then(geo => {
+                    if (geo && currentMapInstance) {
+                        new mapboxgl.Marker({ color: '#22c55e' })
+                            .setLngLat([geo.lng, geo.lat])
+                            .setPopup(new mapboxgl.Popup().setHTML(`<strong>🏪 ${o.vendorName||'Restaurant'}</strong><br>${restaurantAddr}`))
+                            .addTo(currentMapInstance);
+                        currentMapInstance.setCenter([geo.lng, geo.lat]);
+                    }
+                });
             }
 
-            // Show customer + route ONLY if driver has accepted the order
-            if (isMyDelivery) {
-                const custAddr = getCustomerAddress(o);
-                if (custAddr && custAddr !== 'Customer address') {
-                    fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(custAddr)}&access_token=${MAPBOX_TOKEN}&limit=1`)
-                    .then(r => r.json()).then(data => {
-                        if (data.features && data.features.length > 0) {
-                            const [dLng, dLat] = data.features[0].geometry.coordinates;
-                            new mapboxgl.Marker({ color: '#3b82f6' }).setLngLat([dLng, dLat])
-                                .setPopup(new mapboxgl.Popup().setHTML(`<strong>Customer Delivery</strong><br>${custAddr}`)).addTo(map);
+            // Show customer marker + route ONLY after accept
+            if (isMyDelivery && customerAddr) {
+                geocodeAddress(customerAddr).then(geo => {
+                    if (!geo || !currentMapInstance) return;
+                    new mapboxgl.Marker({ color: '#3b82f6' })
+                        .setLngLat([geo.lng, geo.lat])
+                        .setPopup(new mapboxgl.Popup().setHTML(`<strong>📍 Customer</strong><br>${customerAddr}`))
+                        .addTo(currentMapInstance);
 
-                            // Route from restaurant → customer
-                            if (o.vendorLat && o.vendorLng) {
-                                const vLng = parseFloat(o.vendorLng);
-                                const vLat = parseFloat(o.vendorLat);
-                                fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${dLng},${dLat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`)
-                                .then(r => r.json()).then(routeData => {
-                                    if (routeData.routes && routeData.routes.length > 0) {
-                                        const route = routeData.routes[0].geometry;
-                                        map.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: route } });
-                                        map.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } });
-                                        const bounds = new mapboxgl.LngLatBounds()
-                                            .extend([vLng, vLat])
-                                            .extend([dLng, dLat]);
-                                        map.fitBounds(bounds, { padding:40 });
-                                    }
-                                });
+                    // Route restaurant → customer
+                    const vLng = parseFloat(o.vendorLng || 0);
+                    const vLat = parseFloat(o.vendorLat || 0);
+                    if (o.vendorLat && o.vendorLng) {
+                        fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${vLng},${vLat};${geo.lng},${geo.lat}?geometries=geojson&access_token=${MAPBOX_TOKEN}`)
+                        .then(r => r.json()).then(routeData => {
+                            if (!currentMapInstance) return;
+                            if (routeData.routes && routeData.routes.length > 0) {
+                                if (currentMapInstance.getSource('route')) {
+                                    currentMapInstance.getSource('route').setData({ type:'Feature', properties:{}, geometry: routeData.routes[0].geometry });
+                                } else {
+                                    currentMapInstance.addSource('route', { type:'geojson', data:{ type:'Feature', properties:{}, geometry: routeData.routes[0].geometry } });
+                                    currentMapInstance.addLayer({ id:'route', type:'line', source:'route', layout:{ 'line-join':'round','line-cap':'round' }, paint:{ 'line-color':'#3b82f6','line-width':4,'line-opacity':0.8 } });
+                                }
+                                const bounds = new mapboxgl.LngLatBounds().extend([vLng,vLat]).extend([geo.lng,geo.lat]);
+                                currentMapInstance.fitBounds(bounds, { padding:40 });
                             }
-                        }
-                    });
-                }
+                        });
+                    } else {
+                        currentMapInstance.setCenter([geo.lng, geo.lat]);
+                    }
+                });
             }
         } catch(e) { console.error('Map init error:', e); }
     }, 300);
 };
-window.openMapsDirections = function(addr, vendor) { 
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank'); 
+
+window.openMapsDirections = function(addr) {
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addr)}`, '_blank');
 };
+
 window.acceptDelivery = function(key) {
     if (!DRIVER_KEY || !driverData) return;
     db.ref('orders/' + key).transaction(currentData => {
@@ -1109,13 +1264,15 @@ window.acceptDelivery = function(key) {
         currentData.updatedAt = Date.now();
         return currentData;
     }).then(result => {
-        if (result.committed) showToast('Delivery accepted! 🛵', 'success');
+        if (result.committed) showToast('Delivery accepted! 🛵 Customer address is now visible.', 'success');
         else showToast('Order already taken by another driver', '');
     }).catch(() => showToast('Failed to accept order'));
 };
-window.markDelivered = function(key) { 
-    db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success')); 
+
+window.markDelivered = function(key) {
+    db.ref('orders/' + key).update({ status: 'delivered', updatedAt: Date.now() }).then(() => showToast('Order delivered! 🎉', 'success'));
 };
+
 window.saveDriverProfile = function() {
     if (!DRIVER_KEY) return;
     const newFullName = document.getElementById('p-fullname').value.trim();
@@ -1138,10 +1295,12 @@ window.saveDriverProfile = function() {
         applyDriverUI();
     });
 };
+
 window.toggleSetting = function(el, key) {
     el.classList.toggle('on');
     if (DRIVER_KEY) { db.ref('drivers/' + DRIVER_KEY + '/settings/' + key).set(el.classList.contains('on')); }
 };
+
 // ── AUTH ──
 function regNext(step) {
     const err = document.getElementById('regError'); err.style.display = 'none';
@@ -1215,6 +1374,7 @@ function switchAuthTab(tab) {
         document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active')); document.getElementById('dot-0').classList.add('active');
     }
 }
+
 // ── NAVIGATION ──
 function showTab(id, el) {
     document.querySelectorAll('#driverMainPanel .page-content').forEach(p => p.classList.remove('active'));
@@ -1228,6 +1388,7 @@ function setMobileNav(activeId) {
     document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
     const el = document.getElementById(activeId); if (el) el.classList.add('active');
 }
+
 // ── LOGOUT ──
 function openLogoutModal() { showModal('logoutModal'); }
 function confirmLogout() {
@@ -1242,19 +1403,23 @@ function confirmLogout() {
     document.getElementById('authScreen').classList.remove('hidden');
     hideModal('logoutModal'); lucide.createIcons();
 }
+
 // ── MODALS & TOAST ──
 function showModal(id) { const el = document.getElementById(id); el.style.display = 'flex'; setTimeout(() => { el.classList.add('active'); lucide.createIcons(); }, 10); }
 function hideModal(id) { const el = document.getElementById(id); el.classList.remove('active'); setTimeout(() => el.style.display = 'none', 320); }
 function showToast(msg, type='success') { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.className = 'toast show ' + type; clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
+
 // ── SESSION RESTORE ──
 (function checkSession() {
     const s = JSON.parse(localStorage.getItem('vynix_driver_session') || 'null');
     if (s && s.key && (Date.now() - s.loggedAt) < 86400000) { DRIVER_KEY = s.key; enterPortal(); }
 })();
+
 // ── DESKTOP SIDEBAR HOVER ──
 document.getElementById('driverSidebar').addEventListener('mouseenter', () => { document.getElementById('driverSidebar').classList.add('expanded'); document.getElementById('driverMainPanel').classList.add('shifted'); });
 document.getElementById('driverSidebar').addEventListener('mouseleave', () => { document.getElementById('driverSidebar').classList.remove('expanded'); document.getElementById('driverMainPanel').classList.remove('shifted'); });
-// ── SPIN ANIMATION FOR LOADER ICON ──
+
+// ── SPIN ANIMATION ──
 const style = document.createElement('style');
 style.textContent = '@keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }';
 document.head.appendChild(style);
